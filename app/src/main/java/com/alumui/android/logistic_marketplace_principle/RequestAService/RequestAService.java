@@ -334,8 +334,7 @@ public class RequestAService extends AppCompatActivity {
     }
 
     void sendRequestAService(String principleCP, String vendor, String load_date, String unload_date, String origin, String cargoInfo, String notes, String destination) {
-        SharedPreferences preferences = getSharedPreferences("myprefs",MODE_PRIVATE);
-        String name = preferences.getString("name","");
+        String name = Utility.utility.getLoggedName(this);
 
         JobOrderData jobOrderData = new JobOrderData();
         jobOrderData.docstatus = 1;

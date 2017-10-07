@@ -1,78 +1,71 @@
 package com.alumui.android.logistic_marketplace_principle.Lihat_Profil;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alumui.android.logistic_marketplace_principle.Model.Profil.ProfilData;
+import com.alumui.android.logistic_marketplace_principle.Model.MyCookieJar;
+import com.alumui.android.logistic_marketplace_principle.Model.Profil.Profil;
 import com.alumui.android.logistic_marketplace_principle.Model.Profil.ProfilResponse;
-import com.alumui.android.logistic_marketplace_principle.R;
 import com.alumui.android.logistic_marketplace_principle.ServiceAPI.API;
 import com.alumui.android.logistic_marketplace_principle.Utility;
+import com.alumui.android.logistic_marketplace_principle.R;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MyProfile extends Fragment {
-
-    String genders,customer_group,customer_name,names;
+    TextView nameTextEdit, phoneTextEdit, emailTextEdit;
 
     public MyProfile() {
         // Required empty public constructor
     }
-
     View v;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Utility.utility.getLanguage(this.getActivity());
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_my_profile, container, false);
+
+        v = inflater.inflate(R.layout.fragment_view_profile, container, false);
+        nameTextEdit = (TextView)v.findViewById(R.id.name);
+        phoneTextEdit = (TextView)v.findViewById(R.id.telephone);
+        emailTextEdit = (TextView)v.findViewById(R.id.email);
+
+        getProfile();
         return v;
     }
 
-    //API
-    public void getProfile() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        API api = retrofit.create(API.class);
-        Call<ProfilResponse> callJO = api.getProfile("PT. UNILEVER INDONESIA");
-        callJO.enqueue(new Callback<ProfilResponse>() {
+    //API Connectivity
+    void getProfile() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        String name = Utility.utility.getLoggedName(this.getActivity());
+        Call<ProfilResponse> profilResponseCall = api.getProfile("[[\"Principle\",\"name\",\"=\",\""+name+"\"]]");
+        profilResponseCall.enqueue(new Callback<ProfilResponse>() {
             @Override
             public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
-                ProfilResponse profilResponse = response.body();
-                List<ProfilData> profils = profilResponse.message.data;
-                for (int i = 0;i<profils.size();i++) {
-                    genders=profils.get(i).gender;
-                    customer_group=profils.get(i).customer_group;
-                    customer_name=profils.get(i).customer_name;
-                    names=profils.get(i).name;
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
+                    ProfilResponse profilResponse = response.body();
+                    List<Profil> profils = profilResponse.data;
+                    if (profils.size() > 0) {
+                        Profil profil = profils.get(0);
+                        nameTextEdit.setText(profil.name);
+                        phoneTextEdit.setText(profil.phone);
+                        emailTextEdit.setText(profil.address);
+                    }
                 }
-                TextView username = (TextView)v.findViewById(R.id.my_profile_username);
-                TextView name = (TextView)v.findViewById(R.id.name);
-                username.setText(customer_name);
-                name.setText(names);
-
             }
 
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable throwable) {
-                String error = throwable.getLocalizedMessage();
-                Log.e("err", error);
+            public void onFailure(Call<ProfilResponse> call, Throwable t) {
+
             }
         });
     }

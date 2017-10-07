@@ -5,7 +5,6 @@ import com.alumui.android.logistic_marketplace_principle.Model.History.HistoryRe
 import com.alumui.android.logistic_marketplace_principle.Model.JobOrder.JobOrderCreationResponse;
 import com.alumui.android.logistic_marketplace_principle.Model.JobOrder.JobOrderData;
 import com.alumui.android.logistic_marketplace_principle.Model.JobOrder.JobOrderResponse;
-import com.alumui.android.logistic_marketplace_principle.Model.JobOrderUpdate.JobOrderUpdateData;
 import com.alumui.android.logistic_marketplace_principle.Model.JobOrderUpdate.JobOrderUpdateResponse;
 import com.alumui.android.logistic_marketplace_principle.Model.LoginPrinciple.LoginPrinciple;
 import com.alumui.android.logistic_marketplace_principle.Model.Principle.PrincipleContactPersonData;
@@ -41,6 +40,9 @@ public interface API {
     Call<JSONObject> insertPrincipleCP(@Body PrincipleContactPersonData data);
     @GET("/api/resource/Principle Contact Person?fields=[\"principle\",\"nama\",\"telp\"]")
     Call<PrincipleContactPersonResponse> getPrincipleCP(@Query("filters") String filters);
+    @GET("/api/resource/Principle?fields=[\"nama\",\"telp\",\"alamat\",\"email\"]")
+    Call<ProfilResponse> getProfile(@Query("filters") String filter);
+
 
     //VENDOR
     @GET("/api/resource/Vendor?fields=[\"nama\",\"telp\",\"alamat\"]")
@@ -54,9 +56,6 @@ public interface API {
 
     @GET("/api/method/logistic.customer.dashboard")
     Call<DashboardResponse> getDashboard(@Query("customer") String cus);
-
-    @GET("/api/method/logistic.customer.profile")
-    Call<ProfilResponse> getProfile(@Query("customer") String cus);
 
     @GET("/api/method/logistic.job_order.history")
     Call<HistoryResponse> getHistory(@Query("jaid") String jaid);
