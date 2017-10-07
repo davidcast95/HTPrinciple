@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 
 public class MyProfile extends Fragment {
-    TextView nameTextEdit, phoneTextEdit, emailTextEdit;
+    TextView nameTextEdit, phoneTextEdit, emailTextEdit, addresTextEdit;
 
     public MyProfile() {
         // Required empty public constructor
@@ -37,6 +37,7 @@ public class MyProfile extends Fragment {
         nameTextEdit = (TextView)v.findViewById(R.id.name);
         phoneTextEdit = (TextView)v.findViewById(R.id.telephone);
         emailTextEdit = (TextView)v.findViewById(R.id.email);
+        addresTextEdit = (TextView)v.findViewById(R.id.address);
 
         getProfile();
         return v;
@@ -58,7 +59,8 @@ public class MyProfile extends Fragment {
                         Profil profil = profils.get(0);
                         nameTextEdit.setText(profil.name);
                         phoneTextEdit.setText(profil.phone);
-                        emailTextEdit.setText(profil.address);
+                        emailTextEdit.setText(profil.email);
+                        addresTextEdit.setText(profil.address);
                     }
                 }
             }
