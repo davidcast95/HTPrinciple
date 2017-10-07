@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alumui.android.logistic_marketplace_principle.RequestAService.RequestAService">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="30dp"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:text="Route information"
+                android:textStyle="bold"
+                android:textColor="@color/Black"/>
+            />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:text="@string/home_origin"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ras_origin"/>
+            <TextView
+                android:id="@+id/ras_origin_warning"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="10dp"
+                android:text="*this field is required"
+                android:textSize="10dp"
+                android:textColor="@color/DangerColor"
+                android:textAlignment="textEnd"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/home_destination"
+                android:textStyle="bold"/>/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ras_destination"/>
+            <TextView
+                android:id="@+id/ras_destination_warning"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="10dp"
+                android:text="*this field is required"
+                android:textSize="10dp"
+                android:textColor="@color/DangerColor"
+                android:textAlignment="textEnd"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:text="Vendor Information"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/Black"/>
+
+            <LinearLayout
+                android:id="@+id/ras_choose_vendor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/ras_choose_vendor_button"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@color/SuccessColor"
+                    android:text="Choose Vendor"
+                    android:textColor="@color/White"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"/>
+                />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ras_vendor_information"
+                android:paddingTop="12dp"
+                android:paddingBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/ras_vendor_profil_picture"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/order_box"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginRight="12dp">
+                    <TextView
+                        android:id="@+id/ras_vendor_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:textSize="18dp"/>
+                    <TextView
+                        android:id="@+id/ras_vendor_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="12dp"
+                        android:text=""/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ras_change_vendor"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/ras_change_vendor_button"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:background="@color/WarningColor"
+                    android:text="Change Vendor"
+                    android:textColor="@color/White"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"/>
+                />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:text="Contact Person Information"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/Black"/>
+
+            <Spinner
+                android:id="@+id/ras_principle_dropdown"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Name"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"/>/>
+
+            <EditText
+                android:text="David Wibisono"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ras_principle_name"
+                android:singleLine="true"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="10dp"
+                android:text="*this field is required"
+                android:textSize="10dp"
+                android:textColor="@color/DangerColor"
+                android:textAlignment="textEnd"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Contact Person"
+                android:textStyle="bold"/>/>
+            <EditText
+                android:text="085707365938"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ras_principle_cp"
+                android:singleLine="true"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="10dp"
+                android:text="*this field is required"
+                android:textSize="10dp"
+                android:textColor="@color/DangerColor"
+                android:textAlignment="textEnd"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textSize="20dp"
+                    android:text="Cargo Information"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/Black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Load Estimate Date"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/ras_cargo_load_date"
+                    android:editable="false"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="*this field is required"
+                    android:textSize="10dp"
+                    android:textColor="@color/DangerColor"
+                    android:textAlignment="textEnd"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Delivered Estimate Date"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/ras_cargo_unload_date"
+                    android:editable="false"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="*this field is required"
+                    android:textSize="10dp"
+                    android:textColor="@color/DangerColor"
+                    android:textAlignment="textEnd"
+                    android:editable="false"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Cargo Info"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:text="10 pcs Macbook Pro"
+                    android:id="@+id/ras_cargo_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="ifContentScrolls"
+                    android:gravity="top"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="*this field is required"
+                    android:textSize="10dp"
+                    android:textColor="@color/DangerColor"
+                    android:textAlignment="textEnd"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Notes"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:text="hati-hati barang rawan benturan"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:id="@+id/ras_cargo_notes"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="ifContentScrolls"
+                    android:gravity="top"/>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/ras_request_button"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:background="@color/colorAccent"
+                android:text="@string/home_request_button"
+                android:textColor="@color/White"
+                android:textSize="14dp"
+                android:layout_gravity="center"/>
+            />
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

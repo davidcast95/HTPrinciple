@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.alumui.android.logistic_marketplace_principle.Home.Home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="20dp"
+            android:text="@string/home_logistic"
+            android:layout_marginBottom="12dp"
+            android:textStyle="bold"
+            android:textColor="@color/Black"/>
+        />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:text="@string/home_origin"
+            android:textStyle="bold"/>/>
+
+        <EditText
+            android:text="Surabaya"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/home_origin"/>
+        <TextView
+            android:id="@+id/home_origin_warning"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="-5dp"
+            android:text="*this field is required"
+            android:textSize="10dp"
+            android:textColor="@color/DangerColor"
+            android:textAlignment="textEnd"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/home_destination"
+            android:textStyle="bold"/>/>
+        <EditText
+            android:text="Jakarta"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/home_destination"/>
+        <TextView
+            android:id="@+id/home_destination_warning"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="10dp"
+            android:text="*this field is required"
+            android:textSize="10dp"
+            android:textColor="@color/DangerColor"
+            android:textAlignment="textEnd"
+            />
+        <Button
+            android:id="@+id/request_a_service_button"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:background="@color/colorAccent"
+            android:text="@string/home_request_button"
+            android:textColor="@color/White"
+            android:textSize="14dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:textSize="20dp"-->
+        <!--android:text="@string/home_vendor"-->
+        <!--android:layout_marginLeft="12dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="@color/Black"/>-->
+    <!--/>-->
+    <!--<android.support.v4.view.ViewPager-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:numColumns="auto_fit"-->
+        <!--android:id="@+id/home_vendor_view_pager">-->
+    <!--</android.support.v4.view.ViewPager>-->
+</LinearLayout>
+
+

@@ -1,0 +1,128 @@
+<resources>
+    <string name="app_name">Pengguna Huang Truck</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_track_order_maps">Map</string>
+
+    <!--LANGUAGE-->
+    <!--LOGIN-->
+    <string name="login">Masuk</string>
+    <string name="login_username">Nama Pengguna</string>
+    <string name="login_password">Kata Sandi</string>
+    <string name="login_forgot">Lupa Kata Sandi ?</string>
+
+    <!--HOME-->
+    <string name="home">Beranda</string>
+    <string name="home_logistic">Layanan Logistik</string>
+    <string name="home_origin">Lokasi Pengambilan</string>
+    <string name="home_destination">Lokasi Tujuan</string>
+    <string name="home_request_button">Meminta Layanan</string>
+    <string name="home_vendor">Mitra kita</string>
+    <string name="home_complete">Selesai</string>
+    <string name="dashboard_in_progress">Dalam Pengerjaan</string>
+    <string name="dashboard_not_assign">Belum Ditugaskan</string>
+
+    <!--VENDOR-->
+    <string name="job_order">Pesanan Layanan</string>
+
+
+    <!--REQUEST A SERVICE-->
+    <string name="request_a_service">Meminta Layanan</string>
+
+
+    <!--CHOOSE VENDOR-->
+    <string name="choose_vendor">Pilih Jasa</string>
+
+
+    <!--CHANGE PASSWORD-->
+    <string name="change_password">Ganti Kata Sandi</string>
+    <string name="change_password_old">Kata Sandi Lama</string>
+    <string name="change_password_new">Kata Sandi Baru</string>
+    <string name="change_password_confirm">Konfirmasi Kata Sandi</string>
+
+    <!--HELP N SUPPORT-->
+    <string name="hns">Bantuan</string>
+    <string name="hns_l1">Dukungan administrator ada di sini untuk membantu.</string>
+    <string name="hns_l2">Anda bisa menghubungi administrator dengan menekan tombol di bawah ini.</string>
+    <string name="hns_call">Telepom Admin</string>
+
+    <!--MY PROFILE-->
+    <!--MY PROFILE-->
+    <string name="my_profile">Profil Saya</string>
+    <string name="my_profile_username">Nama Pengguna</string>
+    <string name="my_profile_name">Nama</string>
+    <string name="my_profile_customer_group">Tipe Customer</string>
+    <string name="my_profile_gender">Gender</string>
+    <string name="my_profile_change_password">Change Password</string>
+
+    <!--SETTINGS-->
+    <string name="settings">Pengaturan</string>
+    <string name="settings_bahasa">Bahasa : </string>
+    <string name="settings_save">Simpan</string>
+    <string name="settings_pilih_bahasa">Pilih Bahasa</string>
+
+    <!--ADMINISTRATOR-->
+    <string name="administrator">admin</string>
+
+    <!--TRACKING HISTORY-->
+    <string name="tracking_history">Jejak Riwayat</string>
+    <string name="tracking_history_status_delivered">DELIVERED</string>
+    <string name="tracking_history_status_loading">LOADING</string>
+    <string name="tracking_history_status_onprogress">ON PROGRESS</string>
+
+    <!--VIEW ORDER-->
+    <string name="view_order">Lihat Pesanan</string>
+    <string name="view_order_onprogress">Dalam Pengerjaan</string>
+    <string name="view_order_canceled">Ditolak</string>
+    <string name="view_order_completed">Selesai</string>
+
+    <!--TRACK ORDER MAPS-->
+    <string name="track_order_maps">Track Peta Pemesanan</string>
+
+    <!--SLIDEBAR-->
+    <string name="slidebar_home">Beranda</string>
+    <string name="slidebar_job_order">Jasa Pengiriman</string>
+    <string name="slidebar_my_profile">Profil</string>
+    <string name="slidebar_login">Masuk</string>
+    <string name="slidebar_settings">Pengaturan</string>
+    <string name="slidebar_help">Bantuan</string>
+    <string name="slidebar_logout">Keluar</string>
+
+    <!--TRACK ORDER LIST-->
+    <string name="track_order_list">Track Daftar Pemesanan</string>
+    <string name="track_order_list_infobarang">Info Barang</string>
+    <string name="track_order_list_volume">Volume</string>
+    <string name="track_order_list_netweight">Berat Bersih</string>
+    <string name="track_order_list_quantitiy">Kuantitas</string>
+    <string name="track_order_list_rutelaut">Info Rute Laut</string>
+    <string name="track_order_list_desclaut">Perjalanan ini menggunakan rute laut!</string>
+    <string name="track_order_list_veselname">Nama Vesel</string>
+    <string name="track_order_list_precariage">Pra Kereta</string>
+    <string name="track_order_list_maincariage">Kereta Utama</string>
+    <string name="track_order_list_inforoute">Info Rute</string>
+    <string name="track_order_list_biaya">Biaya</string>
+    <string name="track_order_list_leadtime">Waktu</string>
+    <string name="track_order_list_eta">Perkiraan Waktu Kedatangan</string>
+    <string name="track_order_list_etd">Perkiraan Waktu Berangkat</string>
+    <string name="track_order_list_totalleadtime">Total Waktu</string>
+    <string name="track_order_list_totalbiaya">Total Cost</string>
+    <string name="track_order_list_drivername">Nama Driver</string>
+    <string name="track_order_list_trucknumber">Nomor Truk</string>
+    <string name="track_order_list_trucktype">Tipe Truk</string>
+    <string name="track_order_list_update">Posisi Terakhir !</string>
+    <string name="track_order_list_status_delivered">Telah Diterima</string>
+    <string name="track_order_list_status_otw">Dalam Perjalanan</string>
+    <string name="track_order_list_status_pending">Tertunda</string>
+    <string name="track_order_list_status_theresproblem">Terjadi Masalah</string>
+    <string name="track_order_list_status_cancel">Ditolak</string>
+
+    <!--OTHER-->
+    <string name="nla">Lokasi Tidak Tersedia</string>
+
+</resources>

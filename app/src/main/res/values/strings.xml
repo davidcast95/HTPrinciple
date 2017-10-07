@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">Principle Huang Truck</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_track_order_maps">Map</string>
+
+    <!--LANGUAGE-->
+    <!--LOGIN-->
+    <string name="login">Log in</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_forgot">Forgot Password ?</string>
+
+    <!--HOME-->
+    <string name="home">Home</string>
+    <string name="home_logistic">Logistic Service</string>
+    <string name="home_origin">Origin</string>
+    <string name="home_destination">Destination</string>
+    <string name="home_request_button">Request a Service</string>
+    <string name="home_vendor">Our Vendors</string>
+    <string name="home_complete">Complete</string>
+    <string name="dashboard_in_progress">In Progress</string>
+    <string name="dashboard_not_assign">Not Assign</string>
+
+    <!--JOB ORDER-->
+    <string name="job_order">Job Orders</string>
+
+    <!--REQUEST A SERVICE-->
+    <string name="request_a_service">Request A Service</string>
+
+
+    <!--CHOOSE VENDOR-->
+    <string name="choose_vendor">Choose Vendor</string>
+
+    <!--CHANGE PASSWORD-->
+    <string name="change_password">Change Password</string>
+    <string name="change_password_old">Old Password</string>
+    <string name="change_password_new">New Password</string>
+    <string name="change_password_confirm">Confirm Password</string>
+
+    <!--HELP N SUPPORT-->
+    <string name="hns">Help and Support</string>
+    <string name="hns_l1">Administrator support is here to help.</string>
+    <string name="hns_l2">You can call administrator by tapping button below.</string>
+    <string name="hns_call">Call Admin</string>
+
+    <!--MY PROFILE-->
+    <string name="my_profile">My Profile</string>
+    <string name="my_profile_username">Username</string>
+    <string name="my_profile_name">Name</string>
+    <string name="my_profile_customer_group">Customer Group</string>
+    <string name="my_profile_gender">Sex</string>
+    <string name="my_profile_change_password">Change Password</string>
+
+    <!--SETTINGS-->
+    <string name="settings">Settings</string>
+    <string name="settings_bahasa">Language : </string>
+    <string name="settings_save">Save</string>
+    <string name="settings_pilih_bahasa">Select a Language</string>
+
+    <!--ADMINISTRATOR-->
+    <string name="administrator">administrator</string>
+
+    <!--TRACKING HISTORY-->
+    <string name="tracking_history">Tracking History</string>
+    <string name="tracking_history_status_delivered">DELIVERED</string>
+    <string name="tracking_history_status_loading">LOADING</string>
+    <string name="tracking_history_status_onprogress">ON PROGRESS</string>
+
+    <!--VIEW ORDER-->
+    <string name="view_order">View Order</string>
+    <string name="view_order_onprogress">On-Progress</string>
+    <string name="view_order_canceled">Canceled</string>
+    <string name="view_order_completed">Completed</string>
+
+    <!--TRACK ORDER MAPS-->
+    <string name="track_order_maps">Track Order Maps</string>
+
+    <!--SLIDEBAR-->
+    <string name="slidebar_home">Home</string>
+    <string name="slidebar_job_order">Job Orders</string>
+    <string name="slidebar_my_profile">My Profile</string>
+    <string name="slidebar_login">Login</string>
+    <string name="slidebar_settings">Settings</string>
+    <string name="slidebar_help">Help and Support</string>
+    <string name="slidebar_logout">Logout</string>
+
+    <!--TRACK ORDER LIST-->
+    <string name="track_order_list">Track Order List</string>
+    <string name="track_order_list_infobarang">Package Info</string>
+    <string name="track_order_list_volume">Volume</string>
+    <string name="track_order_list_netweight">Net Weight</string>
+    <string name="track_order_list_quantitiy">Quantity</string>
+    <string name="track_order_list_rutelaut">Sea Route Info</string>
+    <string name="track_order_list_desclaut">This trip uses the sea route!</string>
+    <string name="track_order_list_veselname">Vessel Name</string>
+    <string name="track_order_list_precariage">Pra Carriage</string>
+    <string name="track_order_list_maincariage">Main Carriage</string>
+    <string name="track_order_list_inforoute">Route Info</string>
+    <string name="track_order_list_biaya">Cost</string>
+    <string name="track_order_list_leadtime">Lead Time</string>
+    <string name="track_order_list_eta">Estimate Time Arrival</string>
+    <string name="track_order_list_etd">Estimate Time Departure</string>
+    <string name="track_order_list_totalleadtime">Total Lead Time</string>
+    <string name="track_order_list_totalbiaya">Total Cost</string>
+    <string name="track_order_list_drivername">Driver Name</string>
+    <string name="track_order_list_trucknumber">Truck Number</string>
+    <string name="track_order_list_trucktype">Truck Type</string>
+    <string name="track_order_list_update">Last Check In!</string>
+    <string name="track_order_list_status_delivered">Delivered</string>
+    <string name="track_order_list_status_otw">On The Way</string>
+    <string name="track_order_list_status_pending">Pending</string>
+    <string name="track_order_list_status_theresproblem">There is Problem</string>
+    <string name="track_order_list_status_cancel">Cancel</string>
+
+    <!--OTHER-->
+    <string name="nla">No Location Available</string>
+
+</resources>

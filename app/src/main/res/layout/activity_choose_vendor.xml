@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alumui.android.logistic_marketplace_principle.RequestAService.ChooseVendor">
+
+    <ListView
+        android:id="@+id/choose_vendor_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        >
+    </ListView>
+
+</LinearLayout>
