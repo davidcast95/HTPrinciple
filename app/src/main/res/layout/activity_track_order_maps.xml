@@ -5,4 +5,4 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alumui.android.logistic_marketplace_principle.Maps.TrackOrderMaps" />
+    tools:context="com.huang.android.logistic.Maps.TrackOrderMaps" />

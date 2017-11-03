@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.alumui.android.logistic_marketplace_principle">
+    package="com.huang.android.logistic">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <service
+        android:name=".MyFirebaseMessagingService">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+        </intent-filter>
+    </service>
+    <service
+        android:name=".MyFirebaseInstanceIDService">
+        <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+        </intent-filter>
+    </service>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -19,10 +31,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login"
+            android:name="com.huang.android.logistic.Login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.huang.android.logistic.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,9 +43,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.huang.android.logistic.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,35 +61,39 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Maps.TrackOrderMaps"
+            android:name="com.huang.android.logistic.Maps.TrackOrderMaps"
             android:label="@string/title_activity_track_order_maps">
         </activity>
         <activity
-            android:name="com.alumui.android.logistic_marketplace_principle.JobOrder.TrackHistory"
-            android:parentActivityName="com.alumui.android.logistic_marketplace_principle.JobOrder.OnProgress.DetailOnProgressOrder"
+            android:name="com.huang.android.logistic.JobOrder.TrackHistory"
+            android:parentActivityName="com.huang.android.logistic.JobOrder.OnProgress.DetailOnProgressOrder"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".JobOrder.OnProgress.DetailOnProgressOrder" />
+                android:value="com.huang.android.logistic.JobOrder.OnProgress.DetailOnProgressOrder" />
         </activity>
         <activity
-            android:name="com.alumui.android.logistic_marketplace_principle.JobOrder.Pending.DetailPendingOrder"/>
+            android:name="com.huang.android.logistic.JobOrder.Pending.DetailPendingOrder"/>
         <activity
-            android:name="com.alumui.android.logistic_marketplace_principle.JobOrder.OnProgress.DetailOnProgressOrder"/>
-        <activity android:name=".JobOrder.Done.DetailDoneOrder"></activity>
+            android:name="com.huang.android.logistic.JobOrder.OnProgress.DetailOnProgressOrder"/>
+        <activity android:name="com.huang.android.logistic.JobOrder.Done.DetailDoneOrder"></activity>
 
 
-        <activity android:name=".Lihat_Profil.ChangePassword" />
-        <activity android:name=".RequestAService.RequestAService"
-            android:parentActivityName=".MainActivity"
+        <activity android:name="com.huang.android.logistic.Lihat_Profil.ChangePassword" />
+        <activity android:name="com.huang.android.logistic.RequestAService.RequestAService"
+            android:parentActivityName="com.huang.android.logistic.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".RequestAService.ChooseVendor" />
+        <activity android:name="com.huang.android.logistic.RequestAService.ChooseVendor" />
 
     </application>
 

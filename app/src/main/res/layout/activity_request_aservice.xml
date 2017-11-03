@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alumui.android.logistic_marketplace_principle.RequestAService.RequestAService">
+    tools:context="com.huang.android.logistic.RequestAService.RequestAService">
 
 
     <ScrollView
@@ -36,7 +36,7 @@
                 android:text="@string/home_origin"
                 android:textStyle="bold"/>
 
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/ras_origin"/>
@@ -56,7 +56,7 @@
                 android:layout_height="30dp"
                 android:text="@string/home_destination"
                 android:textStyle="bold"/>/>
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/ras_destination"/>
@@ -79,6 +79,26 @@
                 android:layout_marginTop="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/Black"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Reference Number"
+                android:textStyle="bold"/>/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ras_ref_id"/>
+            <TextView
+                android:id="@+id/ras_ref_id_warning"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="10dp"
+                android:text="*this field is required"
+                android:textSize="10dp"
+                android:textColor="@color/DangerColor"
+                android:textAlignment="textEnd"
+                />
 
             <LinearLayout
                 android:id="@+id/ras_choose_vendor"
@@ -263,6 +283,8 @@
                     android:textAlignment="textEnd"
                     android:editable="false"
                     />
+
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -302,6 +324,54 @@
                     android:overScrollMode="ifContentScrolls"
                     android:gravity="top"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Estimate Volume"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/ras_volume"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="0.6"
+                        android:layout_height="50dp"
+                        android:overScrollMode="ifContentScrolls"
+                        android:gravity="top" />
+                    <Spinner
+                        android:id="@+id/ras_volume_metric"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="0.4"
+                        android:layout_height="50dp"
+                        android:overScrollMode="ifContentScrolls"
+                        android:gravity="top" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Expected Truck Type"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/ras_truck_type_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:overScrollMode="ifContentScrolls"
+                    android:gravity="top" />
+
+
+
+                <CheckBox
+                    android:text="Strict (Vendor will provide requested truck type)"
+                    android:id="@+id/ras_strict"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="30dp"/>
             </LinearLayout>
             <Button
                 android:id="@+id/ras_request_button"

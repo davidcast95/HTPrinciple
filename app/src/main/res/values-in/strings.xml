@@ -124,5 +124,6 @@
 
     <!--OTHER-->
     <string name="nla">Lokasi Tidak Tersedia</string>
+    <string name="version">Versi 1.1 build 1</string>
 
 </resources>

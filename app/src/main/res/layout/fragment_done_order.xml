@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.alumui.android.alumui_tp.OrderSudahDitugaskan">
+    tools:context="com.android.android.alumui_tp.OrderSudahDitugaskan">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

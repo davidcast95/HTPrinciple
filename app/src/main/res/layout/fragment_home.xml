@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.alumui.android.logistic_marketplace_principle.Home.Home">
+    tools:context="com.huang.android.logistic.Home.Home">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,8 +27,8 @@
             android:text="@string/home_origin"
             android:textStyle="bold"/>/>
 
-        <EditText
-            android:text="Surabaya"
+        <AutoCompleteTextView
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/home_origin"/>
@@ -47,8 +47,8 @@
             android:layout_height="20dp"
             android:text="@string/home_destination"
             android:textStyle="bold"/>/>
-        <EditText
-            android:text="Jakarta"
+        <AutoCompleteTextView
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/home_destination"/>
