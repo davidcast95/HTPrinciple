@@ -16,6 +16,7 @@ import com.huang.android.logistic.Maps.TrackOrderMaps;
 import com.huang.android.logistic.Model.JobOrder.JobOrderData;
 import com.huang.android.logistic.Model.JobOrderUpdate.JobOrderUpdateData;
 import com.huang.android.logistic.Model.JobOrderUpdate.JobOrderUpdateResponse;
+import com.huang.android.logistic.Model.Location.Location;
 import com.huang.android.logistic.Model.MyCookieJar;
 import com.huang.android.logistic.R;
 import com.huang.android.logistic.ServiceAPI.API;
@@ -82,8 +83,8 @@ public class DetailOrder extends AppCompatActivity {
 
             ref.setText("Ref No : " + jobOrder.ref);
             joid.setText(jobOrder.joid);
-            origin.setText(jobOrder.origin);
-            destination.setText(jobOrder.destination);
+            origin.setText(Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"")));
+            destination.setText(Utility.utility.formatLocation(new Location(jobOrder.destination_code,jobOrder.destination,jobOrder.destination_city,jobOrder.destination_address,jobOrder.destination_warehouse,"")));
             vendor_name.setText(jobOrder.vendor);
             vendor_cp_name.setText(jobOrder.vendor_cp_name);
             vendor_cp_phone.setText(jobOrder.vendor_cp_phone);

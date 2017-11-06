@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.android.android.alumui_tp.DetailOrderBelumDitugaskan">
+    android:orientation="vertical">
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
@@ -83,6 +82,7 @@
                                 android:layout_height="12dp"
                                 android:layout_marginLeft="7dp"
                                 android:layout_marginTop="2dp"
+                                android:layout_gravity="center"
                                 android:src="@drawable/eclipse"/>
                         </LinearLayout>
                         <LinearLayout
