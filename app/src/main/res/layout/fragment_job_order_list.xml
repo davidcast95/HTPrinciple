@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.huang.android.logistic.Lihat_Pesanan.OnProgress.OrderOnProgress">
+    tools:context="com.huang.android.logistic_principle.Lihat_Pesanan.OnProgress.OrderOnProgress">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -31,7 +31,8 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/order_box"/>
+                android:src="@drawable/order_box"
+                android:layout_gravity="top"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +79,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="5dp"
-                        android:src="@drawable/locationyellow"/>
+                        android:src="@drawable/locationorange"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

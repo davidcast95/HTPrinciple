@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.huang.android.logistic.Home.Home">
+    tools:context="com.huang.android.logistic_principle.Home.Home">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,12 +31,13 @@
                 android:text="@string/home_origin"
                 android:textSize="17dp"
                 android:textStyle="bold"/>
-            <Spinner
+            <EditText
                 android:layout_marginTop="4dp"
                 android:id="@+id/home_origin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:editable="false"
                 />
             <TextView
                 android:id="@+id/home_origin_warning"
@@ -114,12 +115,13 @@
                 android:layout_height="20dp"
                 android:text="@string/home_destination"
                 android:textStyle="bold"/>
-            <Spinner
+            <EditText
                 android:layout_marginTop="4dp"
                 android:id="@+id/home_destination"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:editable="false"
                 />
             <TextView
                 android:id="@+id/home_destination_warning"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.huang.android.logistic.RequestAService.RequestAService">
+    tools:context="com.huang.android.logistic_principle.RequestAService.RequestAService">
 
 
     <ScrollView
@@ -36,12 +36,13 @@
                 android:text="Origin"
                 android:textSize="17dp"
                 android:textStyle="bold"/>
-            <Spinner
+            <EditText
                 android:layout_marginTop="4dp"
                 android:id="@+id/ras_origin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:editable="false"
                 />
             <TextView
                 android:id="@+id/ras_origin_warning"
@@ -119,12 +120,13 @@
                 android:layout_height="20dp"
                 android:text="Destination"
                 android:textStyle="bold"/>
-            <Spinner
+            <EditText
                 android:layout_marginTop="4dp"
                 android:id="@+id/ras_destination"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:editable="false"
                 />
             <TextView
                 android:id="@+id/ras_destination_warning"
