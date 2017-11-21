@@ -127,13 +127,13 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         String language = prefs.getString("language","English");
         String[] tabs = new String[3];
         if(language.contentEquals("English")){
-            tabs[0]="On Progress";
-            tabs[1]="Pending";
+            tabs[0]="Pending";
+            tabs[1]="On Progress";
             tabs[2]="Done";
         }
         else {
-            tabs[0]="Dalam Proses";
-            tabs[1]="Pending";
+            tabs[0]="Pending";
+            tabs[1]="Dalam Proses";
             tabs[2]="Selesai";
         }
         for(int i=0;i<3;i++){
@@ -164,8 +164,8 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
     private void initViewPager() {
         viewPager = (ViewPager)v.findViewById(R.id.view_pager);
         List<Fragment> listFragments =  new ArrayList<Fragment>();
-        listFragments.add(progressOrder);
         listFragments.add(pendingOrder);
+        listFragments.add(progressOrder);
         listFragments.add(doneOrder);
 
         ViewJobOrderPagerAdapter viewJobOrderAdapter = new ViewJobOrderPagerAdapter(getChildFragmentManager(), listFragments);
@@ -208,7 +208,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
                     onprogress = response.body().jobOrders.size();
                     SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
                     String language = prefs.getString("language","English");
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
+                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
                     if(language.contentEquals("English")) {
                         label.setText("On Progress (" + onprogress + ")");
                     } else {
@@ -234,7 +234,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
             public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
                 if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
                     pending = response.body().jobOrders.size();
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
+                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
                     label.setText("Pending (" + pending + ")");
                 }
 
@@ -246,10 +246,40 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
             }
         });
     }
+    void getDoneOrder() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        String principle = Utility.utility.getLoggedName(getActivity());
+        String filters = "[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.DONE+"\"], [\"Job Order\",\"principle\",\"=\",\"" + principle + "\"],[\"Job Order\",\"reference\",\"like\",\"%\"]]";
+        Call<JobOrderResponse> callJO = api.getJobOrder(filters);
+        callJO.enqueue(new Callback<JobOrderResponse>() {
+            @Override
+            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
+                    done = response.body().jobOrders.size();
+                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
+                    String language = prefs.getString("language","English");
+                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
+                    if(language.contentEquals("English")) {
+                        label.setText("Complete (" + done + ")");
+                    } else {
+                        label.setText("Selesai (" + done + ")");
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            }
+        });
+    }
+
 
     void getCount() {
         getOnProgressOrder();
         getPendingOrder();
+        getDoneOrder();
     }
 
 }

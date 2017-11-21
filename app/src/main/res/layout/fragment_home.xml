@@ -27,7 +27,7 @@
 
             <TextView
                 android:layout_width="50dp"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:text="@string/home_origin"
                 android:textSize="17dp"
                 android:textStyle="bold"/>
@@ -112,7 +112,7 @@
             <TextView
                 android:textSize="17dp"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:text="@string/home_destination"
                 android:textStyle="bold"/>
             <EditText

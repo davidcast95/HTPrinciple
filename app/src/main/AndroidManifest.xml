@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huang.android.logistic_principle">
 
+    <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="true" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <service
         android:name=".MyFirebaseMessagingService">
@@ -32,10 +34,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.huang.android.logistic_principle.Login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.huang.android.logistic_principle.SplashScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,14 +66,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+
         <activity
             android:name="com.huang.android.logistic_principle.Maps.TrackOrderMaps"
-            android:parentActivityName=".JobOrder.TrackHistory"
+            android:parentActivityName="com.huang.android.logistic_principle.JobOrder.TrackHistory"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".JobOrder.TrackHistory"/>
+                android:value="com.huang.android.logistic_principle.JobOrder.TrackHistory" />
         </activity>
         <activity
             android:name="com.huang.android.logistic_principle.JobOrder.TrackHistory"
@@ -137,7 +144,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name="com.huang.android.logistic_principle.RequestAService.ChooseVendor" />
+        <activity android:name="com.huang.android.logistic_principle.RequestAService.ChooseVendor"
+            android:parentActivityName=".RequestAService.RequestAService"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RequestAService.RequestAService" />
+        </activity>
 
 
     </application>

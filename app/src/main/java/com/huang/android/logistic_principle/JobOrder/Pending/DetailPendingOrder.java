@@ -3,6 +3,7 @@ package com.huang.android.logistic_principle.JobOrder.Pending;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class DetailPendingOrder extends AppCompatActivity {
             jobOrder = PendingOrder.jobOrders.get(index);
         }
         if (jobOrder != null) {
+            TextView vendor = (TextView)findViewById(R.id.vendor);
             TextView ref = (TextView)findViewById(R.id.ref_id);
             TextView joid = (TextView) findViewById(R.id.joid);
             TextView origin = (TextView) findViewById(R.id.origin);
@@ -51,6 +53,7 @@ public class DetailPendingOrder extends AppCompatActivity {
             TextView vendor_name = (TextView) findViewById(R.id.vendor_name);
             TextView vendor_cp_name = (TextView) findViewById(R.id.vendor_cp_name);
             TextView vendor_cp_phone = (TextView) findViewById(R.id.vendor_cp_phone);
+            TextView principle_name = (TextView) findViewById(R.id.principle_name);
             TextView principle_cp_name = (TextView) findViewById(R.id.principle_cp_name);
             TextView principle_cp_phone = (TextView) findViewById(R.id.principle_cp_phone);
             TextView cargoInfo = (TextView) findViewById(R.id.cargo_info);
@@ -61,6 +64,7 @@ public class DetailPendingOrder extends AppCompatActivity {
             TextView truck_type = (TextView)findViewById(R.id.truck_type);
 
 
+            vendor.setText(jobOrder.vendor);
             ref.setText("Ref No : " + jobOrder.ref);
             joid.setText(jobOrder.joid);
             origin.setText(Utility.utility.formatLocation(new Location(jobOrder.origin_code,jobOrder.origin,jobOrder.origin_city,jobOrder.origin_address,jobOrder.origin_warehouse,"","")));
@@ -70,6 +74,7 @@ public class DetailPendingOrder extends AppCompatActivity {
             vendor_cp_name.setText(jobOrder.vendor_cp_name);
             vendor_cp_phone.setText(jobOrder.vendor_cp_phone);
             Utility.utility.setDialContactPhone(vendor_cp_phone, jobOrder.vendor_cp_phone, this);
+            principle_name.setText(jobOrder.principle);
             principle_cp_name.setText(jobOrder.principle_cp_name);
             principle_cp_phone.setText(jobOrder.principle_cp_phone);
             Utility.utility.setDialContactPhone(principle_cp_phone, jobOrder.principle_cp_phone, this);
@@ -81,7 +86,17 @@ public class DetailPendingOrder extends AppCompatActivity {
             truck_type.setText(jobOrder.truck_type);
         }
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 

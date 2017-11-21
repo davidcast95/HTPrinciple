@@ -25,12 +25,12 @@
                 android:layout_marginRight="5dp"
                 android:layout_width="100dp"
                 android:layout_height="2dp"
-                android:background="#fff"/>
+                android:background="@color/White"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
-                android:textColor="@color/White"/>
+                android:textColor="@color/Black"/>
             <View
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
@@ -45,8 +45,8 @@
             android:hint="@string/login_username"
             android:id="@+id/my_profile_username"
             android:layout_gravity="center"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Grey"
             android:singleLine="true"/>
         <EditText
             android:text=""
@@ -55,8 +55,8 @@
             android:id="@+id/password"
             android:hint="@string/login_password"
             android:layout_gravity="center"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Grey"
             android:inputType="textPassword"
             android:singleLine="true"/>
         <ImageButton

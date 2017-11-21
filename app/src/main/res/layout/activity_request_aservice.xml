@@ -32,7 +32,7 @@
             />
             <TextView
                 android:layout_width="50dp"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:text="Origin"
                 android:textSize="17dp"
                 android:textStyle="bold"/>
@@ -117,7 +117,7 @@
             <TextView
                 android:textSize="17dp"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:text="Destination"
                 android:textStyle="bold"/>
             <EditText

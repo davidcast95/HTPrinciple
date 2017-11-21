@@ -53,7 +53,7 @@ public class Settings extends Fragment {
 
         spinner = (Spinner)v.findViewById(R.id.spinner);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, categories);
+                R.layout.spinner_item, categories);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(dataAdapter);

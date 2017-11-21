@@ -9,6 +9,7 @@ import com.huang.android.logistic_principle.Model.JobOrderUpdate.JobOrderUpdateR
 import com.huang.android.logistic_principle.Model.Location.LocationCreation;
 import com.huang.android.logistic_principle.Model.Location.LocationResponse;
 import com.huang.android.logistic_principle.Model.LoginPrinciple.LoginPrinciple;
+import com.huang.android.logistic_principle.Model.LoginPrinciple.LoginUserPermissionResponse;
 import com.huang.android.logistic_principle.Model.Principle.PrincipleContactPersonData;
 import com.huang.android.logistic_principle.Model.Principle.PrincipleContactPersonResponse;
 import com.huang.android.logistic_principle.Model.Profil.ProfilResponse;
@@ -42,7 +43,7 @@ public interface API {
     Call<JobOrderUpdateResponse> getJOUpdate(@Query("filters") String filters, @Query("limit_page_length") String limit);
 
     //JOB ORDER
-    @GET("/api/resource/Job Order?fields=[\"reference\",\"status\",\"name\", \"principle\",\"vendor\",\"pick_location\",\"delivery_location\",\"nama_principle_cp\",\"telp_principle_cp\",\"nama_vendor_cp\",\"telp_vendor_cp\",\"pick_date\",\"expected_delivery\",\"goods_information\",\"notes\",\"accept_date\",\"suggest_truck_type\",\"strict\",\"estimate_volume\",\"truck\",\"truck_type\",\"truck_volume\",\"kota_pengambilan\",\"alamat_pengambilan\",\"kode_distributor_pengambilan\",\"nama_gudang_pengambilan\",\"kota_pengiriman\",\"alamat_pengiriman\",\"kode_distributor_pengiriman\",\"nama_gudang_pengiriman\"]")
+    @GET("/api/resource/Job Order?fields=[\"reference\",\"status\",\"name\",\"driver_nama\",\"driver_phone\", \"principle\",\"vendor\",\"pick_location\",\"delivery_location\",\"nama_principle_cp\",\"telp_principle_cp\",\"nama_vendor_cp\",\"telp_vendor_cp\",\"pick_date\",\"expected_delivery\",\"goods_information\",\"notes\",\"accept_date\",\"suggest_truck_type\",\"strict\",\"estimate_volume\",\"truck\",\"truck_lambung\",\"truck_type\",\"truck_volume\",\"kota_pengambilan\",\"alamat_pengambilan\",\"kode_distributor_pengambilan\",\"nama_gudang_pengambilan\",\"kota_pengiriman\",\"alamat_pengiriman\",\"kode_distributor_pengiriman\",\"nama_gudang_pengiriman\"]")
     Call<JobOrderResponse> getJobOrder(@Query("filters") String filters);
 
     @POST("/api/resource/Job Order")
@@ -69,6 +70,9 @@ public interface API {
 
     @POST("/api/method/login")
     Call<LoginPrinciple> loginUser(@Query("usr") String usr, @Query("pwd") String pwd, @Query("device") String device);
+    @GET("/api/resource/User Permission/?fields=[\"for_value\",\"allow\"]")
+    Call<LoginUserPermissionResponse> loginPermission(@Query("filters") String filters);
+
 
     //old
 

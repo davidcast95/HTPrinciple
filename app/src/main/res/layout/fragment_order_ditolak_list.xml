@@ -56,7 +56,7 @@
                         android:layout_width="13dp"
                         android:layout_height="18dp"
                         android:layout_marginLeft="2dp"
-                        android:src="@drawable/locationblue"/>
+                        android:src="@drawable/location_from_icon"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                         android:layout_width="13dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="2dp"
-                        android:src="@drawable/locationorange"/>
+                        android:src="@drawable/location_to_icon"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

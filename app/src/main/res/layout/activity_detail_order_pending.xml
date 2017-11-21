@@ -11,6 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/vendor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="Vendor"
+            android:textStyle="bold"
+            android:layout_marginLeft="18dp"/>
+        <TextView
             android:id="@+id/ref_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +63,7 @@
                                 android:id="@+id/joid"
                                 android:textStyle="bold"
                                 android:layout_marginBottom="5dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginLeft="22dp"
                                 android:textSize="16dp"/>
                         </LinearLayout>
                         <LinearLayout
@@ -64,7 +73,7 @@
                                 android:layout_width="13dp"
                                 android:layout_height="18dp"
                                 android:layout_marginLeft="2dp"
-                                android:src="@drawable/locationblue"/>
+                                android:src="@drawable/location_from_icon"/>
                             <TextView
 
                                 android:layout_width="match_parent"
@@ -82,6 +91,7 @@
                                 android:layout_height="12dp"
                                 android:layout_marginLeft="7dp"
                                 android:layout_marginTop="2dp"
+                                android:visibility="invisible"
                                 android:layout_gravity="center"
                                 android:src="@drawable/eclipse"/>
                         </LinearLayout>
@@ -92,7 +102,7 @@
                                 android:layout_width="13dp"
                                 android:layout_height="18dp"
                                 android:layout_marginLeft="2dp"
-                                android:src="@drawable/locationorange"/>
+                                android:src="@drawable/location_to_icon"/>
                             <TextView
                                 android:id="@+id/destination"
                                 android:layout_width="match_parent"

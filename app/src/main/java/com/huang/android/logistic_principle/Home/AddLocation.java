@@ -56,8 +56,14 @@ public class AddLocation extends AppCompatActivity {
                 if (validate()) {
                     addLocation();
                 }
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return true;
+
     }
     
     boolean validate() {

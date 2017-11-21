@@ -35,6 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class Home extends Fragment {
 
@@ -94,15 +96,11 @@ public class Home extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100) {
+        if (requestCode == 100 && resultCode == RESULT_OK) {
             Utility.utility.setEditText(originEditText,Utility.utility.formatLocation(origin));
         }
-        if (requestCode == 200) {
+        if (requestCode == 200 && resultCode == RESULT_OK) {
             Utility.utility.setEditText(destinationEditText, Utility.utility.formatLocation(destination));
-        }
-        if (requestCode == 300) {
-            MainActivity parent = (MainActivity) getActivity().getParent();
-            parent.setFragmentOnNav(1);
         }
     }
 

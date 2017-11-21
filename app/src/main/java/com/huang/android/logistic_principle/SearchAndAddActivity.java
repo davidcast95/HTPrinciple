@@ -52,11 +52,15 @@ public class SearchAndAddActivity extends AppCompatActivity {
             case R.id.search:
                 onSearchRequested();
                 return true;
-
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     protected void searchQuery(String keyword) {
 

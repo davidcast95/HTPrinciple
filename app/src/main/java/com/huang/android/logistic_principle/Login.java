@@ -11,9 +11,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.huang.android.logistic_principle.Model.LoginPrinciple.LoginPrinciple;
+import com.huang.android.logistic_principle.Model.LoginPrinciple.LoginUserPermission;
+import com.huang.android.logistic_principle.Model.LoginPrinciple.LoginUserPermissionResponse;
 import com.huang.android.logistic_principle.Model.MyCookieJar;
 import com.huang.android.logistic_principle.ServiceAPI.API;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -71,15 +75,15 @@ public class Login extends AppCompatActivity {
         login.enqueue(new Callback<LoginPrinciple>() {
             @Override
             public void onResponse(Call<LoginPrinciple> call, Response<LoginPrinciple> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (response.code() == 200) {
                     LoginPrinciple userData = response.body();
-                    Utility.utility.saveLoggedName(userData.name, thisActivity);
                     Gson gson = new Gson();
                     String json = gson.toJson(cookieJar);
                     Utility.utility.saveCookieJarToPreference(cookieJar, thisActivity);
 
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    finish();
+                    checkPermission();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -89,4 +93,32 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    void checkPermission() {
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        Call<LoginUserPermissionResponse> loginUserPermissionResponseCall = api.loginPermission("[[\"User Permission\",\"allow\",\"=\",\"Principle\"]]");
+        final Activity thisActivity = this;
+        loginUserPermissionResponseCall.enqueue(new Callback<LoginUserPermissionResponse>() {
+            @Override
+            public void onResponse(Call<LoginUserPermissionResponse> call, Response<LoginUserPermissionResponse> response) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                    List<LoginUserPermission> data = response.body().data;
+                    if (data.size() > 0) {
+                        Utility.utility.saveLoggedName(data.get(0).value,thisActivity);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(),"Username or password is invalid",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginUserPermissionResponse> call, Throwable t) {
+                Utility.utility.showConnectivityUnstable(getApplicationContext());
+            }
+        });
+    }
+
 }

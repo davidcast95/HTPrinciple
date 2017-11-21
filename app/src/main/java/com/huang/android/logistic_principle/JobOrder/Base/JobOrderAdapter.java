@@ -37,11 +37,13 @@ public class JobOrderAdapter extends ArrayAdapter<JobOrderData> {
             view=inflater.inflate(R.layout.fragment_job_order_list,parent,false);
         }
 
+        TextView vendor = (TextView)view.findViewById(R.id.vendor);
         TextView joid = (TextView)view.findViewById(R.id.joid);
         TextView origin = (TextView) view.findViewById(R.id.origin);
         TextView destination = (TextView)view.findViewById(R.id.destination);
         TextView ref = (TextView)view.findViewById(R.id.ref_id);
 
+        vendor.setText(list.get(position).vendor);
         ref.setText("Ref No : " + list.get(position).ref);
         joid.setText(list.get(position).joid);
         JobOrderData jobOrder = list.get(position);

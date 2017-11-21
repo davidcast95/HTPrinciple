@@ -34,6 +34,12 @@ public class Utility {
     public static Utility utility = new Utility();
     public static String dateDBShortFormat = "yyyy-MM-dd";
     public static String dateLongFormat = "EEE, d MMM yyyy";
+
+    public static String dateDBLongFormat = "yyyy-MM-dd HH:mm:ss";
+
+    public static String LONG_DATE_TIME_FORMAT = "dd MMMM yyyy HH:mm:ss";
+    public static String LONG_DATE_FORMAT = "dd MMMM yyyy";
+
     public void getLanguage(Activity activity){
         SharedPreferences prefs = activity.getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
         String language = prefs.getString("language","English");
