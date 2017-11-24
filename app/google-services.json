@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "1024205890548",
-    "firebase_url": "https://huang-426de.firebaseio.com",
-    "project_id": "huang-426de",
-    "storage_bucket": "huang-426de.appspot.com"
+    "project_number": "1012176373905",
+    "firebase_url": "https://digitruk-principle.firebaseio.com",
+    "project_id": "digitruk-principle",
+    "storage_bucket": "digitruk-principle.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1024205890548:android:5eb1533a26129d6b",
+        "mobilesdk_app_id": "1:1012176373905:android:7630641e6ebe4eec",
         "android_client_info": {
-          "package_name": "com.huang.android.logistic_principle"
+          "package_name": "huang.android.logistic_principle"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1024205890548-vco8gt8g0d9ij443j6hhmvrej8i6ug5b.apps.googleusercontent.com",
+          "client_id": "1012176373905-nce9hsndim470nunn6kc5g30cpt19t7d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD8MyPO69Gi2NBobHRnhE2wavQ5coTOzQE"
+          "current_key": "AIzaSyDA0KJzo0qdnEiMyBzTqwfusnWmHam3dY8"
         }
       ],
       "services": {

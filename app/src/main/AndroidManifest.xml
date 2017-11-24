@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huang.android.logistic_principle">
+    package="huang.android.logistic_principle">
 
     <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="true" />
 
@@ -33,12 +33,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.huang.android.logistic_principle.Login"
+            android:name="huang.android.logistic_principle.Login"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.huang.android.logistic_principle.SplashScreen"
+            android:name="huang.android.logistic_principle.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.huang.android.logistic_principle.MainActivity"
+            android:name="huang.android.logistic_principle.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation"
@@ -68,50 +68,50 @@
 
 
         <activity
-            android:name="com.huang.android.logistic_principle.Maps.TrackOrderMaps"
-            android:parentActivityName="com.huang.android.logistic_principle.JobOrder.TrackHistory"
+            android:name="huang.android.logistic_principle.Maps.TrackOrderMaps"
+            android:parentActivityName="huang.android.logistic_principle.JobOrder.TrackHistory"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.huang.android.logistic_principle.JobOrder.TrackHistory" />
+                android:value="huang.android.logistic_principle.JobOrder.TrackHistory" />
         </activity>
         <activity
-            android:name="com.huang.android.logistic_principle.JobOrder.TrackHistory"
-            android:parentActivityName="com.huang.android.logistic_principle.JobOrder.Base.DetailOrder"
+            android:name="huang.android.logistic_principle.JobOrder.TrackHistory"
+            android:parentActivityName="huang.android.logistic_principle.JobOrder.Base.DetailOrder"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.huang.android.logistic_principle.JobOrder.Base.DetailOrder" />
+                android:value="huang.android.logistic_principle.JobOrder.Base.DetailOrder" />
         </activity>
         <activity
-            android:name="com.huang.android.logistic_principle.JobOrder.Base.DetailOrder"
-            android:parentActivityName="com.huang.android.logistic_principle.MainActivity"
+            android:name="huang.android.logistic_principle.JobOrder.Base.DetailOrder"
+            android:parentActivityName="huang.android.logistic_principle.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" /></activity>
         <activity
-            android:name="com.huang.android.logistic_principle.JobOrder.Pending.DetailPendingOrder"
-            android:parentActivityName="com.huang.android.logistic_principle.MainActivity"
+            android:name="huang.android.logistic_principle.JobOrder.Pending.DetailPendingOrder"
+            android:parentActivityName="huang.android.logistic_principle.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" /></activity>
         <activity
-            android:name="com.huang.android.logistic_principle.JobOrder.OnProgress.DetailOnProgressOrder"
-            android:parentActivityName="com.huang.android.logistic_principle.JobOrder.Base.DetailOrder"
+            android:name="huang.android.logistic_principle.JobOrder.OnProgress.DetailOnProgressOrder"
+            android:parentActivityName="huang.android.logistic_principle.JobOrder.Base.DetailOrder"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".JobOrder.Base.DetailOrder"
             /></activity>
-        <activity android:name="com.huang.android.logistic_principle.JobOrder.Done.DetailDoneOrder"
-            android:parentActivityName="com.huang.android.logistic_principle.JobOrder.Base.DetailOrder"
+        <activity android:name="huang.android.logistic_principle.JobOrder.Done.DetailDoneOrder"
+            android:parentActivityName="huang.android.logistic_principle.JobOrder.Base.DetailOrder"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
@@ -119,32 +119,32 @@
                 android:value=".JobOrder.Base.DetailOrder" /></activity>
 
 
-        <activity android:name="com.huang.android.logistic_principle.Lihat_Profil.ChangePassword" />
-        <activity android:name="com.huang.android.logistic_principle.RequestAService.RequestAService"
-            android:parentActivityName="com.huang.android.logistic_principle.MainActivity"
+        <activity android:name="huang.android.logistic_principle.Lihat_Profil.ChangePassword" />
+        <activity android:name="huang.android.logistic_principle.RequestAService.RequestAService"
+            android:parentActivityName="huang.android.logistic_principle.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name="com.huang.android.logistic_principle.Home.SearchLocation"
-            android:parentActivityName="com.huang.android.logistic_principle.MainActivity"
+        <activity android:name="huang.android.logistic_principle.Home.SearchLocation"
+            android:parentActivityName="huang.android.logistic_principle.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name="com.huang.android.logistic_principle.Home.AddLocation"
-            android:parentActivityName="com.huang.android.logistic_principle.Home.SearchLocation"
+        <activity android:name="huang.android.logistic_principle.Home.AddLocation"
+            android:parentActivityName="huang.android.logistic_principle.Home.SearchLocation"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name="com.huang.android.logistic_principle.RequestAService.ChooseVendor"
+        <activity android:name="huang.android.logistic_principle.RequestAService.ChooseVendor"
             android:parentActivityName=".RequestAService.RequestAService"
             android:configChanges="orientation"
             android:screenOrientation="portrait">

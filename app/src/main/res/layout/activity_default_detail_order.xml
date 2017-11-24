@@ -440,6 +440,8 @@
                                     android:layout_height="wrap_content"
                                     android:text="Driver Phone"/>
                                 <TextView
+                                    android:textColor="@color/colorPrimary2"
+                                    android:clickable="true"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:textAlignment="textEnd"
