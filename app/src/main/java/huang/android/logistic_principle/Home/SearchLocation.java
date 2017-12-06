@@ -93,7 +93,7 @@ public class SearchLocation extends SearchAndAddActivity {
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String principle = Utility.utility.getLoggedName(this);
-        Call<LocationResponse> locationResponseCall = api.getLocation("[[\"Location\",\"principle\",\"=\",\""+principle+"\"],[\"Location\",\"nama_gudang\",\"like\",\"" + keyword + "%\"]]");
+        Call<LocationResponse> locationResponseCall = api.getLocation("[[\"Location\",\"principle\",\"=\",\""+principle+"\"],[\"Location\",\"nama_gudang\",\"like\",\"%" + keyword + "%\"]]");
         locationResponseCall.enqueue(new Callback<LocationResponse>() {
             @Override
             public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {

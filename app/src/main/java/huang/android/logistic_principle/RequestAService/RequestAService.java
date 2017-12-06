@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -162,8 +163,8 @@ public class RequestAService extends AppCompatActivity {
             }
         });
 
-        originEditText.setText(Utility.utility.formatLocation(Home.origin));
-        destinationEditText.setText(Utility.utility.formatLocation(Home.destination));
+        originEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.origin)));
+        destinationEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.destination)));
 
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -347,10 +348,10 @@ public class RequestAService extends AppCompatActivity {
             }
         }
         if (requestCode == 100) {
-            originEditText.setText(Utility.utility.formatLocation(Home.origin));
+            originEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.origin)));
         }
         if (requestCode == 200) {
-            destinationEditText.setText(Utility.utility.formatLocation(Home.destination));
+            destinationEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.destination)));
         }
     }
 
