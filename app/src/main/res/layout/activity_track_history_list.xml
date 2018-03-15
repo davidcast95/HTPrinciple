@@ -40,6 +40,13 @@
                         android:textColor="@color/Grey"
                         android:id="@+id/statehistory"/>
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text=""
+                        android:textColor="@color/Grey"
+                        android:id="@+id/loc_history"/>
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -49,7 +56,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="end">
+                    android:gravity="end"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/jo_update_gallery"
+                        android:layout_gravity="center"
+                        android:id="@+id/historygallery"/>
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="wrap_content"/>
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"

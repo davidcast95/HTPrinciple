@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,198 +17,341 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
 
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="30dp"
-            android:layout_marginTop="12dp">
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="60dp"
+            android:paddingTop="12dp">
 
             <TextView
+                android:id="@+id/route_info_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:textSize="20dp"
-                android:text="Route information"
+                android:text="@string/ras_routeinfo"
                 android:textStyle="bold"
-                android:textColor="@color/Black"/>
-            />
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="Origin"
-                android:textSize="17dp"
-                android:textStyle="bold"/>
-            <EditText
-                android:layout_marginTop="4dp"
-                android:id="@+id/ras_origin"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:editable="false"
-                />
-            <TextView
-                android:id="@+id/ras_origin_warning"
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:layout_marginTop="-5dp"
-                android:text="*this field is required"
-                android:textSize="10dp"
-                android:textColor="@color/DangerColor"
-                android:textAlignment="textEnd"
-                />
+                android:textColor="@color/Black"
+                android:textAlignment="center"/>
 
             <LinearLayout
-                android:id="@+id/home_origin_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/origin_icon"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/loc_from"
+                        android:visibility="visible"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/origin_indicator"
+                        android:visibility="gone"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/drop_origin_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/drop"
+                            android:visibility="gone"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Distribution Code"/>
-                <EditText
-                    android:text=""
+                        <ImageView
+                            android:id="@+id/pickup_origin_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/pickup"
+                            android:visibility="gone"/>
+                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/origin_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/origin"
+                        android:textSize="16dp"
+                        android:layout_marginTop="16dp"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_origin_code"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Address"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_origin_address"/>
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="City"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_origin_city"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Warehouse"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_origin_warehouse"/>
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Phone"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_origin_phone"/>
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:textSize="17dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Destination"
-                android:textStyle="bold"/>
-            <EditText
-                android:layout_marginTop="4dp"
-                android:id="@+id/ras_destination"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:editable="false"
-                />
-            <TextView
-                android:id="@+id/ras_destination_warning"
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                android:layout_marginTop="-5dp"
-                android:text="*this field is required"
-                android:textSize="10dp"
-                android:textColor="@color/DangerColor"
-                android:textAlignment="textEnd"
-                />
-            <LinearLayout
-                android:id="@+id/home_destination_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                    <EditText
+                        android:textSize="15dp"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/home_origin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:editable="false"
+                        />
+                    <TextView
+                        android:id="@+id/home_origin_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:layout_marginTop="-5dp"
+                        android:text="@string/ras_fieldrequired"
+                        android:textSize="10dp"
+                        android:textColor="@color/DangerColor"
+                        android:textAlignment="textEnd"
+                        />
+                    <LinearLayout
+                        android:id="@+id/home_origin_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Distribution Code"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_origin_code"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Address"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_origin_address"/>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="City"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_origin_city"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Warehouse"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_origin_warehouse"/>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Phone"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_origin_phone"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/destination_icon"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_width="16.015dp"
+                        android:layout_height="28.662dp"
+                        android:background="@drawable/loc_to"/>
+                    <RelativeLayout
+                        android:id="@+id/destination_indicator"
+                        android:visibility="gone"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/drop_destination_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/drop"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/pickup_destination_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/pickup"
+                            android:visibility="gone"/>
+                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/destination_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/destination"
+                        android:textSize="16dp"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+
+
+                    <EditText
+                        android:textSize="15dp"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/home_destination"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:editable="false"
+                        />
+                    <TextView
+                        android:id="@+id/home_destination_warning"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:layout_marginTop="-5dp"
+                        android:text="@string/ras_fieldrequired"
+                        android:textSize="10dp"
+                        android:textColor="@color/DangerColor"
+                        android:textAlignment="textEnd"
+                        />
+                    <LinearLayout
+                        android:id="@+id/home_destination_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Distribution Code"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_destination_code"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Address"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_destination_address"/>
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="City"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_destination_city"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Warehouse"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_destination_warehouse"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="Phone"/>
+                        <EditText
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/home_destination_phone"/>
+                    </LinearLayout>
+                </LinearLayout>
                 <TextView
+                    android:textSize="15dp"
+                    android:id="@+id/additional_stop_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/additional_stop_location"/>
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/stop_location_list"
+                    android:dividerHeight="0dp"
+                    android:divider="@null">
+
+                </ListView>
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Distribution Code"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_destination_code"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Address"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_destination_address"/>
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="City"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_destination_city"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Warehouse"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_destination_warehouse"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="4dp"
-                    android:text="Phone"/>
-                <EditText
-                    android:text=""
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/home_destination_phone"/>
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/add_stop_button"
+                    android:clickable="true"
+                    android:layout_gravity="right">
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/add"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/add_stop_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_stop_location"
+                        android:backgroundTint="@color/White"
+                        android:textAlignment="textEnd"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_centerInParent="true"/>
+                </LinearLayout>
             </LinearLayout>
             <TextView
+                android:id="@+id/vendor_info_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:textSize="20dp"
-                android:text="Vendor Information"
+                android:text="@string/vendor_information"
                 android:layout_marginTop="20dp"
                 android:textStyle="bold"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black"
+                android:textAlignment="center"/>
             <TextView
+                android:id="@+id/ref_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="Reference Number"
-                android:textStyle="bold"/>/>
+                android:text="@string/ras_refno"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginTop="12dp"/>/>
             <EditText
+                android:textSize="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/ras_ref_id"/>
@@ -218,7 +361,7 @@
                 android:layout_height="12dp"
                 android:layout_marginTop="-5dp"
                 android:layout_marginBottom="10dp"
-                android:text="*this field is required"
+                android:text="@string/ras_fieldrequired"
                 android:textSize="10dp"
                 android:textColor="@color/DangerColor"
                 android:textAlignment="textEnd"
@@ -234,9 +377,9 @@
                     android:layout_width="250dp"
                     android:layout_height="40dp"
                     android:background="@color/SuccessColor"
-                    android:text="Choose Vendor"
+                    android:text="@string/choose_vendor"
                     android:textColor="@color/White"
-                    android:textSize="14dp"
+                    android:textSize="16dp"
                     android:layout_gravity="center"/>
                 />
             </LinearLayout>
@@ -287,69 +430,81 @@
                     android:layout_width="250dp"
                     android:layout_height="40dp"
                     android:background="@color/WarningColor"
-                    android:text="Change Vendor"
+                    android:text="@string/change_vendor"
                     android:textColor="@color/White"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"/>
                 />
             </LinearLayout>
 
 
             <TextView
+                android:id="@+id/contact_info_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:textSize="20dp"
-                android:text="Contact Person Information"
-                android:layout_marginTop="20dp"
+                android:text="@string/ras_cpinfo"
+                android:layout_marginTop="32dp"
                 android:textStyle="bold"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black"
+                android:textAlignment="center" />
 
             <Spinner
+                android:background="@drawable/dropdown"
+                android:layout_marginTop="12dp"
                 android:id="@+id/ras_principle_dropdown"
                 android:layout_width="fill_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 />
 
             <TextView
+                android:textSize="15dp"
+                android:id="@+id/name_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="Name"
+                android:text="@string/my_profile_name"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"/>/>
+                android:layout_marginTop="20dp"/>
 
             <EditText
+                android:textSize="16dp"
                 android:text="David Wibisono"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/ras_principle_name"
                 android:singleLine="true"/>
             <TextView
+                android:id="@+id/warning1"
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
                 android:layout_marginTop="-5dp"
                 android:layout_marginBottom="10dp"
-                android:text="*this field is required"
+                android:text="@string/ras_fieldrequired"
                 android:textSize="10dp"
                 android:textColor="@color/DangerColor"
                 android:textAlignment="textEnd"
                 />
             <TextView
+                android:textSize="15dp"
+                android:id="@+id/phone_text"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="Contact Person"
-                android:textStyle="bold"/>/>
+                android:text="@string/my_profile_phone"
+                android:textStyle="bold"/>
             <EditText
+                android:textSize="16dp"
                 android:text="085707365938"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/ras_principle_cp"
                 android:singleLine="true"/>
             <TextView
+                android:id="@+id/warning2"
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
                 android:layout_marginTop="-5dp"
                 android:layout_marginBottom="10dp"
-                android:text="*this field is required"
+                android:text="@string/ras_fieldrequired"
                 android:textSize="10dp"
                 android:textColor="@color/DangerColor"
                 android:textAlignment="textEnd"
@@ -359,49 +514,60 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/cargo_info_text"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:textSize="20dp"
-                    android:text="Cargo Information"
+                    android:text="@string/dp_cargoinfo"
                     android:layout_marginTop="20dp"
                     android:textStyle="bold"
-                    android:textColor="@color/Black"/>
+                    android:textColor="@color/Black"
+                    android:textAlignment="center"/>
                 <TextView
+                    android:textSize="15dp"
+                    android:id="@+id/pick_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Load Estimate Date"
-                    android:textStyle="bold"/>
+                    android:text="@string/dp_estpick"
+                    android:textStyle="bold"
+                    android:layout_marginTop="12dp"/>
                 <EditText
+                    android:textSize="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:id="@+id/ras_cargo_load_date"
                     android:editable="false"/>
                 <TextView
+                    android:id="@+id/warning3"
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:layout_marginTop="-5dp"
                     android:layout_marginBottom="10dp"
-                    android:text="*this field is required"
+                    android:text="@string/ras_fieldrequired"
                     android:textSize="10dp"
                     android:textColor="@color/DangerColor"
                     android:textAlignment="textEnd"
                     />
                 <TextView
+                    android:textSize="15dp"
+                    android:id="@+id/delivered_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Delivered Estimate Date"
+                    android:text="@string/dp_estdelivered"
                     android:textStyle="bold"/>
                 <EditText
+                    android:textSize="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:id="@+id/ras_cargo_unload_date"
                     android:editable="false"/>
                 <TextView
+                    android:id="@+id/warning4"
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:layout_marginTop="-5dp"
                     android:layout_marginBottom="10dp"
-                    android:text="*this field is required"
+                    android:text="@string/ras_fieldrequired"
                     android:textSize="10dp"
                     android:textColor="@color/DangerColor"
                     android:textAlignment="textEnd"
@@ -412,8 +578,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Cargo Info"
-                    android:textStyle="bold"/>
+                    android:text="@string/dp_cargodetails"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
                 <EditText
                     android:text="10 pcs Macbook Pro"
@@ -422,25 +589,29 @@
                     android:layout_height="120dp"
                     android:inputType="textMultiLine"
                     android:overScrollMode="ifContentScrolls"
-                    android:gravity="top"/>
+                    android:gravity="top"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:layout_marginTop="-5dp"
                     android:layout_marginBottom="10dp"
-                    android:text="*this field is required"
+                    android:text="@string/ras_fieldrequired"
                     android:textSize="10dp"
                     android:textColor="@color/DangerColor"
                     android:textAlignment="textEnd"
+                    android:visibility="gone"
                     />
                 <TextView
+                    android:textSize="15dp"
+                    android:id="@+id/notes_text"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Notes"
+                    android:text="@string/dp_cargonote"
                     android:textStyle="bold"/>
                 <EditText
-                    android:text="hati-hati barang rawan benturan"
+                    android:textSize="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:id="@+id/ras_cargo_notes"
@@ -449,9 +620,11 @@
                     android:gravity="top"/>
 
                 <TextView
+                    android:textSize="15dp"
+                    android:id="@+id/vol_text"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Estimate Volume"
+                    android:text="@string/dp_estvolume"
                     android:textStyle="bold"/>
 
                 <LinearLayout
@@ -459,6 +632,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <EditText
+                        android:textSize="16dp"
                         android:id="@+id/ras_volume"
                         android:layout_width="wrap_content"
                         android:layout_weight="0.6"
@@ -466,54 +640,67 @@
                         android:overScrollMode="ifContentScrolls"
                         android:gravity="top" />
                     <Spinner
+                        android:background="@drawable/dropdown"
                         android:id="@+id/ras_volume_metric"
                         android:layout_width="wrap_content"
-                        android:layout_weight="0.4"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:overScrollMode="ifContentScrolls"
                         android:gravity="top" />
 
                 </LinearLayout>
 
                 <TextView
+                    android:textSize="15dp"
+                    android:id="@+id/expected_truck_type_text"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Expected Truck Type"
+                    android:text="@string/dp_exptrucktype"
                     android:textStyle="bold"/>
 
                 <Spinner
+                    android:background="@drawable/dropdown"
                     android:id="@+id/ras_truck_type_dropdown"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:overScrollMode="ifContentScrolls"
                     android:gravity="top" />
 
 
 
                 <CheckBox
-                    android:text="Strict (Vendor will provide requested truck type)"
+                    android:textSize="15dp"
+                    android:text="@string/ras_strictinfo"
                     android:id="@+id/ras_strict"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"/>
             </LinearLayout>
+
             <Button
                 android:id="@+id/ras_request_button"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:background="@color/colorAccent"
-                android:text="Request a service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary2"
+                android:text="@string/request_a_service"
                 android:textColor="@color/White"
-                android:textSize="14dp"
-                android:layout_gravity="center"/>
-            />
-
-
+                android:textSize="16dp"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"/>
 
         </LinearLayout>
 
     </ScrollView>
 
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/White">
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

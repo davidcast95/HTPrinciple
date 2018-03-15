@@ -134,7 +134,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vendor Information"
+                        android:text="@string/dp_vendorinfo"
                         android:textSize="16dp"
                         android:textStyle="bold"/>
                     <LinearLayout
@@ -145,7 +145,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vendor Name"/>
+                            android:text="@string/dp_vendorname"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vendor CP Name"/>
+                            android:text="@string/dp_vendorcpname"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vendor CP Phone"/>
+                            android:text="@string/dp_vendorcpphone"/>
                         <TextView
                             android:clickable="true"
                             android:textColor="@color/colorPrimary2"
@@ -210,7 +210,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Principle Information"
+                        android:text="@string/dp_principleinfo"
                         android:textSize="16dp"
                         android:textStyle="bold"/>
                     <LinearLayout
@@ -221,7 +221,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Principle Name"/>
+                            android:text="@string/dp_principlename"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Principle CP Phone"/>
+                            android:text="@string/dp_principlecpphone"/>
                         <TextView
                             android:clickable="true"
                             android:textColor="@color/colorPrimary2"
@@ -294,7 +294,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Cargo Information"
+                                android:text="@string/dp_cargoinfo"
                                 android:textStyle="bold"
                                 android:textSize="16dp"/>
                             <LinearLayout
@@ -306,7 +306,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Estimate Pick Date"/>
+                                    android:text="@string/dp_estpick"/>
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -323,7 +323,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Estimate Delivered Date"/>
+                                    android:text="@string/dp_estdelivered"/>
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -340,7 +340,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Estimate Volume"/>
+                                    android:text="@string/dp_estvolume"/>
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -357,7 +357,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Truck"/>
+                                    android:text="@string/dp_cargotruck"/>
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -373,7 +373,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Truck Type"/>
+                                    android:text="@string/dp_cargotrucktype"/>
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -391,7 +391,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Cargo Info"/>
+                                    android:text="@string/dp_cargodetails"/>
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -590,7 +590,7 @@
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Driver Name"/>-->
+                    <!--android:text="@string/dp_drivername""/>-->
                     <!--<TextView-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
@@ -604,7 +604,7 @@
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Truck Number"/>-->
+                    <!--android:text="@string/dp_truck Number"/>-->
                     <!--<TextView-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->

@@ -20,8 +20,8 @@
     <!--HOME-->
     <string name="home">Home</string>
     <string name="home_logistic">Logistic Service</string>
-    <string name="home_origin">Origin</string>
-    <string name="home_destination">Destination</string>
+    <string name="origin">Origin</string>
+    <string name="destination">Destination</string>
     <string name="home_request_button">Request a Service</string>
     <string name="home_vendor">Our Vendors</string>
     <string name="home_complete">Complete</string>
@@ -33,10 +33,76 @@
 
     <!--REQUEST A SERVICE-->
     <string name="request_a_service">Request A Service</string>
+    <string name="ras_fieldrequired">this field is required</string>
+    <string name="ras_routeinfo">Route Information</string>
+    <string name="ras_refno">Reference Number</string>
+    <string name="ras_cpinfo">Contact Information</string>
+    <string name="ras_strictinfo">Strict (Vendor will provide requested truck type)</string>
 
+    <!--HISTORY ORDER-->
+    <string name="order_history">History Order</string>
+    <string name="order_history_active">Active</string>
+    <string name="order_history_onprogress">On-Progress</string>
+    <string name="order_history_completed">Completed</string>
+
+    <!--DETAIL ORDER-->
+    <string name="dp">Detail Order</string>
+    <string name="dpa">Active Detail Order</string>
+    <string name="dpd">Complete Detail Order</string>
+
+    <string name="dp_vendorinfo">Vendor Information</string>
+    <string name="dp_vendorname">Name</string>
+    <string name="dp_vendorcpname">CP Name</string>
+    <string name="dp_vendorcpphone">CP Phone</string>
+
+    <string name="dp_principleinfo">Principle Information</string>
+    <string name="dp_principlename">Name</string>
+    <string name="dp_principlecpname">CP Name</string>
+    <string name="dp_principlecpphone">CP Phone</string>
+
+    <string name="dp_cargoinfo">Cargo Information</string>
+    <string name="dp_estpick">Pick Date</string>
+    <string name="dp_estdelivered">Delivered Date</string>
+    <string name="dp_estvolume">Estimated Volume</string>
+    <string name="dp_exptrucktype">Expected Truck Type</string>
+    <string name="dp_hullno">Hull No</string>
+    <string name="dp_cargotruck">Truck</string>
+    <string name="dp_cargotrucktype">Truck Type</string>
+    <string name="dp_cargodetails">Cargo Details</string>
+    <string name="dp_cargonote">Notes</string>
+
+    <string name="dp_infobarang">Package Info</string>
+    <string name="dp_volume">Volume</string>
+    <string name="dp_netweight">Net Weight</string>
+    <string name="dp_quantitiy">Quantity</string>
+    <string name="dp_rutelaut">Sea Route Info</string>
+    <string name="dp_desclaut">This trip uses the sea route!</string>
+    <string name="dp_veselname">Vessel Name</string>
+    <string name="dp_precariage">Pra Carriage</string>
+    <string name="dp_maincariage">Main Carriage</string>
+    <string name="dp_inforoute">Route Info</string>
+    <string name="dp_biaya">Cost</string>
+    <string name="dp_leadtime">Lead Time</string>
+    <string name="dp_eta">Estimate Time Arrival</string>
+    <string name="dp_etd">Estimate Time Departure</string>
+    <string name="dp_totalleadtime">Total Lead Time</string>
+    <string name="dp_totalbiaya">Total Cost</string>
+    <string name="dp_pesanberita">Would you like to receive this order ?</string>
+    <string name="dp_drivername">Driver Name</string>
+    <string name="dp_driverphone">Driver Phone</string>
+    <string name="dp_trucknumber">Truck Number</string>
+    <string name="dp_trucktype">Truck Type</string>
+    <string name="dp_update">Update</string>
+
+    <!--PENDING DETAIL ORDER-->
+    <string name="pdo">Pending Detail Order</string>
+
+    <!--DONE DETAIL ORDER-->
+    <string name="ddo">Done Detail Order</string>
 
     <!--CHOOSE VENDOR-->
     <string name="choose_vendor">Choose Vendor</string>
+    <string name="change_vendor">Change Vendor</string>
 
     <!--CHANGE PASSWORD-->
     <string name="change_password">Change Password</string>
@@ -54,6 +120,7 @@
     <string name="my_profile">My Profile</string>
     <string name="my_profile_username">Username</string>
     <string name="my_profile_name">Name</string>
+    <string name="my_profile_phone">Phone</string>
     <string name="my_profile_customer_group">Customer Group</string>
     <string name="my_profile_gender">Sex</string>
     <string name="my_profile_change_password">Change Password</string>
@@ -119,7 +186,47 @@
     <string name="track_order_list_status_theresproblem">There is Problem</string>
     <string name="track_order_list_status_cancel">Cancel</string>
 
+
+    <string name="confirm_vendor">has confirmed by vendor at</string>
+    <string name="warning_no_location_available">Wait until there\'s an update location</string>
+    <string name="loading_text_first_update_location">Hold up for requesting an update location</string>
+    <string name="title_live_maps">Last Location</string>
+
     <!--OTHER-->
     <string name="nla">No Location Available</string>
-    <string name="version">Version 1.1.2 build 7</string>
+    <string name="version">Version 1.6</string>
+    <string name="warning_location">location is required</string>
+    <string name="warning_cp">contact person is required</string>
+    <string name="warning_item_info">item info is required</string>
+    <string name="add_stop_location">Add Stop Location</string>
+    <string name="status">Status</string>
+    <string name="location">Location</string>
+    <string name="new_stop_location">New Stop Location</string>
+    <string name="cp">Contact Person</string>
+    <string name="item_info">Item Info</string>
+    <string name="remark">Remark</string>
+    <string name="confirm_service">Confirmation Service</string>
+    <string name="confirm_delete">Are you sure want to delete this ?</string>
+    <string name="confirm_delete_stop_location">This location can\'t be undo after you delete this!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="stop_location">stop location</string>
+    <string name="type">Type</string>
+    <string name="rejected_job_order">Rejected Job Order</string>
+    <string name="create_a_new">Create a new</string>
+    <string name="msg_vendor_rejected">Vendor has rejected this JO, please change immediately</string>
+    <string name="title_rejected_jo">Rejected Job Order</string>
+    <string name="msg_vendor_rto">Vendor hasn\'t accepted this JO more than</string>
+    <string name="hour">hours</string>
+    <string name="type_your_message">type your message</string>
+    <string name="message">Message</string>
+    <string name="additional_stop_location">Additional Stop location</string>
+    <string name="vendor_information">Vendor Information</string>
+    <string name="rejected_alert">This Job Order has been rejected</string>
+    <string name="no_update_location">No Update Location</string>
+    <string name="last_update_on">Last update on</string>
+    <string name="unable_to_load_image">Unable to load image</string>
+    <string name="no_image">No Image Provided</string>
+    <string name="jo_update_image">Job Order Update Image</string>
+    <string name="last_position">Last Position</string>
 </resources>

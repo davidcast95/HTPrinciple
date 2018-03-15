@@ -14,9 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import huang.android.logistic_principle.Base.SpinnerStringAdapter;
+import huang.android.logistic_principle.Fonts.Hind;
 import huang.android.logistic_principle.R;
 import huang.android.logistic_principle.SplashScreen;
+import huang.android.logistic_principle.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,26 +43,26 @@ public class Settings extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        TextView languageText = (TextView)v.findViewById(R.id.language_text);
+        Utility.utility.setFont(languageText,Hind.LIGHT,getContext());
+
         List<String> categories = new ArrayList<String>();
         SharedPreferences prefs = this.getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
-        categories.add("English");
-//        if(language.contentEquals("English")){
-//            categories.add("Bahasa Indonesia");
-//        }
-//        else {
-//            categories.add("Bahasa Indonesia");
-//            categories.add("English");
-//        }
+        String language = prefs.getString("language","Bahasa Indonesia");
+        if(language.contentEquals("English")){
+            categories.add("Bahasa Indonesia");
+        }
+        else {
+            categories.add("Bahasa Indonesia");
+            categories.add("English");
+        }
 
         spinner = (Spinner)v.findViewById(R.id.spinner);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(),
-                R.layout.spinner_item, categories);
-
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        SpinnerStringAdapter dataAdapter = new SpinnerStringAdapter(this.getActivity(), categories);
         spinner.setAdapter(dataAdapter);
 
         Button save = (Button)v.findViewById(R.id.save);
+        Utility.utility.setFont(save, Hind.BOLD,getContext());
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +107,7 @@ public class Settings extends Fragment {
 
     public void getLanguage(){
         SharedPreferences prefs = this.getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
+        String language = prefs.getString("language","Bahasa Indonesia");
 
         if(language.contentEquals("English")){
             setLocal("en");

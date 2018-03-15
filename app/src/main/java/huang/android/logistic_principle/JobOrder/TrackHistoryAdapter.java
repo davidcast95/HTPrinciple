@@ -11,6 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+
+import huang.android.logistic_principle.Fonts.Hind;
+import huang.android.logistic_principle.JobOrder.Base.DetailOrder;
+import huang.android.logistic_principle.JobOrder.Gallery.GalleryActivity;
 import huang.android.logistic_principle.Maps.TrackOrderMaps;
 import huang.android.logistic_principle.Model.JobOrderUpdate.JobOrderUpdateData;
 import huang.android.logistic_principle.R;
@@ -33,10 +42,15 @@ public class TrackHistoryAdapter extends ArrayAdapter<JobOrderUpdateData> {
     private Context context;
     private List<JobOrderUpdateData> list;
     Double longitude,latitude;
-    public TrackHistoryAdapter(Context context, int layout, List<JobOrderUpdateData> list) {
+    GoogleMap mMap;
+    List<Marker> markers;
+
+    public TrackHistoryAdapter(Context context, int layout, List<JobOrderUpdateData> list, GoogleMap googleMap, List<Marker> markers) {
         super(context, layout,list);
         this.context=context;
         this.list=list;
+        this.markers = markers;
+        mMap = googleMap;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
@@ -47,26 +61,60 @@ public class TrackHistoryAdapter extends ArrayAdapter<JobOrderUpdateData> {
         }
 
         TextView Tanggal2 = (TextView)view.findViewById(R.id.tanggal2);
+        Utility.utility.setFont(Tanggal2, Hind.LIGHT,getContext());
         TextView state = (TextView)view.findViewById(R.id.statehistory);
+        Utility.utility.setFont(Tanggal2, Hind.BOLD,getContext());
+        TextView loc = (TextView)view.findViewById(R.id.loc_history);
+        Utility.utility.setFont(Tanggal2, Hind.MEDIUM,getContext());
         TextView notes = (TextView) view.findViewById(R.id.notes);
+        Utility.utility.setFont(Tanggal2, Hind.REGULAR,getContext());
 
-        JobOrderUpdateData productList = list.get(position);
         Tanggal2.setText(Utility.formatDateFromstring(Utility.dateDBLongFormat,Utility.LONG_DATE_TIME_FORMAT, list.get(position).time));
         state.setText(list.get(position).status);
+        if (list.get(position).location != null)
+            loc.setText(list.get(position).city + " - " + list.get(position).warehouse_name);
+        else
+            loc.setVisibility(View.GONE);
         notes.setText(list.get(position).note);
-        latitude= Double.parseDouble (list.get(position).latitude);
-        longitude=Double.parseDouble(list.get(position).longitude);
+        if (list.get(position).latitude != null && list.get(position).longitude != null) {
+            latitude = Double.parseDouble(list.get(position).latitude);
+            longitude = Double.parseDouble(list.get(position).longitude);
+        }
+
+        ImageView galleryButton = (ImageView)view.findViewById(R.id.historygallery);
+        if (list.get(position).images.size() == 0) {
+            galleryButton.setVisibility(View.GONE);
+        } else {
+            galleryButton.setVisibility(View.VISIBLE);
+        }
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent(getContext(), GalleryActivity.class);
+                gallery.putExtra("jod_name",list.get(position).name);
+                gallery.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(gallery);
+            }
+        });
 
         ImageView button = (ImageView)view.findViewById(R.id.historymaps);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (latitude!= null || longitude!=null){
-                    Intent maps = new Intent(getContext(), TrackOrderMaps.class);
-                    maps.putExtra("longitude", Double.valueOf(list.get(position).longitude ));
-                    maps.putExtra("latitude", Double.valueOf(list.get(position).latitude ));
-                    maps.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    getContext().startActivity(maps);
+
+                if (latitude!= null && longitude!=null && mMap != null){
+//                    Intent maps = new Intent(getContext(), TrackOrderMaps.class);
+//                    maps.putExtra("longitude", Double.valueOf(list.get(position).longitude ));
+//                    maps.putExtra("latitude", Double.valueOf(list.get(position).latitude ));
+//                    maps.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    getContext().startActivity(maps);
+
+                    Double lat = Double.valueOf(DetailOrder.jobOrderUpdates.get(position).latitude), longi = Double.valueOf(DetailOrder.jobOrderUpdates.get(position).longitude);
+                    LatLng loc = new LatLng(lat, longi);
+                    CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+                            loc, mMap.getCameraPosition().zoom);
+                    mMap.animateCamera(location);
+                    markers.get(position).showInfoWindow();
                 }
                 else {
                     Context c = getContext();

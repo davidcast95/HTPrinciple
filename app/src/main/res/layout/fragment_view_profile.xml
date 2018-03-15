@@ -32,7 +32,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nama"
-                    android:textColor="@color/Black"/>
+                    android:textColor="@color/Black"
+                    android:id="@+id/name_text"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phone"
-                    android:textColor="@color/Black"/>
+                    android:textColor="@color/Black"
+                    android:id="@+id/phone_text"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +70,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email"
-                    android:textColor="@color/Black"/>
+                    android:textColor="@color/Black"
+                    android:id="@+id/email_text"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,7 +89,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Address"
-                    android:textColor="@color/Black"/>
+                    android:textColor="@color/Black"
+                    android:id="@+id/address_text"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

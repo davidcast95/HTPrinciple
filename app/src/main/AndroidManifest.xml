@@ -5,23 +5,12 @@
     <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="true" />
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <service
-        android:name=".MyFirebaseMessagingService">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-        </intent-filter>
-    </service>
-    <service
-        android:name=".MyFirebaseInstanceIDService">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-        </intent-filter>
-    </service>
+
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
+         location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -32,6 +21,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".Firebase.FirebaseMessageService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Firebase.FIRInstanceIDServices">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
         <activity
             android:name="huang.android.logistic_principle.Login"
             android:theme="@style/AppTheme.NoActionBar"
@@ -48,6 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="huang.android.logistic_principle.MainActivity"
             android:label="@string/app_name"
@@ -71,7 +74,18 @@
             android:name="huang.android.logistic_principle.Maps.TrackOrderMaps"
             android:parentActivityName="huang.android.logistic_principle.JobOrder.TrackHistory"
             android:configChanges="orientation"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="huang.android.logistic_principle.JobOrder.TrackHistory" />
+        </activity>
+        <activity
+            android:name="huang.android.logistic_principle.JobOrder.Gallery.GalleryActivity"
+            android:parentActivityName="huang.android.logistic_principle.JobOrder.TrackHistory"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="huang.android.logistic_principle.JobOrder.TrackHistory" />
@@ -84,6 +98,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="huang.android.logistic_principle.JobOrder.Base.DetailOrder" />
+        </activity>
+        <activity
+            android:name="huang.android.logistic_principle.Maps.LiveMaps"
+            android:parentActivityName="huang.android.logistic_principle.JobOrder.TrackHistory"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="huang.android.logistic_principle.JobOrder.TrackHistory" />
         </activity>
         <activity
             android:name="huang.android.logistic_principle.JobOrder.Base.DetailOrder"
@@ -144,6 +167,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name="huang.android.logistic_principle.Home.AddStopLocation"
+            android:parentActivityName="huang.android.logistic_principle.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name="huang.android.logistic_principle.Home.EditStopLocation"
+            android:parentActivityName="huang.android.logistic_principle.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name="huang.android.logistic_principle.RequestAService.ChooseVendor"
             android:parentActivityName=".RequestAService.RequestAService"
             android:configChanges="orientation"
@@ -153,6 +192,15 @@
                 android:value=".RequestAService.RequestAService" />
         </activity>
 
+        <activity
+            android:name=".Chat.Chat"
+            android:parentActivityName=".JobOrder.OnProgress.DetailOnProgressOrder"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".JobOrder.OnProgress.DetailOnProgressOrder" />
+        </activity>
 
     </application>
 

@@ -43,7 +43,7 @@ public class ChangePassword extends AppCompatActivity {
     }
     public void getLanguage(){
         SharedPreferences prefs = this.getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
+        String language = prefs.getString("language","Bahasa Indonesia");
 
         if(language.contentEquals("English")){
             setLocal("en");

@@ -8,18 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.paging.listview.PagingListView;
+
+import huang.android.logistic_principle.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderData;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_principle.Model.JobOrderRoute.JobOrderRouteResponse;
 import huang.android.logistic_principle.Model.MyCookieJar;
 import huang.android.logistic_principle.R;
 import huang.android.logistic_principle.ServiceAPI.API;
 import huang.android.logistic_principle.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,15 +31,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OnProgressOrder extends Fragment {
+public class OnProgressOrder extends Fragment implements PagingListView.Pagingable{
 
     TextView noData;
     View v;
-    OnPendingAdapter onPendingAdapter;
-    ListView lv;
+    PagingListView lv;
     ProgressBar loading;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    public static List<JobOrderData> jobOrders;
+    public static List<JobOrderData> jobOrders = new ArrayList<>();
+    OnProgressAdapter onProgressAdapter;
+    int pager = 0, limit = 20;
+
+    String lastQuery = "";
 
     public OnProgressOrder() {
         // Required empty public constructor
@@ -47,7 +54,7 @@ public class OnProgressOrder extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_job_order, container, false);
 
-        lv=(ListView)v.findViewById(R.id.layout);
+        lv=(PagingListView) v.findViewById(R.id.layout);
         noData=(TextView)v.findViewById(R.id.text_no_data);
         loading=(ProgressBar)v.findViewById(R.id.loading);
 
@@ -59,7 +66,11 @@ public class OnProgressOrder extends Fragment {
                 refreshItems();
             }
         });
-
+        onProgressAdapter = new OnProgressAdapter(v.getContext(), R.layout.fragment_job_order_list, jobOrders);
+        lv.setOnItemClickListener(onListClick);
+        lv.setAdapter(onProgressAdapter);
+        lv.setHasMoreItems(false);
+        lv.setPagingableListener(this);
         return v;
     }
 
@@ -80,6 +91,8 @@ public class OnProgressOrder extends Fragment {
     };
 
     void refreshItems() {
+        pager = 0;
+        onProgressAdapter.clear();
         getOnProgressOrder("");
     }
 
@@ -90,23 +103,26 @@ public class OnProgressOrder extends Fragment {
 
     void getOnProgressOrder(String ref_id) {
         noData.setVisibility(View.GONE);
-        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String principle = Utility.utility.getLoggedName(this.getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.IN_PROGRESS+"\"],[\"Job Order\",\"principle\",\"=\",\"" + principle + "\"],[\"Job Order\",\"reference\",\"like\",\"" + ref_id + "%\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.IN_PROGRESS,  principle,  ref_id + "%", "" + (pager++ * limit));
+        callJO.enqueue(new Callback<GetJobOrderResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    JobOrderResponse jobOrderResponse = response.body();
-                    jobOrders = jobOrderResponse.jobOrders;
+            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
+                    GetJobOrderResponse jobOrderResponse = response.body();
+                    if (jobOrderResponse.jobOrders != null) {
+                        onProgressAdapter.addAll(jobOrderResponse.jobOrders);
+
+                        lv.onFinishLoading(true,jobOrderResponse.jobOrders);
+                    } else {
+                        lv.onFinishLoading(false,null);
+                    }
                     if (jobOrders.size() == 0) {
                         noData.setVisibility(View.VISIBLE);
-                    } else {
-                        OnPendingAdapter onPendingAdapter = new OnPendingAdapter(v.getContext(), R.layout.fragment_job_order_list, jobOrders);
-                        lv.setOnItemClickListener(onListClick);
-                        lv.setAdapter(onPendingAdapter);
+                    }
+                    else {
                         lv.setVisibility(View.VISIBLE);
                     }
                     loading.setVisibility(View.GONE);
@@ -116,15 +132,24 @@ public class OnProgressOrder extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
                 Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
             }
         });
     }
 
+
+
     public void searchJobOrder(String query) {
         loading.setVisibility(View.VISIBLE);
+        lastQuery = query;
+        pager = 0;
+        onProgressAdapter.clear();
         getOnProgressOrder(query);
     }
 
+    @Override
+    public void onLoadMoreItems() {
+        getOnProgressOrder(lastQuery);
+    }
 }

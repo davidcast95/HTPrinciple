@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import huang.android.logistic_principle.Fonts.Hind;
 import huang.android.logistic_principle.Model.MyCookieJar;
 import huang.android.logistic_principle.Model.Profil.Profil;
 import huang.android.logistic_principle.Model.Profil.ProfilResponse;
@@ -34,10 +35,26 @@ public class MyProfile extends Fragment {
         // Inflate the layout for this fragment
 
         v = inflater.inflate(R.layout.fragment_view_profile, container, false);
+
+        TextView nameText = (TextView)v.findViewById(R.id.name_text),
+                emailText = (TextView)v.findViewById(R.id.email_text),
+                phoneText = (TextView)v.findViewById(R.id.phone_text),
+                addressText = (TextView)v.findViewById(R.id.address_text);
+
+        Utility.utility.setFont(nameText,Hind.LIGHT,getContext());
+        Utility.utility.setFont(emailText,Hind.LIGHT,getContext());
+        Utility.utility.setFont(phoneText,Hind.LIGHT,getContext());
+        Utility.utility.setFont(addressText,Hind.LIGHT,getContext());
+
         nameTextEdit = (TextView)v.findViewById(R.id.name);
         phoneTextEdit = (TextView)v.findViewById(R.id.telephone);
         emailTextEdit = (TextView)v.findViewById(R.id.email);
         addresTextEdit = (TextView)v.findViewById(R.id.address);
+
+        Utility.utility.setFont(nameTextEdit, Hind.MEDIUM,getContext());
+        Utility.utility.setFont(phoneTextEdit, Hind.MEDIUM,getContext());
+        Utility.utility.setFont(emailTextEdit, Hind.MEDIUM,getContext());
+        Utility.utility.setFont(addresTextEdit, Hind.MEDIUM,getContext());
 
         return v;
     }
@@ -57,7 +74,7 @@ public class MyProfile extends Fragment {
         profilResponseCall.enqueue(new Callback<ProfilResponse>() {
             @Override
             public void onResponse(Call<ProfilResponse> call, Response<ProfilResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
                     ProfilResponse profilResponse = response.body();
                     List<Profil> profils = profilResponse.data;
                     if (profils.size() > 0) {

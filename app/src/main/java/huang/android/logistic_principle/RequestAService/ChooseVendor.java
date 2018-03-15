@@ -76,7 +76,7 @@ public class ChooseVendor extends AppCompatActivity {
         callVendor.enqueue(new Callback<VendorResponse>() {
             @Override
             public void onResponse(Call<VendorResponse> call, Response<VendorResponse> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response,"")) {
                     VendorResponse vendorResponse = response.body();
                     List<VendorData> vendors = vendorResponse.vendors;
                     ChooseVendorAdapter adapter = new ChooseVendorAdapter(ChooseVendor.this, vendors);

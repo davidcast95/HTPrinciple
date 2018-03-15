@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
     }
 
     //API Connectivity
-    void doLogin(String usr, String pw) {
+    void doLogin(final String usr, String pw) {
         //create client to get cookies from OkHttp
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         cookieJar = new MyCookieJar();
@@ -94,7 +94,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onResponse(Call<LoginPrinciple> call, Response<LoginPrinciple> response) {
 
-                if(Utility.utility.catchResponse(getActivity().getApplicationContext(), response)){
+                if(Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"user login with " + usr)){
                     Utility.utility.saveCookieJarToPreference(cookieJar, getActivity());
 
                     //change fragment to profile

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class VendorData {
-    @SerializedName("nama")
+    @SerializedName("name")
     public String name;
     @SerializedName("telp")
     public String phone;

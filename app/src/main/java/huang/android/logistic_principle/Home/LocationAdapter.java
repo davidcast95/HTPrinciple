@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import huang.android.logistic_principle.Fonts.Hind;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderData;
 import huang.android.logistic_principle.Model.Location.Location;
 import huang.android.logistic_principle.R;
@@ -48,7 +49,9 @@ public class LocationAdapter extends ArrayAdapter<Location> {
         }
 
         TextView wareHouseTitle = (TextView)view.findViewById(R.id.list_warehouse_name);
+        Utility.utility.setFont(wareHouseTitle, Hind.REGULAR,getContext());
         TextView locationDetails = (TextView)view.findViewById(R.id.list_location_details);
+        Utility.utility.setFont(locationDetails, Hind.MEDIUM,getContext());
 
         if (list.get(position) == null) return view;
         if (list.get(position).code == null)

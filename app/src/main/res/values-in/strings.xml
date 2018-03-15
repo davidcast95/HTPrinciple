@@ -20,8 +20,8 @@
     <!--HOME-->
     <string name="home">Beranda</string>
     <string name="home_logistic">Layanan Logistik</string>
-    <string name="home_origin">Lokasi Pengambilan</string>
-    <string name="home_destination">Lokasi Tujuan</string>
+    <string name="origin">Lokasi Pengambilan</string>
+    <string name="destination">Lokasi Tujuan</string>
     <string name="home_request_button">Meminta Layanan</string>
     <string name="home_vendor">Mitra kita</string>
     <string name="home_complete">Selesai</string>
@@ -34,10 +34,77 @@
 
     <!--REQUEST A SERVICE-->
     <string name="request_a_service">Meminta Layanan</string>
+    <string name="ras_fieldrequired">kolom ini wajib diisi</string>
+    <string name="ras_routeinfo">Informasi Rute</string>
+    <string name="ras_refno">Nomor Referensi</string>
+    <string name="ras_cpinfo">Informasi Kontak</string>
+    <string name="ras_strictinfo">Strict (Penyedia jasa diharuskan memenuhi ekspektasi tipe truk)</string>
 
+
+    <!--HISTORY PESANAN-->
+    <string name="order_history">History Pesanan</string>
+    <string name="order_history_active">Aktif</string>
+    <string name="order_history_onprogress">Dalam Pengerjaan</string>
+    <string name="order_history_completed">Selesai</string>
+
+    <!--DETAIL PESANAN-->
+    <string name="dp">Detail Pesanan</string>
+    <string name="dpa">Detail Pesanan Aktif</string>
+    <string name="dpd">Detail Pesanan Selesai</string>
+
+    <string name="dp_vendorinfo">Informasi Penyedia Jasa</string>
+    <string name="dp_vendorname">Nama</string>
+    <string name="dp_vendorcpname">Nama CP</string>
+    <string name="dp_vendorcpphone">Telp CP</string>
+
+    <string name="dp_principleinfo">Informasi Pengguna Jasa</string>
+    <string name="dp_principlename">Nama</string>
+    <string name="dp_principlecpname">Nama CP</string>
+    <string name="dp_principlecpphone">Telp CP</string>
+
+    <string name="dp_cargoinfo">Informasi Muatan</string>
+    <string name="dp_estpick">Tanggal Pengambilan</string>
+    <string name="dp_estdelivered">Tanggal Diterima</string>
+    <string name="dp_estvolume">Estimasi Volume</string>
+    <string name="dp_exptrucktype">Ekspektasi Tipe Truk</string>
+    <string name="dp_hullno">No Lambung</string>
+    <string name="dp_cargotruck">Truk</string>
+    <string name="dp_cargotrucktype">Tipe Truk</string>
+    <string name="dp_cargodetails">Detail Muatan</string>
+    <string name="dp_cargonote">Catatan</string>
+
+    <string name="dp_infobarang">Info Barang</string>
+    <string name="dp_volume">Volume</string>
+    <string name="dp_netweight">Berat Bersih</string>
+    <string name="dp_quantitiy">Kuantitas</string>
+    <string name="dp_rutelaut">Info Rute Laut</string>
+    <string name="dp_desclaut">Perjalanan ini menggunakan rute laut!</string>
+    <string name="dp_veselname">Nama Vesel</string>
+    <string name="dp_precariage">Pra Kereta</string>
+    <string name="dp_maincariage">Kereta Utama</string>
+    <string name="dp_inforoute">Info Rute</string>
+    <string name="dp_biaya">Biaya</string>
+    <string name="dp_leadtime">Waktu</string>
+    <string name="dp_eta">Perkiraan Waktu Kedatangan</string>
+    <string name="dp_etd">Perkiraan Waktu Berangkat</string>
+    <string name="dp_totalleadtime">Total Waktu</string>
+    <string name="dp_totalbiaya">Total Biaya</string>
+    <string name="dp_pesanberita">Apakah anda ingin menerima pesanan ini?</string>
+    <string name="dp_drivername">Nama Driver</string>
+    <string name="dp_driverphone">Telepon Driver</string>
+    <string name="dp_trucknumber">Nomor Truk</string>
+    <string name="dp_trucktype">Type Truk</string>
+    <string name="dp_update">Update</string>
+
+    <!--PENDING DETAIL ORDER-->
+    <string name="pdo">Detail Pesanan Pending</string>
+
+    <!--DONE DETAIL ORDER-->
+    <string name="ddo">Detail Pesanan Selesai</string>
 
     <!--CHOOSE VENDOR-->
-    <string name="choose_vendor">Pilih Jasa</string>
+    <string name="choose_vendor">Pilih Penyedia Jasa</string>
+    <string name="change_vendor">Ubah Penyedia Jasa</string>
 
 
     <!--CHANGE PASSWORD-->
@@ -50,13 +117,14 @@
     <string name="hns">Bantuan</string>
     <string name="hns_l1">Dukungan administrator ada di sini untuk membantu.</string>
     <string name="hns_l2">Anda bisa menghubungi administrator dengan menekan tombol di bawah ini.</string>
-    <string name="hns_call">Telepom Admin</string>
+    <string name="hns_call">Telepon Admin</string>
 
     <!--MY PROFILE-->
     <!--MY PROFILE-->
     <string name="my_profile">Profil Saya</string>
     <string name="my_profile_username">Nama Pengguna</string>
     <string name="my_profile_name">Nama</string>
+    <string name="my_profile_phone">Telepon</string>
     <string name="my_profile_customer_group">Tipe Customer</string>
     <string name="my_profile_gender">Gender</string>
     <string name="my_profile_change_password">Change Password</string>
@@ -122,8 +190,47 @@
     <string name="track_order_list_status_theresproblem">Terjadi Masalah</string>
     <string name="track_order_list_status_cancel">Ditolak</string>
 
+
+    <string name="confirm_vendor">telah dikonfirmasi oleh vendor pada</string>
+    <string name="warning_no_location_available">Tunggu hingga ada perubahan lokasi</string>
+    <string name="loading_text_first_update_location">Tunggu sebentar hingga ada perubahan lokasi baru</string>
+    <string name="title_live_maps">Lokasi terakhir</string>
+
     <!--OTHER-->
     <string name="nla">Lokasi Tidak Tersedia</string>
-    <string name="version">Versi 1.1.2 build 7</string>
-
+    <string name="version">Versi 1.6</string>
+    <string name="warning_location">lokasi wajib diisi</string>
+    <string name="warning_cp">contact person wajib diisi</string>
+    <string name="warning_item_info">info barang wajib diisi</string>
+    <string name="add_stop_location">Tambah Pemberhentian</string>
+    <string name="status">Status</string>
+    <string name="location">Lokasi</string>
+    <string name="new_stop_location">Pemberhentian Baru</string>
+    <string name="cp">Contact Person</string>
+    <string name="item_info">Info Barang</string>
+    <string name="remark">Keterangan</string>
+    <string name="confirm_service">Konfirmasi Layanan</string>
+    <string name="confirm_delete">Apakah anda yakin untuk menghapus data ini ?</string>
+    <string name="confirm_delete_stop_location">Lokasi ini tidak dapat dikembalikan setelah dihapus!</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
+    <string name="stop_location">tempat pemberhentian</string>
+    <string name="type">Tipe</string>
+    <string name="rejected_job_order">Pesanan Ditolak</string>
+    <string name="create_a_new">Buat baru</string>
+    <string name="msg_vendor_rejected">Vendor menolak pekerjaan ini, segera lakukan perubahan vendor</string>
+    <string name="title_rejected_jo">Job Order Ditolak</string>
+    <string name="msg_vendor_rto">"Vendor belum menerima pekerjaan ini lebih dari "</string>
+    <string name="hour">jam</string>
+    <string name="type_your_message">ketik pesan</string>
+    <string name="message">Pesan</string>
+    <string name="additional_stop_location">Tambahan Pemberhentian</string>
+    <string name="vendor_information">Informasi Penyedia Jasa</string>
+    <string name="rejected_alert">Pesanan ini ditolak oleh Vendor</string>
+    <string name="no_update_location">Belum Ada Perubahan Lokasi</string>
+    <string name="last_update_on">Perubahan terakhir pada</string>
+    <string name="unable_to_load_image">Tidak dapat mengambil gambar</string>
+    <string name="no_image">Tidak ada gambar yang tersedia</string>
+    <string name="jo_update_image">Gambar Job Order Update</string>
+    <string name="last_position">Posisi Terakhir</string>
 </resources>

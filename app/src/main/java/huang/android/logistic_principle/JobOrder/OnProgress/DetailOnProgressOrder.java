@@ -41,6 +41,16 @@ public class DetailOnProgressOrder extends DetailOrder {
 
     @Override
     public String getMenuTitle() {
-        return "Active Order Details";
+        return getString(R.string.dpa);
+    }
+
+    @Override
+    protected String getFrom() {
+        return "active";
+    }
+
+    @Override
+    protected int getMenuType() {
+        return R.menu.trackorderlist_titlebar_with_message;
     }
 }

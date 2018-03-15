@@ -15,16 +15,26 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import huang.android.logistic_principle.Base.SpinnerStringAdapter;
+import huang.android.logistic_principle.Fonts.Hind;
+import huang.android.logistic_principle.Home.AddStopLocation;
+import huang.android.logistic_principle.Home.EditStopLocation;
 import huang.android.logistic_principle.Home.Home;
 import huang.android.logistic_principle.Home.SearchLocation;
+import huang.android.logistic_principle.Home.StopLocationAdapter;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderCreationResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderData;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_principle.Model.JobOrderRoute.JobOrderRouteCreationResponse;
+import huang.android.logistic_principle.Model.JobOrderRoute.JobOrderRouteData;
 import huang.android.logistic_principle.Model.MyCookieJar;
 import huang.android.logistic_principle.Model.Principle.PrincipleContactPersonData;
 import huang.android.logistic_principle.Model.Principle.PrincipleContactPersonResponse;
@@ -32,6 +42,8 @@ import huang.android.logistic_principle.Model.Truck.TruckTypeResponse;
 import huang.android.logistic_principle.R;
 import huang.android.logistic_principle.ServiceAPI.API;
 import huang.android.logistic_principle.Utility;
+
+import com.google.android.gms.vision.text.Line;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -53,20 +65,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestAService extends AppCompatActivity {
 
-    LinearLayout chooseVendor, vendorInfo, changeVendor;
-    TextView originWarning, destinationWarning, refIDWarning, vendorName, vendorAddress;
+    RelativeLayout loading;
+    ListView stopLocationList;
+    LinearLayout addStopButton, chooseVendor, vendorInfo, changeVendor;
+    TextView originWarning, destinationWarning, refIDWarning, vendorName, vendorAddress, additionalStopLocation;
     EditText  refID, principleName, principleCP, loadDateEditText, unloadDateEditText, cargoInfoEditText, notesEditText, volumeTextEdit;
 
     EditText originEditText, destinationEditText;
     LinearLayout originDetails, destinationDetails;
+    RelativeLayout originIndicator, destinationIndicator;
     Button chooseVendorButton, changeVendorButton, requestButton;
     Spinner principleDropdown, trucktypeDropdown, metricDropdown;
     CheckBox strictCheckbox;
+    ImageView originIcon, destinationIcon, pickUpOrigin, dropOrigin, pickUpDestination, dropDestination;
 
     List<PrincipleContactPersonData> cps = null;
 
-    String[] principleCPs = new String[]{ "Create a new" };
-    String[] metrics = new String[]{ "m3", "ton" };
+    List<String> principleCPs = new ArrayList<>();
+    List<String> metrics = new ArrayList<>();
     List<String> truckTypes = new ArrayList<>();
 
     Calendar calendar = Calendar.getInstance();
@@ -79,51 +95,145 @@ public class RequestAService extends AppCompatActivity {
     boolean insertedCP = false, isRequestButtonClick = false;
 
     Date load_date, unload_date;
+    Boolean isLoading=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utility.utility.getLanguage(this);
+        principleCPs.add(getString(R.string.create_a_new));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_aservice);
 
+        TextView routeInfoText = (TextView)findViewById(R.id.route_info_text);
+        Utility.utility.setFont(routeInfoText,Hind.BOLD,getApplicationContext());
+        TextView addStopButtonText = (TextView)findViewById(R.id.add_stop_button_text);
+        Utility.utility.setFont(addStopButtonText,Hind.LIGHT,getApplicationContext());
+        TextView vendorText = (TextView)findViewById(R.id.vendor_info_text);
+        Utility.utility.setFont(vendorText,Hind.BOLD,getApplicationContext());
+        TextView refText = (TextView)findViewById(R.id.ref_text);
+        Utility.utility.setFont(refText,Hind.LIGHT,getApplicationContext());
+        TextView cpText = (TextView)findViewById(R.id.contact_info_text);
+        Utility.utility.setFont(cpText,Hind.BOLD,getApplicationContext());
+        TextView nameText = (TextView)findViewById(R.id.name_text);
+        Utility.utility.setFont(nameText,Hind.LIGHT,getApplicationContext());
+        TextView phoneText = (TextView)findViewById(R.id.phone_text);
+        Utility.utility.setFont(phoneText,Hind.LIGHT,getApplicationContext());
+        TextView cargoText = (TextView)findViewById(R.id.cargo_info_text);
+        Utility.utility.setFont(cargoText,Hind.BOLD,getApplicationContext());
+        TextView pickText = (TextView)findViewById(R.id.pick_date_text);
+        Utility.utility.setFont(pickText,Hind.LIGHT,getApplicationContext());
+        TextView delivText = (TextView)findViewById(R.id.delivered_date_text);
+        Utility.utility.setFont(delivText,Hind.LIGHT,getApplicationContext());
+        TextView notesText = (TextView)findViewById(R.id.notes_text);
+        Utility.utility.setFont(notesText,Hind.LIGHT,getApplicationContext());
+        TextView volText = (TextView)findViewById(R.id.vol_text);
+        Utility.utility.setFont(volText,Hind.LIGHT,getApplicationContext());
+        TextView expectedTruckText = (TextView)findViewById(R.id.expected_truck_type_text);
+        Utility.utility.setFont(expectedTruckText,Hind.LIGHT,getApplicationContext());
+
+        TextView warning1 = (TextView)findViewById(R.id.warning1);
+        Utility.utility.setFont(warning1,Hind.LIGHT,getApplicationContext());
+        TextView warning2 = (TextView)findViewById(R.id.warning2);
+        Utility.utility.setFont(warning2,Hind.LIGHT,getApplicationContext());
+        TextView warning3 = (TextView)findViewById(R.id.warning3);
+        Utility.utility.setFont(warning3,Hind.LIGHT,getApplicationContext());
+        TextView warning4 = (TextView)findViewById(R.id.warning4);
+        Utility.utility.setFont(warning4,Hind.LIGHT,getApplicationContext());
+
+
+        originIndicator = (RelativeLayout)findViewById(R.id.origin_indicator);
+        destinationIndicator = (RelativeLayout)findViewById(R.id.destination_indicator);
+        additionalStopLocation = (TextView)findViewById(R.id.additional_stop_location);
+        Utility.utility.setFont(additionalStopLocation, Hind.LIGHT,getApplicationContext());
+        if (Home.routes.size() > 0) {
+            additionalStopLocation.setVisibility(View.VISIBLE);
+        } else {
+            additionalStopLocation.setVisibility(View.GONE);
+        }
+        originIcon = (ImageView)findViewById(R.id.origin_icon);
+        destinationIcon = (ImageView)findViewById(R.id.destination_icon);
+
+        originIndicator = (RelativeLayout)findViewById(R.id.origin_indicator);
+        destinationIndicator = (RelativeLayout)findViewById(R.id.destination_indicator);
+
+        pickUpOrigin = (ImageView)findViewById(R.id.pickup_origin_icon);
+        dropOrigin = (ImageView)findViewById(R.id.drop_origin_icon);
+
+        pickUpDestination = (ImageView)findViewById(R.id.pickup_destination_icon);
+        dropDestination = (ImageView)findViewById(R.id.drop_destination_icon);
+
+
+        loading=(RelativeLayout)findViewById(R.id.loading);
+        loading.setVisibility(View.GONE);
+
+        addStopButton = (LinearLayout) findViewById(R.id.add_stop_button);
+        stopLocationList = (ListView)findViewById(R.id.stop_location_list);
+
+        addStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addStopButtonClicked();
+            }
+        });
+
+        initStopLocation();
 
         chooseVendor = (LinearLayout)findViewById(R.id.ras_choose_vendor);
         vendorInfo = (LinearLayout)findViewById(R.id.ras_vendor_information);
         changeVendor = (LinearLayout)findViewById(R.id.ras_change_vendor);
 
-        originEditText = (EditText) findViewById(R.id.ras_origin);
-        destinationEditText = (EditText) findViewById(R.id.ras_destination);
+        originEditText = (EditText) findViewById(R.id.home_origin);
+        Utility.utility.setFont(originEditText,Hind.MEDIUM,getApplicationContext());
+        destinationEditText = (EditText) findViewById(R.id.home_destination);
+        Utility.utility.setFont(destinationEditText,Hind.MEDIUM,getApplicationContext());
         originDetails = (LinearLayout) findViewById(R.id.home_origin_details) ;
         destinationDetails = (LinearLayout) findViewById(R.id.home_destination_details) ;
 
-        originWarning = (TextView)findViewById(R.id.ras_origin_warning);
-        destinationWarning = (TextView)findViewById(R.id.ras_destination_warning);
+        originWarning = (TextView)findViewById(R.id.home_origin_warning);
+        Utility.utility.setFont(originWarning,Hind.LIGHT,getApplicationContext());
+        destinationWarning = (TextView)findViewById(R.id.home_destination_warning);
+        Utility.utility.setFont(destinationWarning,Hind.LIGHT,getApplicationContext());
         refIDWarning = (TextView)findViewById(R.id.ras_ref_id_warning);
+        Utility.utility.setFont(refIDWarning,Hind.LIGHT,getApplicationContext());
         refID = (EditText)findViewById(R.id.ras_ref_id);
+        Utility.utility.setFont(refID,Hind.MEDIUM,getApplicationContext());
         vendorName = (TextView)findViewById(R.id.ras_vendor_name);
+        Utility.utility.setFont(vendorName,Hind.MEDIUM,getApplicationContext());
         vendorAddress = (TextView)findViewById(R.id.ras_vendor_address);
+        Utility.utility.setFont(vendorAddress,Hind.LIGHT,getApplicationContext());
         principleName = (EditText) findViewById(R.id.ras_principle_name);
+        Utility.utility.setFont(principleName,Hind.MEDIUM,getApplicationContext());
         principleCP = (EditText) findViewById(R.id.ras_principle_cp);
+        Utility.utility.setFont(principleCP,Hind.MEDIUM,getApplicationContext());
         loadDateEditText = (EditText)findViewById(R.id.ras_cargo_load_date);
+        Utility.utility.setFont(loadDateEditText,Hind.MEDIUM,getApplicationContext());
         unloadDateEditText = (EditText)findViewById(R.id.ras_cargo_unload_date);
+        Utility.utility.setFont(unloadDateEditText,Hind.MEDIUM,getApplicationContext());
         cargoInfoEditText = (EditText)findViewById(R.id.ras_cargo_info);
         notesEditText = (EditText)findViewById(R.id.ras_cargo_notes);
+        Utility.utility.setFont(notesEditText,Hind.MEDIUM,getApplicationContext());
         volumeTextEdit = (EditText)findViewById(R.id.ras_volume);
+        Utility.utility.setFont(volumeTextEdit,Hind.MEDIUM,getApplicationContext());
         strictCheckbox = (CheckBox)findViewById(R.id.ras_strict);
+        Utility.utility.setFont(strictCheckbox,Hind.MEDIUM,getApplicationContext());
 
 
         chooseVendorButton = (Button)findViewById(R.id.ras_choose_vendor_button);
+        Utility.utility.setFont(chooseVendorButton,Hind.BOLD,getApplicationContext());
         changeVendorButton = (Button)findViewById(R.id.ras_change_vendor_button);
+        Utility.utility.setFont(changeVendorButton,Hind.BOLD,getApplicationContext());
         requestButton = (Button)findViewById(R.id.ras_request_button);
+        Utility.utility.setFont(requestButton,Hind.BOLD,getApplicationContext());
 
         principleDropdown = (Spinner)findViewById(R.id.ras_principle_dropdown);
-        ArrayAdapter<String> principleDropdownAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, principleCPs);
+        SpinnerStringAdapter principleDropdownAdapter = new SpinnerStringAdapter(getApplicationContext(),principleCPs);
         principleDropdown.setAdapter(principleDropdownAdapter);
 
         trucktypeDropdown = (Spinner)findViewById(R.id.ras_truck_type_dropdown);
 
         metricDropdown = (Spinner)findViewById(R.id.ras_volume_metric);
-        ArrayAdapter<String> volumeMetricsDropdownAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, metrics);
+        metrics.add("m3"); metrics.add("ton");
+        SpinnerStringAdapter volumeMetricsDropdownAdapter = new SpinnerStringAdapter(this, metrics);
         metricDropdown.setAdapter(volumeMetricsDropdownAdapter);
 
         cargoInfoEditText.setVerticalScrollBarEnabled(true);
@@ -148,24 +258,39 @@ public class RequestAService extends AppCompatActivity {
         originEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RequestAService.this, SearchLocation.class);
-                intent.putExtra("mode","origin");
-                startActivityForResult(intent,100);
+                if (originEditText.getText().toString().equals("")) {
+                    Intent intent = new Intent(getApplicationContext(), AddStopLocation.class);
+                    intent.putExtra("mode", "origin");
+                    startActivityForResult(intent, 100);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), EditStopLocation.class);
+                    intent.putExtra("source", "origin");
+                    startActivityForResult(intent, 100);
+                }
             }
         });
 
         destinationEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RequestAService.this, SearchLocation.class);
-                intent.putExtra("mode","destination");
-                startActivityForResult(intent,200);
+                if (destinationEditText.getText().toString().equals("")) {
+                    Intent intent = new Intent(getApplicationContext(), AddStopLocation.class);
+                    intent.putExtra("mode", "destination");
+                    startActivityForResult(intent, 200);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), EditStopLocation.class);
+                    intent.putExtra("source", "destination");
+                    startActivityForResult(intent, 200);
+                }
             }
         });
+        Utility.utility.setEditText(originEditText,Utility.utility.longFormatLocation(Home.origin.loc));
+        Utility.utility.setEditText(destinationEditText, Utility.utility.longFormatLocation(Home.destination.loc));
 
-        originEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.origin)));
-        destinationEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.destination)));
+        updateOriginIndicator();
+        updateDestinationIndicator();
 
+        Utility.utility.setFont(requestButton,Hind.BOLD,getApplicationContext());
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,8 +339,7 @@ public class RequestAService extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
-
+        updateStateUI();
 
         setTitle(R.string.request_a_service);
     }
@@ -223,11 +347,10 @@ public class RequestAService extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        updateStopLocationButton();
         fetchCPs();
         fetchTruckTypes();
-        updateStateUI();
     }
-
 
 
     @Override
@@ -240,21 +363,116 @@ public class RequestAService extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                if (!isLoading)
+                    this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String name = data.getStringExtra("name"),
+                        address = data.getStringExtra("address");
+                vendorName.setText(name);
+                vendorAddress.setText(address);
+                updateStateUI();
+            }
+        }
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            Utility.utility.setEditText(originEditText,Utility.utility.longFormatLocation(Home.origin.loc));
+            updateStopLocationButton();
+            updateOriginIndicator();
+        }
+        updateStopLocation();
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            Utility.utility.setEditText(destinationEditText, Utility.utility.longFormatLocation(Home.destination.loc));
+            updateStopLocationButton();
+            updateDestinationIndicator();
+        }
+    }
+
     //Actions
+
+    void updateOriginIndicator() {
+        originIndicator.setVisibility(View.GONE);
+        originIcon.setVisibility(View.VISIBLE);
+        if (Home.origin.type.equals("Pick Up")) {
+            originIcon.setVisibility(View.GONE);
+            originIndicator.setVisibility(View.VISIBLE);
+            pickUpOrigin.setVisibility(View.VISIBLE);
+            dropOrigin.setVisibility(View.GONE);
+        } else {
+            originIcon.setVisibility(View.GONE);
+            originIndicator.setVisibility(View.VISIBLE);
+            pickUpOrigin.setVisibility(View.GONE);
+            dropOrigin.setVisibility(View.VISIBLE);
+        }
+    }
+    void updateDestinationIndicator() {
+        destinationIndicator.setVisibility(View.GONE);
+        destinationIcon.setVisibility(View.VISIBLE);
+        if (Home.destination.type.equals("Pick Up")) {
+            destinationIcon.setVisibility(View.GONE);
+            destinationIndicator.setVisibility(View.VISIBLE);
+            pickUpDestination.setVisibility(View.VISIBLE);
+            dropDestination.setVisibility(View.GONE);
+        } else {
+            destinationIcon.setVisibility(View.GONE);
+            destinationIndicator.setVisibility(View.VISIBLE);
+            pickUpDestination.setVisibility(View.GONE);
+            dropDestination.setVisibility(View.VISIBLE);
+        }
+    }
+    void addStopButtonClicked() {
+        Intent intent = new Intent(getApplicationContext(), AddStopLocation.class);
+        intent.putExtra("mode","stop");
+        startActivityForResult(intent,250);
+    }
+
+    void initStopLocation() {
+        StopLocationAdapter stopLocationAdapter = new StopLocationAdapter(getApplicationContext(),Home.routes);
+        stopLocationList.setAdapter(stopLocationAdapter);
+        int height = getIntent().getIntExtra("listHeight",0);
+        Utility.utility.setListViewHeigth(stopLocationList,height);
+    }
+
+    void updateStopLocation() {
+        if (Home.routes.size() > 0) {
+            additionalStopLocation.setVisibility(View.VISIBLE);
+        } else {
+            additionalStopLocation.setVisibility(View.GONE);
+        }
+        StopLocationAdapter stopLocationAdapter = new StopLocationAdapter(getApplicationContext(),Home.routes);
+        stopLocationAdapter.setOnItemDelete(new Runnable() {
+            @Override
+            public void run() {
+                Home.listHeight = Utility.utility.setAndGetListViewHeightBasedOnChildren(stopLocationList);
+            }
+        });
+        stopLocationList.setAdapter(stopLocationAdapter);
+        Home.listHeight = Utility.utility.setAndGetListViewHeightBasedOnChildren(stopLocationList);
+    }
+
+    void updateStopLocationButton() {
+        if (originEditText.getText().toString().equals("")) {
+            addStopButton.setVisibility(View.GONE);
+        } else {
+            addStopButton.setVisibility(View.VISIBLE);
+        }
+    }
     void chooseVendorButtonClicked() {
         Intent chooseVendorIntent = new Intent(this, ChooseVendor.class);
         startActivityForResult(chooseVendorIntent, 1);
     }
     void requestButtonClicked() {
-        isRequestButtonClick = true;
-        updateStateUI();
+        if (!isLoading) {
+            isRequestButtonClick = true;
+            updateStateUI();
+        }
     }
 
     boolean validateLocation() {
@@ -281,7 +499,7 @@ public class RequestAService extends AppCompatActivity {
         if (refID.getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(), "Please fill reference number", Toast.LENGTH_SHORT).show();
         }
-        else if (vendor.equals("")) {
+        if (vendor.equals("")) {
             chooseVendor.setVisibility(View.VISIBLE);
             vendorInfo.setVisibility(View.GONE);
             changeVendor.setVisibility(View.GONE);
@@ -299,7 +517,7 @@ public class RequestAService extends AppCompatActivity {
                         unloadDate = unloadDateEditText.getText().toString(),
                         cargoInfo = cargoInfoEditText.getText().toString(),
                         notes = notesEditText.getText().toString();
-                if (loadDate.equals("") || unloadDate.equals("") || cargoInfo.equals("")) {
+                if (loadDate.equals("") || unloadDate.equals("")) {
                     Toast.makeText(getApplicationContext(), "Please fill Cargo Information", Toast.LENGTH_SHORT).show();
                 } else {
                     String origin = originEditText.getText().toString(),
@@ -312,11 +530,11 @@ public class RequestAService extends AppCompatActivity {
                     Boolean strict = this.strictCheckbox.isChecked();
                     if (volume.equals("")) {
                         Toast.makeText(getApplicationContext(),"Volume cannot be empty",Toast.LENGTH_SHORT).show();
-                    } else if (principleDropdown.equals("Create a new") && insertedCP == false) {
+                    } else if (principleDropdown.equals(getString(R.string.create_a_new)) && !insertedCP) {
                         insertedCP = false;
                         insertNewCP(nameCP, phoneCP);
                     } else if (isRequestButtonClick) {
-                        sendRequestAService(ref, name, vendor, Utility.utility.dateToFormatDatabase(load_date), Utility.utility.dateToFormatDatabase(unload_date), origin, cargoInfo, notes, dest,volume, truckTypeDropdown, strict);
+                        sendRequestAService(ref, name, cp, vendor, Utility.utility.dateToFormatDatabase(load_date), Utility.utility.dateToFormatDatabase(unload_date), origin, cargoInfo, notes, dest,volume, truckTypeDropdown, strict);
                     }
                 }
             }
@@ -329,29 +547,20 @@ public class RequestAService extends AppCompatActivity {
 
         if (datePickerState == LOAD_DATE_PICKER_DIALOG) {
             load_date = calendar.getTime();
-            loadDateEditText.setText(sdf.format(calendar.getTime()));
+            Utility.utility.setEditText(loadDateEditText,sdf.format(calendar.getTime()));
         } else if (datePickerState == UNLOAD_DATE_PICKER_DIALOG) {
             unload_date = calendar.getTime();
-            unloadDateEditText.setText(sdf.format(calendar.getTime()));
+            Utility.utility.setEditText(unloadDateEditText,sdf.format(calendar.getTime()));
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                String name = data.getStringExtra("name"),
-                        address = data.getStringExtra("address");
-                vendorName.setText(name);
-                vendorAddress.setText(address);
-                updateStateUI();
-            }
-        }
-        if (requestCode == 100) {
-            originEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.origin)));
-        }
-        if (requestCode == 200) {
-            destinationEditText.setText(Html.fromHtml(Utility.utility.formatLocation(Home.destination)));
+    void updateCPDropdown() {
+        if (principleDropdown.getSelectedItem().toString().equals(getString(R.string.create_a_new))) {
+            principleName.setEnabled(true);
+            principleCP.setEnabled(true);
+        } else {
+            principleName.setEnabled(false);
+            principleCP.setEnabled(false);
         }
     }
 
@@ -373,24 +582,23 @@ public class RequestAService extends AppCompatActivity {
         API api = retrofit.create(API.class);
         Call<PrincipleContactPersonResponse> callCP = api.getPrincipleCP("[[\"Principle Contact Person\", \"principle\", \"=\", \"" + name + "\"]]");
 
-        final Activity thisActivity = this;
 
         callCP.enqueue(new Callback<PrincipleContactPersonResponse>() {
             @Override
             public void onResponse(Call<PrincipleContactPersonResponse> call, Response<PrincipleContactPersonResponse> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response, "")) {
                     PrincipleContactPersonResponse cpResponse = response.body();
                     if (cpResponse.cps == null) {
                         return;
                     }
                     cps = cpResponse.cps;
-                    principleCPs = new String[cps.size() + 1];
+                    principleCPs.clear();
                     for (int i = 0; i < cps.size(); i++) {
-                        principleCPs[i] = cps.get(i).name + " (" + cps.get(i).phone + ")";
+                        principleCPs.add(cps.get(i).name + " (" + cps.get(i).phone + ")");
                     }
-                    principleCPs[cps.size()] = "Create a new";
-                    principleDropdown = (Spinner) findViewById(R.id.ras_principle_dropdown);
-                    ArrayAdapter<String> principleDropdownAdapter = new ArrayAdapter<String>(thisActivity, R.layout.support_simple_spinner_dropdown_item, principleCPs);
+                    principleCPs.add(getString(R.string.create_a_new));
+                    principleDropdown = (Spinner)findViewById(R.id.ras_principle_dropdown);
+                    SpinnerStringAdapter principleDropdownAdapter = new SpinnerStringAdapter(getApplicationContext(),principleCPs);
                     principleDropdown.setAdapter(principleDropdownAdapter);
                     principleDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -405,6 +613,7 @@ public class RequestAService extends AppCompatActivity {
                                 principleName.setText(cps.get(i).name);
                                 principleCP.setText(cps.get(i).phone);
                             }
+                            updateCPDropdown();
                         }
 
                         @Override
@@ -433,11 +642,11 @@ public class RequestAService extends AppCompatActivity {
         callTruckType.enqueue(new Callback<TruckTypeResponse>() {
             @Override
             public void onResponse(Call<TruckTypeResponse> call, Response<TruckTypeResponse> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response,"")) {
                     truckTypes = new ArrayList<String>();
                     for (int i=0;i<response.body().truckTypes.size();i++)
                         truckTypes.add(response.body().truckTypes.get(i).name);
-                    ArrayAdapter<String> truckTypeAdapter = new ArrayAdapter<String>(thisActivity, R.layout.support_simple_spinner_dropdown_item, truckTypes);
+                    SpinnerStringAdapter truckTypeAdapter = new SpinnerStringAdapter(thisActivity, truckTypes);
                     trucktypeDropdown.setAdapter(truckTypeAdapter);
                 }
             }
@@ -449,76 +658,21 @@ public class RequestAService extends AppCompatActivity {
         });
     }
 
-    void sendRequestAService(String ref_id, String principleCP, final String vendor, String load_date, String unload_date, String origin, String cargoInfo, String notes, String destination, String volume, String truckType, Boolean strict) {
-        String name = Utility.utility.getLoggedName(this);
-
-        JobOrderData jobOrderData = new JobOrderData();
-        jobOrderData.docstatus = 1;
-        jobOrderData.ref = ref_id;
-        jobOrderData.status = JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION;
-        jobOrderData.principle = name;
-
-        jobOrderData.principle_cp = principleCP + " (" + name + ")";
-        jobOrderData.vendor = vendor;
-        jobOrderData.etd = load_date;
-        jobOrderData.eta = unload_date;
-
-        jobOrderData.origin = Home.origin.name;
-        jobOrderData.origin_address = Home.origin.address;
-        jobOrderData.origin_city = Home.origin.city;
-        jobOrderData.origin_code = Home.origin.code;
-        jobOrderData.origin_warehouse = Home.origin.warehouse;
-
-
-        jobOrderData.destination = Home.destination.name;
-        jobOrderData.destination_address = Home.destination.address;
-        jobOrderData.destination_city = Home.destination.city;
-        jobOrderData.destination_code = Home.destination.code;
-        jobOrderData.destination_warehouse = Home.destination.warehouse;
-
-        jobOrderData.cargoInfo = cargoInfo;
-        jobOrderData.notes = notes;
-        jobOrderData.estimate_volume = volume;
-        jobOrderData.suggest_truck_type = truckType;
-        jobOrderData.strict = strict ? 1 : 0;
-
-        String a = new Gson().toJson(jobOrderData);
-
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        Call<JobOrderCreationResponse> jobOrderResponseCall = api.submitJobOrder(jobOrderData);
-        final Activity activity = this;
-        jobOrderResponseCall.enqueue(new Callback<JobOrderCreationResponse>() {
-            @Override
-            public void onResponse(Call<JobOrderCreationResponse> call, Response<JobOrderCreationResponse> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
-                    Toast.makeText(activity.getApplicationContext(),"Your request has been sent and wait to be approved by Vendor",Toast.LENGTH_LONG).show();
-                    activity.finish();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JobOrderCreationResponse> call, Throwable t) {
-                Utility.utility.showConnectivityWithError(getApplicationContext(), t);
-            }
-        });
-    }
 
     void insertNewCP(String name, String phone) {
         PrincipleContactPersonData cpData = new PrincipleContactPersonData();
         cpData.name = name;
         cpData.phone = phone;
         cpData.principle = Utility.utility.getLoggedName(this);
-        String json = new Gson().toJson(cpData);
+        final String json = new Gson().toJson(cpData);
 
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         Call<JSONObject> insertCPResponseCall = api.insertPrincipleCP(cpData);
-        final Activity activity = this;
         insertCPResponseCall.enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response,json)) {
                     insertedCP = true;
                     updateStateUI();
                 }
@@ -527,6 +681,79 @@ public class RequestAService extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONObject> call, Throwable t) {
 
+            }
+        });
+    }
+
+    boolean jobOrderRequestSuccess = false;
+
+    void sendRequestAService(String ref_id, String principleCPName, String principleCP, final String vendor, String load_date, String unload_date, String origin, String cargoInfo, String notes, String destination, String volume, String truckType, Boolean strict) {
+        if (isLoading) return;
+        loading.setVisibility(View.VISIBLE);
+        isLoading = true;
+        String name = Utility.utility.getLoggedName(this);
+
+        JobOrderData jobOrderData = new JobOrderData();
+        jobOrderData.docstatus = 1;
+        jobOrderData.ref = ref_id;
+        jobOrderData.status = JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION;
+        jobOrderData.principle = name;
+
+        jobOrderData.principle_cp = principleCPName + " (" + name + ")";
+        jobOrderData.principle_cp_name = principleCPName;
+        jobOrderData.principle_cp_phone = principleCP;
+        jobOrderData.vendor = vendor;
+        jobOrderData.etd = load_date;
+        jobOrderData.eta = unload_date;
+
+//            jobOrderData.origin = Home.origin.loc.name;
+//            jobOrderData.origin_address = Home.origin.address;
+//            jobOrderData.origin_city = Home.origin.city;
+//            jobOrderData.origin_code = Home.origin.loc.code;
+//            jobOrderData.origin_warehouse = Home.origin.loc.warehouse;
+//
+//
+//            jobOrderData.destination = Home.destination.loc.name;
+//            jobOrderData.destination_address = Home.destination.address;
+//            jobOrderData.destination_city = Home.destination.city;
+//            jobOrderData.destination_code = Home.destination.loc.code;
+//            jobOrderData.destination_warehouse = Home.destination.loc.warehouse;
+
+        jobOrderData.routes = new ArrayList<>();
+        jobOrderData.routes.add(Home.origin);
+        jobOrderData.routes.add(Home.destination);
+        for (int i=0;i<Home.routes.size();i++) {
+            jobOrderData.routes.add(Home.routes.get(i));
+        }
+
+        jobOrderData.cargoInfo = cargoInfo;
+        jobOrderData.notes = notes;
+        jobOrderData.estimate_volume = volume;
+        jobOrderData.suggest_truck_type = truckType;
+        jobOrderData.strict = strict ? 1 : 0;
+
+        final String json = new Gson().toJson(jobOrderData);
+
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        Call<JobOrderCreationResponse> jobOrderResponseCall = api.submitJobOrder(jobOrderData);
+        jobOrderResponseCall.enqueue(new Callback<JobOrderCreationResponse>() {
+            @Override
+            public void onResponse(Call<JobOrderCreationResponse> call, Response<JobOrderCreationResponse> response) {
+                isLoading = false;
+                if (Utility.utility.catchResponse(getApplicationContext(), response, json)) {
+                    jobOrderRequestSuccess = true;
+                    Home.routes.clear();
+                    Toast.makeText(getApplicationContext(),"Your request has been sent and wait to be approved by Vendor",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JobOrderCreationResponse> call, Throwable t) {
+                loading.setVisibility(View.GONE);
+                isLoading = false;
+                Utility.utility.showConnectivityWithError(getApplicationContext(), t);
             }
         });
     }

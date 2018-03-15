@@ -3,7 +3,6 @@ package huang.android.logistic_principle.JobOrder;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -19,10 +18,11 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import huang.android.logistic_principle.Fonts.Hind;
 import huang.android.logistic_principle.JobOrder.Done.DoneOrder;
 import huang.android.logistic_principle.JobOrder.OnProgress.OnProgressOrder;
 import huang.android.logistic_principle.JobOrder.Pending.PendingOrder;
-import huang.android.logistic_principle.Model.JobOrder.JobOrderResponse;
+import huang.android.logistic_principle.Model.JobOrder.JobOrderMetaDataResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderStatus;
 import huang.android.logistic_principle.Model.MyCookieJar;
 import huang.android.logistic_principle.R;
@@ -44,7 +44,7 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
 
     private MenuItem mSearchItem;
     private SearchView sv;
-    int pending = 0,onprogress = 0,done = 0;
+    int pending = 0,onprogress = 0,done = 0, rejected = 0;
 
     public OnProgressOrder progressOrder = new OnProgressOrder();
     public PendingOrder pendingOrder = new PendingOrder();
@@ -93,9 +93,9 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
                 Log.e("search",query);
                 int selectedItem = tabHost.getCurrentTab();
                 if (selectedItem == 0) {
-                    progressOrder.searchJobOrder(query);
-                } else if (selectedItem == 1) {
                     pendingOrder.searchJobOrder(query);
+                } else if (selectedItem == 1) {
+                    progressOrder.searchJobOrder(query);
                 } else {
                     doneOrder.searchJobOrder(query);
                 }
@@ -124,16 +124,16 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
         tabHost.setup();
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-        String language = prefs.getString("language","English");
+        String language = prefs.getString("language","Bahasa Indonesia");
         String[] tabs = new String[3];
         if(language.contentEquals("English")){
             tabs[0]="Pending";
-            tabs[1]="On Progress";
+            tabs[1]="Active";
             tabs[2]="Done";
         }
         else {
             tabs[0]="Pending";
-            tabs[1]="Dalam Proses";
+            tabs[1]="Aktif";
             tabs[2]="Selesai";
         }
         for(int i=0;i<3;i++){
@@ -196,90 +196,65 @@ public class ViewJobOrder extends Fragment implements ViewPager.OnPageChangeList
     }
 
 
-    void getOnProgressOrder() {
+    void getJOMetaData() {
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String principle = Utility.utility.getLoggedName(this.getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.IN_PROGRESS+"\"],[\"Job Order\",\"principle\",\"=\",\"" + principle + "\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<JobOrderMetaDataResponse> callJO = api.getJobOrderCount(principle);
+        callJO.enqueue(new Callback<JobOrderMetaDataResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    onprogress = response.body().jobOrders.size();
-                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-                    String language = prefs.getString("language","English");
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
-                    if(language.contentEquals("English")) {
-                        label.setText("On Progress (" + onprogress + ")");
-                    } else {
-                        label.setText("Dalam Proses (" + onprogress + ")");
+            public void onResponse(Call<JobOrderMetaDataResponse> call, Response<JobOrderMetaDataResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
+                    JobOrderMetaDataResponse metaDataResponse = response.body();
+                    if (metaDataResponse != null) {
+                        pending = metaDataResponse.message.pending.count;
+                        rejected = metaDataResponse.message.rejected.count;
+                        onprogress = metaDataResponse.message.onprogress.count;
+                        done = metaDataResponse.message.done.count;
+
+                        SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
+                        String language = prefs.getString("language", "Bahasa Indonesia");
+                        TextView label = (TextView) tabHost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
+                        Utility.utility.setFont(label, Hind.MEDIUM,getContext());
+                        if (language.contentEquals("English")) {
+                            label.setText("Active (" + onprogress + ")");
+                        } else {
+                            label.setText("Aktif (" + onprogress + ")");
+                        }
+                        label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
+                        Utility.utility.setFont(label, Hind.MEDIUM,getContext());
+                        if (language.contentEquals("English")) {
+                            label.setText("Pending (" + pending + ")\nRejected (" + rejected + ")");
+                        } else {
+                            label.setText("Pending (" + pending + ")\nDitolak (" + rejected + ")");
+                        }
+                        label = (TextView)tabHost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
+                        Utility.utility.setFont(label, Hind.MEDIUM,getContext());
+                        if(language.contentEquals("English")) {
+                            label.setText("Complete (" + done + ")");
+                        } else {
+                            label.setText("Selesai (" + done + ")");
+                        }
                     }
+
                 }
 
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<JobOrderMetaDataResponse> call, Throwable t) {
                 Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
-            }
-        });
-    }
-    void getPendingOrder() {
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        String principle = Utility.utility.getLoggedName(this.getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION+"\"],[\"Job Order\",\"principle\",\"=\",\"" + principle + "\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
-            @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    pending = response.body().jobOrders.size();
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
-                    label.setText("Pending (" + pending + ")");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
-                Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
-            }
-        });
-    }
-    void getDoneOrder() {
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        String principle = Utility.utility.getLoggedName(getActivity());
-        String filters = "[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.DONE+"\"], [\"Job Order\",\"principle\",\"=\",\"" + principle + "\"],[\"Job Order\",\"reference\",\"like\",\"%\"]]";
-        Call<JobOrderResponse> callJO = api.getJobOrder(filters);
-        callJO.enqueue(new Callback<JobOrderResponse>() {
-            @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    done = response.body().jobOrders.size();
-                    SharedPreferences prefs = getActivity().getSharedPreferences("LanguageSwitch", Context.MODE_PRIVATE);
-                    String language = prefs.getString("language","English");
-                    TextView label = (TextView)tabHost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
-                    if(language.contentEquals("English")) {
-                        label.setText("Complete (" + done + ")");
-                    } else {
-                        label.setText("Selesai (" + done + ")");
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
             }
         });
     }
 
 
     void getCount() {
-        getOnProgressOrder();
-        getPendingOrder();
-        getDoneOrder();
+        done = 0;
+        onprogress = 0;
+        pending = 0;
+        rejected = 0;
+        getJOMetaData();
     }
 
 }

@@ -22,11 +22,16 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.IOException;
+
 import huang.android.logistic_principle.Bantuan.HelpAndSupport;
 import huang.android.logistic_principle.Home.Home;
 import huang.android.logistic_principle.Lihat_Profil.MyProfile;
+import huang.android.logistic_principle.Model.JobOrder.JobOrderData;
 import huang.android.logistic_principle.Pengaturan.Settings;
 import huang.android.logistic_principle.JobOrder.ViewJobOrder;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,8 +63,14 @@ public class MainActivity extends AppCompatActivity
                 fragment,fragment.getTag()).commit();
         setTitle(huang.android.logistic_principle.R.string.home);
 
-
-
+        //start realm
+        Realm.init(getApplicationContext());
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("Driver.realm")
+                .deleteRealmIfMigrationNeeded()
+                .schemaVersion(1)
+                .build();
+        Realm.setDefaultConfiguration(config);
 
         //tokenize Firebase
         final String token = FirebaseInstanceId.getInstance().getToken();
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
-        String principle = huang.android.logistic_principle.Utility.utility.getLoggedName(this).replace(" ","_");
+        String principle = huang.android.logistic_principle.Utility.utility.getLoggedName(this).replace(" ","_").replace("-","_").replace("(","").replace(")","");
         FirebaseMessaging.getInstance().subscribeToTopic(principle);
     }
 
@@ -143,6 +154,9 @@ public class MainActivity extends AppCompatActivity
                 SharedPreferences.Editor ed = mPrefs.edit();
                 ed.putString("cookieJar", "null");
                 ed.commit();
+                String principle = huang.android.logistic_principle.Utility.utility.getLoggedName(this).replace(" ","_").replace("-","_").replace("(","").replace(")","");
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(principle);
+                unregisterReceiver(broadcastReceiver);
                 Intent mainIntent = new Intent(MainActivity.this,SplashScreen.class);
                 startActivity(mainIntent);
                 finish();

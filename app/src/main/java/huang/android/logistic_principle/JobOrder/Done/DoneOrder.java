@@ -8,20 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import huang.android.logistic_principle.JobOrder.OnProgress.OnPendingAdapter;
+import com.paging.listview.PagingListView;
+
+import huang.android.logistic_principle.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderData;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderStatus;
+import huang.android.logistic_principle.Model.JobOrderRoute.JobOrderRouteResponse;
 import huang.android.logistic_principle.Model.MyCookieJar;
 import huang.android.logistic_principle.R;
 import huang.android.logistic_principle.ServiceAPI.API;
 import huang.android.logistic_principle.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,15 +32,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DoneOrder extends Fragment {
+public class DoneOrder extends Fragment implements PagingListView.Pagingable {
 
     View v;
     TextView noData;
-    OnPendingAdapter onPendingAdapter;
-    ListView lv;
+    PagingListView lv;
     ProgressBar loading;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    public static List<JobOrderData> jobOrders;
+    public static List<JobOrderData> jobOrders = new ArrayList<>();
+    int pager=0,limit=20;
+    String lastQuery =  "";
+    DoneOrderAdapter doneOrderAdapter;
 
     public DoneOrder() {
         // Required empty public constructor
@@ -49,7 +54,7 @@ public class DoneOrder extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_job_order, container, false);
 
-        lv=(ListView)v.findViewById(R.id.layout);
+        lv=(PagingListView)v.findViewById(R.id.layout);
         loading=(ProgressBar)v.findViewById(R.id.loading);
         noData=(TextView)v.findViewById(R.id.text_no_data);
 
@@ -61,6 +66,12 @@ public class DoneOrder extends Fragment {
                 refreshItems();
             }
         });
+
+        doneOrderAdapter = new DoneOrderAdapter(v.getContext(), R.layout.fragment_job_order_list, jobOrders);
+        lv.setOnItemClickListener(onListClick);
+        lv.setAdapter(doneOrderAdapter);
+        lv.setHasMoreItems(false);
+        lv.setPagingableListener(this);
 
         return v;
     }
@@ -82,6 +93,8 @@ public class DoneOrder extends Fragment {
     };
 
     void refreshItems() {
+        pager=0;
+        doneOrderAdapter.clear();
         getDoneOrder("");
     }
 
@@ -92,23 +105,26 @@ public class DoneOrder extends Fragment {
 
     void getDoneOrder(String ref_id) {
         noData.setVisibility(View.GONE);
-        lv.setVisibility(View.GONE);
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         String principle = Utility.utility.getLoggedName(this.getActivity());
-        Call<JobOrderResponse> callJO = api.getJobOrder("[[\"Job Order\",\"status\",\"=\",\""+ JobOrderStatus.DONE+"\"],[\"Job Order\",\"principle\",\"=\",\"" + principle + "\"],[\"Job Order\",\"reference\",\"like\",\"" + ref_id + "%\"]]");
-        callJO.enqueue(new Callback<JobOrderResponse>() {
+        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.DONE, principle, ref_id + "%",""+(pager++ * limit));
+        callJO.enqueue(new Callback<GetJobOrderResponse>() {
             @Override
-            public void onResponse(Call<JobOrderResponse> call, Response<JobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response)) {
-                    JobOrderResponse jobOrderResponse = response.body();
-                    jobOrders = jobOrderResponse.jobOrders;
+            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
+                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
+                    GetJobOrderResponse jobOrderResponse = response.body();
+                    if (jobOrderResponse.jobOrders != null) {
+                        doneOrderAdapter.addAll(jobOrderResponse.jobOrders);
+
+                        lv.onFinishLoading(true,jobOrderResponse.jobOrders);
+                    } else {
+                        lv.onFinishLoading(false,null);
+                    }
                     if (jobOrders.size() == 0) {
                         noData.setVisibility(View.VISIBLE);
-                    } else {
-                        DoneOrderAdapter onProgressOrderAdapter = new DoneOrderAdapter(v.getContext(), R.layout.fragment_job_order_list, jobOrders);
-                        lv.setOnItemClickListener(onListClick);
-                        lv.setAdapter(onProgressOrderAdapter);
+                    }
+                    else {
                         lv.setVisibility(View.VISIBLE);
                     }
                     loading.setVisibility(View.GONE);
@@ -118,14 +134,24 @@ public class DoneOrder extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JobOrderResponse> call, Throwable t) {
+            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
                 Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
             }
         });
     }
 
+
+
     public void searchJobOrder(String query) {
         loading.setVisibility(View.VISIBLE);
-        getDoneOrder(query);
+        lastQuery = query;
+        pager = 0;
+        doneOrderAdapter.clear();
+        getDoneOrder(lastQuery);
+    }
+
+    @Override
+    public void onLoadMoreItems() {
+        getDoneOrder(lastQuery);
     }
 }

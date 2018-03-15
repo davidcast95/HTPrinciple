@@ -80,6 +80,7 @@ public class Login extends AppCompatActivity {
                     Gson gson = new Gson();
                     String json = gson.toJson(cookieJar);
                     Utility.utility.saveCookieJarToPreference(cookieJar, thisActivity);
+                    Utility.utility.saveUsername(user,thisActivity);
 
                     checkPermission();
                 } else {
@@ -102,7 +103,7 @@ public class Login extends AppCompatActivity {
         loginUserPermissionResponseCall.enqueue(new Callback<LoginUserPermissionResponse>() {
             @Override
             public void onResponse(Call<LoginUserPermissionResponse> call, Response<LoginUserPermissionResponse> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response,"")) {
                     List<LoginUserPermission> data = response.body().data;
                     if (data.size() > 0) {
                         Utility.utility.saveLoggedName(data.get(0).value,thisActivity);

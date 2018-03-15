@@ -8,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import huang.android.logistic_principle.Fonts.Hind;
 import huang.android.logistic_principle.Model.Vendor.VendorData;
 import huang.android.logistic_principle.R;
+import huang.android.logistic_principle.Utility;
 
 import java.util.List;
 
@@ -56,7 +58,9 @@ public class ChooseVendorAdapter extends BaseAdapter {
         listVendor = inflater.inflate(R.layout.list_vendor, viewGroup, false);
         profilPicture = (ImageView) listVendor.findViewById(R.id.list_vendor_profil_picture);
         nameTextView = (TextView) listVendor.findViewById(R.id.list_vendor_name);
+        Utility.utility.setFont(nameTextView, Hind.BOLD,mContext);
         addressTextView = (TextView) listVendor.findViewById(R.id.list_vendor_address);
+        Utility.utility.setFont(nameTextView, Hind.REGULAR,mContext);
 
         nameTextView.setText(vendors.get(i).name);
         addressTextView.setText(vendors.get(i).address);

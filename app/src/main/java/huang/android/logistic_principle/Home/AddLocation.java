@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import huang.android.logistic_principle.Model.Location.LocationCreation;
 import huang.android.logistic_principle.Model.MyCookieJar;
 import huang.android.logistic_principle.R;
@@ -101,11 +103,12 @@ public class AddLocation extends AppCompatActivity {
         locationJSON.put("kode_distributor",code.getText().toString());
         locationJSON.put("principle",Utility.utility.getLoggedName(this));
         locationJSON.put("nama_pic",pic.getText().toString());
+        final String json = new Gson().toJson(locationJSON);
         Call<LocationCreation> locationResponseCall = api.createLocation(locationJSON);
         locationResponseCall.enqueue(new Callback<LocationCreation>() {
             @Override
             public void onResponse(Call<LocationCreation> call, Response<LocationCreation> response) {
-                if (Utility.utility.catchResponse(getApplicationContext(), response)) {
+                if (Utility.utility.catchResponse(getApplicationContext(), response, json)) {
                     setResult(RESULT_OK);
                     finish();
                 }

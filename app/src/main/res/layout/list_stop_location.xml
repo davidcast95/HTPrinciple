@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="30dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/drop_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/drop"/>
+
+            <ImageView
+                android:id="@+id/pickup_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/pickup"/>
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/warehouse_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:editable="false"
+            android:layout_weight="0.5"
+            android:textColor="@color/Black"/>
+        <RelativeLayout
+            android:layout_width="20dp"
+            android:layout_height="20dp">
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/remove"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

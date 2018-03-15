@@ -43,6 +43,11 @@ public class DetailDoneOrder extends DetailOrder {
 
     @Override
     public String getMenuTitle() {
-        return "Done Order Detail";
+        return getString(R.string.ddo);
+    }
+
+    @Override
+    protected String getFrom() {
+        return "done";
     }
 }
