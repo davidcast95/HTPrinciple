@@ -3,6 +3,8 @@ package huang.android.logistic_principle.JobOrder.Base;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,7 @@ import huang.android.logistic_principle.Utility;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -170,6 +173,34 @@ public class DetailOrder extends AppCompatActivity {
             final ListView stopLocationList = (ListView)findViewById(R.id.stop_location_list);
 
             Utility.utility.setTextView(vendor,jobOrder.vendor);
+
+            final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
+
+            Utility.utility.setTextView(vendor, jobOrder.vendor);
+            if (jobOrder.vendor_image.size() > 0) {
+                String imageUrl = jobOrder.vendor_image.get(0);
+                MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
+                API api = Utility.utility.getAPIWithCookie(cookieJar);
+                Call<ResponseBody> callImage = api.getImage(imageUrl);
+                callImage.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            ResponseBody responseBody = response.body();
+                            if (responseBody != null) {
+                                Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                                profileImage.setImageBitmap(bm);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+            }
+
             ref.setText("Ref No : " + jobOrder.ref.replace("\n",""));
             joid.setText(jobOrder.joid);
 

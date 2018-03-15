@@ -3,6 +3,8 @@ package huang.android.logistic_principle.RequestAService;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -56,6 +58,7 @@ import java.util.List;
 import java.util.Locale;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,7 +80,7 @@ public class RequestAService extends AppCompatActivity {
     Button chooseVendorButton, changeVendorButton, requestButton;
     Spinner principleDropdown, trucktypeDropdown, metricDropdown;
     CheckBox strictCheckbox;
-    ImageView originIcon, destinationIcon, pickUpOrigin, dropOrigin, pickUpDestination, dropDestination;
+    ImageView vendorImageView, originIcon, destinationIcon, pickUpOrigin, dropOrigin, pickUpDestination, dropDestination;
 
     List<PrincipleContactPersonData> cps = null;
 
@@ -139,6 +142,8 @@ public class RequestAService extends AppCompatActivity {
         Utility.utility.setFont(warning3,Hind.LIGHT,getApplicationContext());
         TextView warning4 = (TextView)findViewById(R.id.warning4);
         Utility.utility.setFont(warning4,Hind.LIGHT,getApplicationContext());
+
+        vendorImageView = (ImageView)findViewById(R.id.ras_vendor_profil_picture);
 
 
         originIndicator = (RelativeLayout)findViewById(R.id.origin_indicator);
@@ -376,9 +381,35 @@ public class RequestAService extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 String name = data.getStringExtra("name"),
-                        address = data.getStringExtra("address");
+                        address = data.getStringExtra("address"),
+                        profileImage = data.getStringExtra("profile_image");
                 vendorName.setText(name);
                 vendorAddress.setText(address);
+
+                if (profileImage != null) {
+                    String imageUrl = profileImage;
+                    MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
+                    API api = Utility.utility.getAPIWithCookie(cookieJar);
+                    Call<ResponseBody> callImage = api.getImage(imageUrl);
+                    callImage.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                ResponseBody responseBody = response.body();
+                                if (responseBody != null) {
+                                    Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                                    vendorImageView.setImageBitmap(bm);
+                                    vendorImageView.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.White));
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+                }
                 updateStateUI();
             }
         }

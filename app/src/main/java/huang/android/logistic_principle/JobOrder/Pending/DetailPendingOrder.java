@@ -3,6 +3,8 @@ package huang.android.logistic_principle.JobOrder.Pending;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +38,7 @@ import huang.android.logistic_principle.R;
 import huang.android.logistic_principle.RequestAService.ChooseVendor;
 import huang.android.logistic_principle.ServiceAPI.API;
 import huang.android.logistic_principle.Utility;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -161,6 +164,34 @@ public class DetailPendingOrder extends AppCompatActivity {
 
 
                 Utility.utility.setTextView(vendor, jobOrder.vendor);
+
+                final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
+
+                Utility.utility.setTextView(vendor, jobOrder.vendor);
+                if (jobOrder.vendor_image.size() > 0) {
+                    String imageUrl = jobOrder.vendor_image.get(0);
+                    MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
+                    API api = Utility.utility.getAPIWithCookie(cookieJar);
+                    Call<ResponseBody> callImage = api.getImage(imageUrl);
+                    callImage.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                ResponseBody responseBody = response.body();
+                                if (responseBody != null) {
+                                    Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                                    profileImage.setImageBitmap(bm);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+                }
+
                 Utility.utility.setTextView(ref, "Ref No : " + jobOrder.ref.replace("\n", ""));
                 Utility.utility.setTextView(joid, jobOrder.joid);
 
@@ -332,6 +363,7 @@ public class DetailPendingOrder extends AppCompatActivity {
         API api = Utility.utility.getAPIWithCookie(cookieJar);
         HashMap<String,String> change = new HashMap<>();
         change.put("vendor",newVendor);
+        change.put("status",JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION);
         retrofit2.Call<JSONObject> callUpdateVendor = api.updateVendor(jobOrder.joid, change);
         callUpdateVendor.enqueue(new Callback<JSONObject>() {
             @Override
@@ -424,7 +456,34 @@ public class DetailPendingOrder extends AppCompatActivity {
 //                        TextView origin = (TextView) findViewById(R.id.origin);
 //                        TextView destination = (TextView) findViewById(R.id.destination);
 
+                        final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
+
                         Utility.utility.setTextView(vendor, jobOrder.vendor);
+                        if (jobOrder.vendor_image.size() > 0) {
+                            String imageUrl = jobOrder.vendor_image.get(0);
+                            MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
+                            API api = Utility.utility.getAPIWithCookie(cookieJar);
+                            Call<ResponseBody> callImage = api.getImage(imageUrl);
+                            callImage.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    if (response.isSuccessful()) {
+                                        ResponseBody responseBody = response.body();
+                                        if (responseBody != null) {
+                                            Bitmap bm = BitmapFactory.decodeStream(response.body().byteStream());
+                                            profileImage.setImageBitmap(bm);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
+
                         Utility.utility.setTextView(ref, "Ref No : " + jobOrder.ref.replace("\n", ""));
                         Utility.utility.setTextView(joid, jobOrder.joid);
 //                        origin.setOnClickListener(new View.OnClickListener() {

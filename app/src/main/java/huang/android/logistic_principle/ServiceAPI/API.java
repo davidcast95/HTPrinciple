@@ -104,13 +104,15 @@ public interface API {
     Call<JSONObject> insertPrincipleCP(@Body PrincipleContactPersonData data);
     @GET("/api/resource/Principle Contact Person?fields=[\"principle\",\"nama\",\"telp\"]")
     Call<PrincipleContactPersonResponse> getPrincipleCP(@Query("filters") String filters);
-    @GET("/api/resource/Principle?fields=[\"nama\",\"telp\",\"alamat\",\"email\"]")
-    Call<ProfilResponse> getProfile(@Query("filters") String filter);
+    @GET("/api/method/logistic_marketplace.api.get_user")
+    Call<ProfilResponse> getProfile(@Query("principle") String principle);
 
 
     //VENDOR
     @GET("/api/resource/Vendor?fields=[\"name\",\"telp\",\"alamat\"]")
     Call<VendorResponse> getVendorList();
+    @GET("/api/method/logistic_marketplace.api.get_user")
+    Call<ProfilResponse> getVendor(@Query("vendor") String vendor);
 
 
     //LOCATION

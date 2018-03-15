@@ -64,6 +64,7 @@ public class ChooseVendor extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("name", vendor.name);
         intent.putExtra("address", vendor.address);
+        intent.putExtra("profile_image",vendor.profile_image);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

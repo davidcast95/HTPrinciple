@@ -13,6 +13,8 @@ public class VendorData {
     public String phone;
     @SerializedName("alamat")
     public String address;
+    @SerializedName("profile_image")
+    public String profile_image;
 
 
 }
