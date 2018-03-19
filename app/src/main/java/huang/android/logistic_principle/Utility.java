@@ -256,7 +256,7 @@ public class Utility {
     }
     public String simpleFormatLocation(Location location) {
         if (location.city == null) return "<big><strong>" +location.warehouse + "</strong></big><br>";
-        return "<big><strong>" +location.city + "</strong></big><br> - " + location.warehouse +"";
+        return "<big><strong>" +location.city + "</strong></big> - " + location.warehouse +"";
     }
 
     public void setTextView(TextView view, String text) {

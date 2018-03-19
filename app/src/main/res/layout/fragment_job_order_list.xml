@@ -27,14 +27,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/vendor"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:text="Vendor"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_height="32dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="0.4"
+                        android:id="@+id/vendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:text="Vendor"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/rejected_jo"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rejected"
+                        android:padding="4dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/White"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:background="@drawable/corner_button_danger"
+                        />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/ref_id"
                     android:layout_width="match_parent"
@@ -153,6 +173,7 @@
                             android:id="@+id/destination"/>
                     </LinearLayout>
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/stop_location_count"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,16 +185,7 @@
 
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/rejected_jo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rejected_alert"
-            android:textSize="14dp"
-            android:textColor="@color/DangerColor"
-            android:textAlignment="textEnd"
-            android:visibility="gone"
-            />
+
     </LinearLayout>
 
     <!-- TODO: Update blank fragment layout -->

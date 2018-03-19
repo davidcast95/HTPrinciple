@@ -772,6 +772,7 @@ public class RequestAService extends AppCompatActivity {
             @Override
             public void onResponse(Call<JobOrderCreationResponse> call, Response<JobOrderCreationResponse> response) {
                 isLoading = false;
+                loading.setVisibility(View.GONE);
                 if (Utility.utility.catchResponse(getApplicationContext(), response, json)) {
                     jobOrderRequestSuccess = true;
                     Home.routes.clear();

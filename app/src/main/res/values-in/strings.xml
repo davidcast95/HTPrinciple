@@ -198,7 +198,7 @@
 
     <!--OTHER-->
     <string name="nla">Lokasi Tidak Tersedia</string>
-    <string name="version">Versi 1.6.1</string>
+    <string name="version">Versi 1.6.2</string>
     <string name="warning_location">lokasi wajib diisi</string>
     <string name="warning_cp">contact person wajib diisi</string>
     <string name="warning_item_info">info barang wajib diisi</string>
@@ -233,4 +233,5 @@
     <string name="no_image">Tidak ada gambar yang tersedia</string>
     <string name="jo_update_image">Gambar Job Order Update</string>
     <string name="last_position">Posisi Terakhir</string>
+    <string name="rejected">Ditolak</string>
 </resources>

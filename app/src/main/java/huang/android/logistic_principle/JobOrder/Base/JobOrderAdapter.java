@@ -129,10 +129,14 @@ public class JobOrderAdapter extends ArrayAdapter<JobOrderData> {
         }
 
 
-        if (jobOrder.routes.size() > 2)
+        if (jobOrder.routes.size() > 2) {
+            stopLocationCounter.setVisibility(View.VISIBLE);
             Utility.utility.setTextView(stopLocationCounter, (jobOrder.routes.size() - 2) + " " + getContext().getString(R.string.stop_location));
-        else
+        }
+        else {
+            stopLocationCounter.setVisibility(View.GONE);
             Utility.utility.setTextView(stopLocationCounter, "");
+        }
 
         Utility.utility.setTextView(joid,jobOrder.joid);
         if (list.get(position).truck == null || list.get(position).truck_type == null) {

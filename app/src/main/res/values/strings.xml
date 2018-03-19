@@ -194,7 +194,7 @@
 
     <!--OTHER-->
     <string name="nla">No Location Available</string>
-    <string name="version">Version 1.6.1</string>
+    <string name="version">Version 1.6.2</string>
     <string name="warning_location">location is required</string>
     <string name="warning_cp">contact person is required</string>
     <string name="warning_item_info">item info is required</string>
@@ -229,4 +229,5 @@
     <string name="no_image">No Image Provided</string>
     <string name="jo_update_image">Job Order Update Image</string>
     <string name="last_position">Last Position</string>
+    <string name="rejected">Rejected</string>
 </resources>
