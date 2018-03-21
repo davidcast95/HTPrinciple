@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -168,11 +169,14 @@ public class DetailPendingOrder extends AppCompatActivity {
                 final ImageView profileImage = (ImageView)findViewById(R.id.profile_image);
 
                 Utility.utility.setTextView(vendor, jobOrder.vendor);
-                if (jobOrder.vendor_image.size() > 0) {
-                    String imageUrl = jobOrder.vendor_image.get(0);
+                Log.e("image",jobOrder.vendor);
+                String imageUrl = jobOrder.vendor_image.get(0);
+                if (imageUrl != null) {
+                    Log.e("image",imageUrl);
                     MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(getApplicationContext());
                     API api = Utility.utility.getAPIWithCookie(cookieJar);
                     Call<ResponseBody> callImage = api.getImage(imageUrl);
+
                     callImage.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -190,6 +194,9 @@ public class DetailPendingOrder extends AppCompatActivity {
 
                         }
                     });
+                } else {
+                    Log.e("image","nothing");
+                    profileImage.setImageDrawable(getResources().getDrawable(R.drawable.order_box));
                 }
 
                 Utility.utility.setTextView(ref, "Ref No : " + jobOrder.ref.replace("\n", ""));

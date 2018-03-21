@@ -217,7 +217,7 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     void drawJOUpdateMarker() {
-
+        boolean isPinned = false;
         double minLat = -1, maxLat = -1, minLong = -1, maxLong = -1;
         if (DetailOrder.jobOrderUpdates != null) {
             for (int i = 0; i < DetailOrder.jobOrderUpdates.size(); i++) {
@@ -225,7 +225,7 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(getApplicationContext(), getString(R.string.no_update_location), Toast.LENGTH_SHORT).show();
                 } else {
                     if (DetailOrder.jobOrderUpdates.get(i).latitude.equals("0.0") || DetailOrder.jobOrderUpdates.get(i).equals("0.0")) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.no_update_location), Toast.LENGTH_SHORT).show();
+
                     } else {
                         Double lat = Double.valueOf(DetailOrder.jobOrderUpdates.get(i).latitude), longi = Double.valueOf(DetailOrder.jobOrderUpdates.get(i).longitude);
                         LatLng currentLocation = new LatLng(lat, longi);
@@ -259,6 +259,7 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
                                 .snippet(getString(R.string.last_update_on) + " " + Utility.formatDateFromstring(Utility.dateDBLongFormat, Utility.LONG_DATE_TIME_FORMAT, DetailOrder.jobOrderUpdates.get(i).time))
                                 .icon(BitmapDescriptorFactory.fromResource(icon));
                         markers.add(mMap.addMarker(marker));
+                        isPinned = true;
                         if (i == 0) {
                             minLat = lat;
                             maxLat = lat;
@@ -280,6 +281,11 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         }
+        if (!isPinned) {
+            RelativeLayout mapHolder = (RelativeLayout)findViewById(R.id.mapholder);
+            mapHolder.setVisibility(View.GONE);
+        }
+
         //update driver mark road
         if (lastUpdateDriver != null) {
             Double lat = Double.valueOf(lastUpdateDriver.lat), longi = Double.valueOf(lastUpdateDriver.lo);
@@ -310,6 +316,8 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMinZoomPreference(9.5f);
 
         focusOnDriver();
+
+
 
     }
 
@@ -368,31 +376,30 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
 
     //API
     void getDriverPosition() {
-//
-//        if (DetailOrder.jobOrder.status.equals(JobOrderStatus.DONE)) return;
-//        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
-//        API api = Utility.utility.getAPIWithCookie(cookieJar);
-//        String filters = "[[\"Driver Background Update\",\"driver\",\"=\",\"" + DetailOrder.jobOrder.driver + "\"]]";
-//        Call<DriverBackgroundUpdateResponse> callbg = api.getBackgroundUpdate(filters);
-//        callbg.enqueue(new Callback<DriverBackgroundUpdateResponse>() {
-//            @Override
-//            public void onResponse(Call<DriverBackgroundUpdateResponse> call, Response<DriverBackgroundUpdateResponse> response) {
-//                if (Utility.utility.catchResponse(getApplicationContext(),response,"")) {
-//                    DriverBackgroundUpdateResponse driverBackgroundUpdateResponse = response.body();
-//                    if (driverBackgroundUpdateResponse != null) {
-//                        if (driverBackgroundUpdateResponse.data.size() > 0) {
-//                            lastUpdateDriver = driverBackgroundUpdateResponse.data.get(0);
-//                            drawJOUpdateMarker();
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<DriverBackgroundUpdateResponse> call, Throwable t) {
-//
-//            }
-//        });
+        if (DetailOrder.jobOrder.status.equals(JobOrderStatus.DONE) || DetailOrder.jobOrder.status.equals(JobOrderStatus.VENDOR_REJECT)) return;
+        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
+        API api = Utility.utility.getAPIWithCookie(cookieJar);
+        String filters = "[[\"Driver Background Update\",\"driver\",\"=\",\"" + DetailOrder.jobOrder.driver + "\"]]";
+        Call<DriverBackgroundUpdateResponse> callbg = api.getBackgroundUpdate(filters);
+        callbg.enqueue(new Callback<DriverBackgroundUpdateResponse>() {
+            @Override
+            public void onResponse(Call<DriverBackgroundUpdateResponse> call, Response<DriverBackgroundUpdateResponse> response) {
+                if (Utility.utility.catchResponse(getApplicationContext(),response,"")) {
+                    DriverBackgroundUpdateResponse driverBackgroundUpdateResponse = response.body();
+                    if (driverBackgroundUpdateResponse != null) {
+                        if (driverBackgroundUpdateResponse.data.size() > 0) {
+                            lastUpdateDriver = driverBackgroundUpdateResponse.data.get(0);
+                            drawJOUpdateMarker();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DriverBackgroundUpdateResponse> call, Throwable t) {
+
+            }
+        });
     }
 
 }

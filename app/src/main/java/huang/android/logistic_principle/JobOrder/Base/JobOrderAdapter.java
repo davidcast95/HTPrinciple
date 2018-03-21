@@ -76,11 +76,14 @@ public class JobOrderAdapter extends ArrayAdapter<JobOrderData> {
 
 
         JobOrderData jobOrder = list.get(position);
-        if (jobOrder.vendor_image.size() > 0) {
-            String imageUrl = jobOrder.vendor_image.get(0);
+        Log.e("image",jobOrder.vendor);
+        String imageUrl = jobOrder.vendor_image.get(0);
+        if (imageUrl != null) {
+            Log.e("image",imageUrl);
             MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(context);
             API api = Utility.utility.getAPIWithCookie(cookieJar);
             Call<ResponseBody> callImage = api.getImage(imageUrl);
+
             callImage.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -98,6 +101,9 @@ public class JobOrderAdapter extends ArrayAdapter<JobOrderData> {
 
                 }
             });
+        } else {
+            Log.e("image","nothing");
+            profileImage.setImageDrawable(context.getResources().getDrawable(R.drawable.order_box));
         }
 
         if (jobOrder.status.equals(JobOrderStatus.VENDOR_REJECT)) {
