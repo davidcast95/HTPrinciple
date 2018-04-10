@@ -110,7 +110,28 @@ public class Utility {
         }
     }
 
-
+    public void savePendingToggle(Boolean toggle, Activity activity) {
+        SharedPreferences preferences = activity.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putBoolean("toggle_pending", toggle);
+        ed.commit();
+    }
+    public Boolean getPendingToggle(Activity activity) {
+        SharedPreferences preferences = activity.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        Boolean toggle = preferences.getBoolean("toggle_pending",true);
+        return toggle;
+    }
+    public void saveRejectedToggle(Boolean toggle, Activity activity) {
+        SharedPreferences preferences = activity.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putBoolean("toggle_rejected", toggle);
+        ed.commit();
+    }
+    public Boolean getRejectedToggle(Activity activity) {
+        SharedPreferences preferences = activity.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
+        Boolean toggle = preferences.getBoolean("toggle_rejected",true);
+        return toggle;
+    }
 
     public String getLoggedName(Activity activity) {
         SharedPreferences preferences = activity.getSharedPreferences("myprefs", Context.MODE_PRIVATE);
@@ -185,6 +206,9 @@ public class Utility {
 
 
     public <T> boolean catchResponse(Context context, Response<T> response, String json) {
+        Log.e("APILOG","Request");
+        Log.e("APILOG","Request url " + response.raw().request().url().toString());
+        Log.e("APILOG","JSON : " + json);
         MyCookieJar cookieJar = getCookieFromPreference(context);
         API api = getAPIWithCookie(cookieJar);
         APILogData apiLogData = new APILogData();
@@ -192,6 +216,7 @@ public class Utility {
             Log.e("DATA UPLOADED","OK");
             return true;
         } else {
+            Log.e("APILOG","Failed ("+response.code() +")");
             apiLogData.error_code = response.code();
             apiLogData.url = response.raw().request().url().toString();
             apiLogData.message = json;

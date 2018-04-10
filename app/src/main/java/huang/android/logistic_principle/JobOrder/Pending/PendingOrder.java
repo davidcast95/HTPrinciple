@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,7 +34,8 @@ import retrofit2.Response;
 
 
 public class PendingOrder extends Fragment implements PagingListView.Pagingable{
-    TextView noData;
+    LinearLayout statusToggle;
+    TextView noData, pendingToggle, rejectedToggle;
     View v;
     PagingListView lv;
     ProgressBar loading;
@@ -53,6 +55,10 @@ public class PendingOrder extends Fragment implements PagingListView.Pagingable{
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_job_order, container, false);
 
+        statusToggle = (LinearLayout) v.findViewById(R.id.status_toggle);
+        pendingToggle = (TextView) v.findViewById(R.id.pending_toggle);
+        rejectedToggle = (TextView) v.findViewById(R.id.rejected_toggle);
+
         lv=(PagingListView) v.findViewById(R.id.layout);
         noData=(TextView)v.findViewById(R.id.text_no_data);
         loading=(ProgressBar)v.findViewById(R.id.loading);
@@ -71,6 +77,8 @@ public class PendingOrder extends Fragment implements PagingListView.Pagingable{
         lv.setAdapter(pendingOrderAdapter);
         lv.setHasMoreItems(false);
         lv.setPagingableListener(this);
+
+        setupStatusToggle();
         return v;
     }
 
@@ -78,6 +86,42 @@ public class PendingOrder extends Fragment implements PagingListView.Pagingable{
     public void onStart() {
         super.onStart();
         getRejectedOrder("");
+    }
+
+    void setupStatusToggle() {
+        updateStatusToggle();
+
+        pendingToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean lastToggle = Utility.utility.getPendingToggle(getActivity());
+                Utility.utility.savePendingToggle(!lastToggle,getActivity());
+                updateStatusToggle();
+                refreshItems();
+            }
+        });
+        rejectedToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean lastToggle = Utility.utility.getRejectedToggle(getActivity());
+                Utility.utility.saveRejectedToggle(!lastToggle,getActivity());
+                updateStatusToggle();
+                refreshItems();
+            }
+        });
+    }
+
+    void updateStatusToggle() {
+        if (Utility.utility.getPendingToggle(getActivity())) {
+            pendingToggle.setAlpha(1.0f);
+        } else {
+            pendingToggle.setAlpha(0.5f);
+        }
+        if (Utility.utility.getRejectedToggle(getActivity())) {
+            rejectedToggle.setAlpha(1.0f);
+        } else {
+            rejectedToggle.setAlpha(0.5f);
+        }
     }
 
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener(){
@@ -102,79 +146,88 @@ public class PendingOrder extends Fragment implements PagingListView.Pagingable{
     }
 
     void getPendingOrder(String ref_id) {
-        noData.setVisibility(View.GONE);
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        String principle = Utility.utility.getLoggedName(this.getActivity());
-        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION, principle, ref_id + "%","" + (pager++ * limit));
-        callJO.enqueue(new Callback<GetJobOrderResponse>() {
-            @Override
-            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
-                    GetJobOrderResponse jobOrderResponse = response.body();
+        if (Utility.utility.getPendingToggle(getActivity())) {
+            noData.setVisibility(View.GONE);
+            MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+            API api = Utility.utility.getAPIWithCookie(cookieJar);
+            String principle = Utility.utility.getLoggedName(this.getActivity());
+            Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION, principle, ref_id + "%", "" + (pager++ * limit));
+            callJO.enqueue(new Callback<GetJobOrderResponse>() {
+                @Override
+                public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
+                    if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response, "")) {
+                        GetJobOrderResponse jobOrderResponse = response.body();
 
-                    if (jobOrderResponse.jobOrders != null) {
-                        pendingOrderAdapter.addAll(jobOrderResponse.jobOrders);
-                        if (jobOrders.size() == 0) {
-                            noData.setVisibility(View.VISIBLE);
+                        if (jobOrderResponse.jobOrders != null) {
+                            pendingOrderAdapter.addAll(jobOrderResponse.jobOrders);
+                            if (jobOrders.size() == 0) {
+                                noData.setVisibility(View.VISIBLE);
+                            } else {
+                                lv.setVisibility(View.VISIBLE);
+                            }
+                            lv.onFinishLoading(true, jobOrderResponse.jobOrders);
+                        } else {
+                            lv.onFinishLoading(false, null);
                         }
-                        else {
-                            lv.setVisibility(View.VISIBLE);
-                        }
-                        lv.onFinishLoading(true,jobOrderResponse.jobOrders);
-                    } else {
-                        lv.onFinishLoading(false,null);
+
+                        loading.setVisibility(View.GONE);
+                        onItemsLoadComplete();
                     }
 
-                    loading.setVisibility(View.GONE);
-                    onItemsLoadComplete();
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
-                Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
-            }
-        });
+                @Override
+                public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
+                    Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
+                }
+            });
+        } else {
+            lv.onFinishLoading(false,null);
+        }
     }
 
     void getRejectedOrder(String ref_id) {
-        pager=0;
-        pendingOrderAdapter.clear();
-        noData.setVisibility(View.GONE);
-        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
-        API api = Utility.utility.getAPIWithCookie(cookieJar);
-        String principle = Utility.utility.getLoggedName(this.getActivity());
-        Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.VENDOR_REJECT, principle, ref_id + "%","0");
-        callJO.enqueue(new Callback<GetJobOrderResponse>() {
-            @Override
-            public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
-                    GetJobOrderResponse jobOrderResponse = response.body();
+        if (Utility.utility.getRejectedToggle(getActivity())) {
+            pager = 0;
+            pendingOrderAdapter.clear();
+            noData.setVisibility(View.GONE);
+            MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this.getActivity());
+            API api = Utility.utility.getAPIWithCookie(cookieJar);
+            String principle = Utility.utility.getLoggedName(this.getActivity());
+            Call<GetJobOrderResponse> callJO = api.getJobOrder(JobOrderStatus.VENDOR_REJECT, principle, ref_id + "%", "0");
+            callJO.enqueue(new Callback<GetJobOrderResponse>() {
+                @Override
+                public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
+                    if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response, "")) {
+                        GetJobOrderResponse jobOrderResponse = response.body();
 
-                    if (jobOrderResponse.jobOrders != null) {
-                        pendingOrderAdapter.addAll(jobOrderResponse.jobOrders);
-                    } else {
+                        if (jobOrderResponse.jobOrders != null) {
+                            pendingOrderAdapter.addAll(jobOrderResponse.jobOrders);
+                        } else {
+                        }
+                        getPendingOrder(lastQuery);
+                        if (jobOrders.size() == 0) {
+                            noData.setVisibility(View.VISIBLE);
+                        } else {
+                            lv.setVisibility(View.VISIBLE);
+                        }
+                        loading.setVisibility(View.GONE);
+                        onItemsLoadComplete();
                     }
-                    getPendingOrder(lastQuery);
-                    if (jobOrders.size() == 0) {
-                        noData.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        lv.setVisibility(View.VISIBLE);
-                    }
-                    loading.setVisibility(View.GONE);
-                    onItemsLoadComplete();
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
-                Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
-            }
-        });
+                @Override
+                public void onFailure(Call<GetJobOrderResponse> call, Throwable t) {
+                    Utility.utility.showConnectivityWithError(getActivity().getApplicationContext(), t);
+                }
+            });
+        } else if (Utility.utility.getPendingToggle(getActivity())) {
+            pager = 0;
+            pendingOrderAdapter.clear();
+            noData.setVisibility(View.GONE);
+            getPendingOrder(ref_id);
+        }
     }
 
     public void searchJobOrder(String query) {

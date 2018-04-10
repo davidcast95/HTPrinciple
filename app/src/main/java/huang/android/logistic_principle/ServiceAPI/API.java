@@ -102,7 +102,7 @@ public interface API {
     //PRINCIPLE
     @POST("/api/resource/Principle Contact Person")
     Call<JSONObject> insertPrincipleCP(@Body PrincipleContactPersonData data);
-    @GET("/api/resource/Principle Contact Person?fields=[\"principle\",\"nama\",\"telp\"]")
+    @GET("/api/resource/Principle Contact Person?fields=[\"name\",\"principle\",\"nama\",\"telp\"]")
     Call<PrincipleContactPersonResponse> getPrincipleCP(@Query("filters") String filters);
     @GET("/api/method/logistic_marketplace.api.get_user")
     Call<ProfilResponse> getProfile(@Query("principle") String principle);

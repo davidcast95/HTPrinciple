@@ -49,8 +49,10 @@ public class AddStopLocation extends AppCompatActivity {
     List<String> status = new ArrayList<>();
     SpinnerStringAdapter principleDropdownAdapter;
 
+    String newPrincipleCP = "";
 
-    public static Location location;
+
+    public static Location location = new Location();
     boolean insertedCP=false;
 
 
@@ -101,14 +103,16 @@ public class AddStopLocation extends AppCompatActivity {
 
         principleName = (EditText)findViewById(R.id.ras_principle_name);
         Utility.utility.setFont(principleName, Hind.MEDIUM,getApplicationContext());
+        Utility.utility.setTextView(principleName, location.pic);
         principleCP = (EditText)findViewById(R.id.ras_principle_cp);
         Utility.utility.setFont(principleCP, Hind.MEDIUM,getApplicationContext());
+        Utility.utility.setTextView(principleCP, location.phone);
 
-        principleDropdown = (Spinner)findViewById(R.id.ras_principle_dropdown);
-        principleDropdownAdapter = new SpinnerStringAdapter(getApplicationContext(),principleCPs);
-        principleDropdown.setAdapter(principleDropdownAdapter);
-
-        updateCPDropdown();
+//        principleDropdown = (Spinner)findViewById(R.id.ras_principle_dropdown);
+//        principleDropdownAdapter = new SpinnerStringAdapter(getApplicationContext(),principleCPs);
+//        principleDropdown.setAdapter(principleDropdownAdapter);
+//
+//        updateCPDropdown();
 
         itemInfo = (EditText)findViewById(R.id.item);
         Utility.utility.setFont(itemInfo, Hind.MEDIUM,getApplicationContext());
@@ -120,7 +124,7 @@ public class AddStopLocation extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fetchCPs();
+//        fetchCPs();
     }
 
     @Override
@@ -152,6 +156,9 @@ public class AddStopLocation extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             stopLocation.setText(Html.fromHtml(Utility.utility.longFormatLocation(location)));
+
+            Utility.utility.setTextView(principleName, location.pic);
+            Utility.utility.setTextView(principleCP, location.phone);
         }
     }
 
@@ -165,12 +172,12 @@ public class AddStopLocation extends AppCompatActivity {
         if (stopLocation.getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(), getString(R.string.warning_location), Toast.LENGTH_SHORT).show();
             return false;
-        } else if (principleName.getText().toString().equals("")) {
+        } else if (principleName.getText().toString().equals("") || principleCP.getText().toString().equals("")) {
             Toast.makeText(getApplicationContext(),getString(R.string.warning_cp),Toast.LENGTH_SHORT).show();
             return false;
-        } else if (principleDropdown.getSelectedItem().toString().equals(getString(R.string.create_a_new)) && !insertedCP) {
-            insertNewCP(principleName.getText().toString(), principleCP.getText().toString());
-            return false;
+//        } else if (principleDropdown.getSelectedItem().toString().equals(getString(R.string.create_a_new)) && !insertedCP) {
+//            insertNewCP(principleName.getText().toString(), principleCP.getText().toString());
+//            return false;
         }
 //        else if (itemInfo.getText().toString().equals("")) {
 //            Toast.makeText(getApplicationContext(),getString(R.string.warning_item_info),Toast.LENGTH_SHORT).show();
@@ -187,7 +194,12 @@ public class AddStopLocation extends AppCompatActivity {
         jobOrderRouteData.distributor_code = location.code;
         jobOrderRouteData.city = location.city;
         jobOrderRouteData.address = location.address;
-        jobOrderRouteData.contact = principleDropdown.getSelectedItem().toString();
+//        if (newPrincipleCP.equals("")) {
+//            jobOrderRouteData.contact = principleDropdown.getSelectedItem().toString();
+//        } else {
+//            jobOrderRouteData.contact = newPrincipleCP;
+//        }
+        jobOrderRouteData.contact = null;
         jobOrderRouteData.nama = principleName.getText().toString();
         jobOrderRouteData.phone = principleCP.getText().toString();
         jobOrderRouteData.item_info = itemInfo.getText().toString();
@@ -202,6 +214,7 @@ public class AddStopLocation extends AppCompatActivity {
         else
             Home.routes.add(jobOrderRouteData);
         setResult(RESULT_OK);
+        location = new Location();
         finish();
     }
 
@@ -236,7 +249,7 @@ public class AddStopLocation extends AppCompatActivity {
                     cps = cpResponse.cps;
                     principleCPs.clear();
                     for (int i = 0; i < cps.size(); i++) {
-                        principleCPs.add(cps.get(i).name + " (" + cps.get(i).principle + ")");
+                        principleCPs.add(cps.get(i).id);
                     }
                     principleCPs.add(getString(R.string.create_a_new));
                     principleDropdownAdapter = new SpinnerStringAdapter(getApplicationContext(),principleCPs);
@@ -248,9 +261,11 @@ public class AddStopLocation extends AppCompatActivity {
                                 return;
                             }
                             if (i >= cps.size()) {
+                                newPrincipleCP = "";
                                 principleName.setText("");
                                 principleCP.setText("");
                             } else {
+                                newPrincipleCP = "";
                                 principleName.setText(cps.get(i).name);
                                 principleCP.setText(cps.get(i).phone);
                             }
@@ -275,7 +290,7 @@ public class AddStopLocation extends AppCompatActivity {
 
 
     void insertNewCP(String name, String phone) {
-        PrincipleContactPersonData cpData = new PrincipleContactPersonData();
+        final PrincipleContactPersonData cpData = new PrincipleContactPersonData();
         cpData.name = name;
         cpData.phone = phone;
         cpData.principle = Utility.utility.getLoggedName(this);
@@ -289,6 +304,7 @@ public class AddStopLocation extends AppCompatActivity {
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                 if (Utility.utility.catchResponse(getApplicationContext(), response, json)) {
                     insertedCP = true;
+                    newPrincipleCP = cpData.name + " (" + cpData.principle + ")";
                     validate();
                 }
             }

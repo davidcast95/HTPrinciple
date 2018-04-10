@@ -11,7 +11,7 @@ import io.realm.RealmObject;
  */
 
 public class JobOrderRouteData {
-    public Location loc;
+    public Location loc = new Location();
     @Expose
     @SerializedName("location")
     public String location;

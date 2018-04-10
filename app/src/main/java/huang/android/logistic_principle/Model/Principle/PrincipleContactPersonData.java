@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class PrincipleContactPersonData {
+    @SerializedName("name")
+    public String id;
     @SerializedName("principle")
     public String principle;
     @SerializedName("nama")

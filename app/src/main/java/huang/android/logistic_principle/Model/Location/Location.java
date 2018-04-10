@@ -20,7 +20,7 @@ public class Location {
     @SerializedName("kode_distributor")
     public String code = "-";
     @SerializedName("phone")
-    public String phone = "-";
+    public String phone = "";
     @SerializedName("name")
     public String name = "-";
     @SerializedName("kota")
@@ -30,5 +30,5 @@ public class Location {
     @SerializedName("nama_gudang")
     public String warehouse = "-";
     @SerializedName("nama_pic")
-    public String pic = "-";
+    public String pic = "";
 }

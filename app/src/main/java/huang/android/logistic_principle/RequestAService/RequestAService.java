@@ -88,6 +88,8 @@ public class RequestAService extends AppCompatActivity {
     List<String> metrics = new ArrayList<>();
     List<String> truckTypes = new ArrayList<>();
 
+    String choosePrincipleCP = "";
+
     Calendar calendar = Calendar.getInstance();
 
     int originIndex = 0, destinationIndex = 0;
@@ -638,9 +640,11 @@ public class RequestAService extends AppCompatActivity {
                                 return;
                             }
                             if (i >= cps.size()) {
+                                choosePrincipleCP = "";
                                 principleName.setText("");
                                 principleCP.setText("");
                             } else {
+                                choosePrincipleCP = cps.get(i).id;
                                 principleName.setText(cps.get(i).name);
                                 principleCP.setText(cps.get(i).phone);
                             }
@@ -705,6 +709,7 @@ public class RequestAService extends AppCompatActivity {
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                 if (Utility.utility.catchResponse(getApplicationContext(), response,json)) {
                     insertedCP = true;
+                    choosePrincipleCP = "";
                     updateStateUI();
                 }
             }
@@ -730,7 +735,12 @@ public class RequestAService extends AppCompatActivity {
         jobOrderData.status = JobOrderStatus.VENDOR_APPROVAL_CONFIRMATION;
         jobOrderData.principle = name;
 
-        jobOrderData.principle_cp = principleCPName + " (" + name + ")";
+
+        if (choosePrincipleCP.equals("")) {
+            jobOrderData.principle_cp = principleCPName + " (" + name + ")";
+        } else {
+            jobOrderData.principle_cp = choosePrincipleCP;
+        }
         jobOrderData.principle_cp_name = principleCPName;
         jobOrderData.principle_cp_phone = principleCP;
         jobOrderData.vendor = vendor;

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ import retrofit2.Response;
 
 public class OnProgressOrder extends Fragment implements PagingListView.Pagingable{
 
+    LinearLayout statusToggle;
     TextView noData;
     View v;
     PagingListView lv;
@@ -54,6 +56,8 @@ public class OnProgressOrder extends Fragment implements PagingListView.Pagingab
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_job_order, container, false);
 
+        statusToggle = (LinearLayout) v.findViewById(R.id.status_toggle);
+        statusToggle.setVisibility(View.GONE);
         lv=(PagingListView) v.findViewById(R.id.layout);
         noData=(TextView)v.findViewById(R.id.text_no_data);
         loading=(ProgressBar)v.findViewById(R.id.loading);
