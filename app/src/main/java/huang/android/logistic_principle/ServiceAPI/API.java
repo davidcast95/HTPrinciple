@@ -6,6 +6,7 @@ import huang.android.logistic_principle.Model.Communication.CommunicationData;
 import huang.android.logistic_principle.Model.Communication.CommunicationResponse;
 import huang.android.logistic_principle.Model.Dashboard.DashboardResponse;
 import huang.android.logistic_principle.Model.Driver.DriverBackgroundUpdateResponse;
+import huang.android.logistic_principle.Model.Driver.RouteResponse;
 import huang.android.logistic_principle.Model.History.HistoryResponse;
 import huang.android.logistic_principle.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderCreationResponse;
@@ -129,6 +130,9 @@ public interface API {
     //DRIVER
     @GET("/api/resource/Driver Background Update?fields=[\"lo\",\"lat\",\"last_update\"]&limit_page_length=1")
     Call<DriverBackgroundUpdateResponse> getBackgroundUpdate(@Query("filters") String filters);
+    @GET("/api/method/logistic_marketplace.api.get_route")
+    Call<RouteResponse> getRoute(@Query("startjou") String startjou, @Query("endjou") String endjou, @Query("driver") String driver);
+//    @GET("")
 
     //old
 

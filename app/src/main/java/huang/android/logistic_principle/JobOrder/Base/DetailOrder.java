@@ -362,6 +362,8 @@ public class DetailOrder extends AppCompatActivity {
 
             case android.R.id.home:
                 // app icon in action bar clicked; goto parent activity.
+                jobOrder = null;
+                jobOrderUpdates.clear();
                 this.finish();
                 return true;
             default:
