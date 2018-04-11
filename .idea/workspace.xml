@@ -11,41 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c256756b-2489-4beb-b211-abbe6b3f327c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/notification_icon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/notification_icon.png" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/Digitruck Principle v1.6.apk" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Firebase/FirebaseMessageService.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Firebase/FirebaseMessageService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/AddStopLocation.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/AddStopLocation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/EditStopLocation.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/EditStopLocation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/StopLocationViewerAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/StopLocationViewerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Base/DetailOrder.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Base/DetailOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Done/DoneOrder.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Done/DoneOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/OnProgress/OnProgressOrder.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/OnProgress/OnProgressOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Pending/DetailPendingOrder.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Pending/DetailPendingOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Pending/PendingOrder.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Pending/PendingOrder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/JobOrderRoute/JobOrderRouteData.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/JobOrderRoute/JobOrderRouteData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/Location/Location.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/Location/Location.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/Principle/PrincipleContactPersonData.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/Principle/PrincipleContactPersonData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/RequestAService/RequestAService.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/RequestAService/RequestAService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/ServiceAPI/API.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/ServiceAPI/API.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Utility.java" afterPath="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Utility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_stop_location.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_stop_location.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_job_order.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_job_order.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-in/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="HTPrinciple.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,7 +70,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FirebaseMessageService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FirebaseMessageService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Firebase/FirebaseMessageService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="224">
@@ -137,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TrackHistory.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TrackHistory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4980">
-              <caret line="386" column="43" lean-forward="false" selection-start-line="386" selection-start-column="43" selection-end-line="386" selection-end-column="43" />
+            <state relative-caret-position="367">
+              <caret line="304" column="102" lean-forward="false" selection-start-line="304" selection-start-column="102" selection-end-line="304" selection-end-column="102" />
               <folding />
             </state>
           </provider>
@@ -2523,10 +2496,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/Pending/DetailPendingOrder.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_stop_location_detail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Home/StopLocationViewerAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Utility.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Firebase/FirebaseMessageService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java" />
       </list>
     </option>
   </component>
@@ -2550,8 +2523,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2722,6 +2693,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2736,7 +2710,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2861,7 +2834,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523332422509" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523424763207" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2909,7 +2882,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523332422509" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523424763208" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3071,7 +3044,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523332422511" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1523424763211" />
       </method>
     </configuration>
     <list size="1">
@@ -3110,11 +3083,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="824" extended-state="6" />
+    <frame x="0" y="22" width="1440" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32961783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.49476048" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3143,7 +3117,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.49476048" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="StringPreview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" x="100" y="122" width="1240" height="624" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3692,7 +3665,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3711,7 +3683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3719,9 +3690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1170">
           <caret line="109" column="51" lean-forward="false" selection-start-line="109" selection-start-column="51" selection-end-line="109" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3744,7 +3712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1755">
           <caret line="117" column="25" lean-forward="false" selection-start-line="117" selection-start-column="25" selection-end-line="119" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3793,14 +3760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4980">
-          <caret line="386" column="43" lean-forward="false" selection-start-line="386" selection-start-column="43" selection-end-line="386" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/Model/PushNotificationAction/PushNotificationAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -3821,6 +3780,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="59" column="8" lean-forward="false" selection-start-line="59" selection-start-column="8" selection-end-line="62" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/huang/android/logistic_principle/JobOrder/TrackHistory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="304" column="102" lean-forward="false" selection-start-line="304" selection-start-column="102" selection-end-line="304" selection-end-column="102" />
           <folding />
         </state>
       </provider>

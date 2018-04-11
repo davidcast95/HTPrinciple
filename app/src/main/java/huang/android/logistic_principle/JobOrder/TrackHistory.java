@@ -219,16 +219,18 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
     void drawJOUpdateMarker() {
         boolean isPinned = false;
         double minLat = -1, maxLat = -1, minLong = -1, maxLong = -1;
+        LatLng lastLocation = null;
         if (DetailOrder.jobOrderUpdates != null) {
             for (int i = 0; i < DetailOrder.jobOrderUpdates.size(); i++) {
                 if (DetailOrder.jobOrderUpdates.get(i).longitude == null || DetailOrder.jobOrderUpdates.get(i).latitude == null) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.no_update_location), Toast.LENGTH_SHORT).show();
+
                 } else {
                     if (DetailOrder.jobOrderUpdates.get(i).latitude.equals("0.0") || DetailOrder.jobOrderUpdates.get(i).equals("0.0")) {
 
                     } else {
                         Double lat = Double.valueOf(DetailOrder.jobOrderUpdates.get(i).latitude), longi = Double.valueOf(DetailOrder.jobOrderUpdates.get(i).longitude);
                         LatLng currentLocation = new LatLng(lat, longi);
+                        lastLocation = currentLocation;
 
                         int icon = R.drawable.loc;
                         String statusIndex = DetailOrder.jobOrderUpdates.get(i).status.substring(0, 1);
@@ -281,6 +283,13 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         }
+
+        if (lastLocation != null) {
+            CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+                    lastLocation, mMap.getCameraPosition().zoom);
+            mMap.moveCamera(location);
+        }
+
         if (!isPinned) {
             RelativeLayout mapHolder = (RelativeLayout)findViewById(R.id.mapholder);
             mapHolder.setVisibility(View.GONE);
@@ -289,7 +298,7 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
         //update driver mark road
         if (lastUpdateDriver != null) {
             Double lat = Double.valueOf(lastUpdateDriver.lat), longi = Double.valueOf(lastUpdateDriver.lo);
-            LatLng lastLocation = new LatLng(lat,longi);
+            lastLocation = new LatLng(lat,longi);
             MarkerOptions marker = new MarkerOptions()
                     .position(lastLocation)
                     .title(getString(R.string.last_position))
