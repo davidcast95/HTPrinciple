@@ -230,11 +230,7 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
         if (DetailOrder.jobOrderUpdates != null) {
             for (int i = 0; i < DetailOrder.jobOrderUpdates.size(); i++) {
                 if (DetailOrder.jobOrderUpdates.get(i).longitude == null || DetailOrder.jobOrderUpdates.get(i).latitude == null) {
-<<<<<<< HEAD
-
-=======
                     markers.add(null);
->>>>>>> origin/try-polyline-using-driver-bg-update
                 } else {
                     if (DetailOrder.jobOrderUpdates.get(i).latitude.equals("0.0") || DetailOrder.jobOrderUpdates.get(i).equals("0.0")) {
                         markers.add(null);
@@ -314,14 +310,9 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         //update driver mark road
-<<<<<<< HEAD
-        if (lastUpdateDriver != null) {
-            Double lat = Double.valueOf(lastUpdateDriver.lat), longi = Double.valueOf(lastUpdateDriver.lo);
-=======
         if (lastUpdateDriverRoute != null) {
             int lastIndex = lastUpdateDriverRoute.size() - 1;
             Double lat = Double.valueOf(lastUpdateDriverRoute.get(lastIndex).lat), longi = Double.valueOf(lastUpdateDriverRoute.get(lastIndex).lo);
->>>>>>> origin/try-polyline-using-driver-bg-update
             lastLocation = new LatLng(lat,longi);
             MarkerOptions marker = new MarkerOptions()
                     .position(lastLocation)

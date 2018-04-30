@@ -16,8 +16,8 @@ android {
         applicationId "huang.android.logistic_principle"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 40
-        versionName "1.6.7"
+        versionCode 41
+        versionName "1.6.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
