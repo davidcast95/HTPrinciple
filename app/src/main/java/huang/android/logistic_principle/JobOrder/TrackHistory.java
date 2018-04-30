@@ -120,6 +120,10 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
             currentLocation.setVisibility(View.GONE);
         }
 
+        if (DetailOrder.jobOrder.status.equals(JobOrderStatus.DONE)) {
+            currentLocation.setVisibility(View.GONE);
+        }
+
         String from,to,ref,vendor,to_type,from_type;
         Intent intent = getIntent();
         from = intent.getStringExtra("origin");
@@ -299,33 +303,45 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
 
         //update driver mark road
         if (lastUpdateDriverRoute != null) {
-//            Double lat = Double.valueOf(lastUpdateDriver.lat), longi = Double.valueOf(lastUpdateDriver.lo);
-//            lastLocation = new LatLng(lat,longi);
-//            MarkerOptions marker = new MarkerOptions()
-//                    .position(lastLocation)
-//                    .title(getString(R.string.last_position))
-//                    .snippet(getString(R.string.last_update_on) + " " + Utility.formatDateFromstring(Utility.dateDBLongFormat,Utility.LONG_DATE_TIME_FORMAT,lastUpdateDriver.last_update))
-//                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.loc_truck));
-//            markers.add(mMap.addMarker(marker));
+            int lastIndex = lastUpdateDriverRoute.size() - 1;
+            Double lat = Double.valueOf(lastUpdateDriverRoute.get(lastIndex).lat), longi = Double.valueOf(lastUpdateDriverRoute.get(lastIndex).lo);
+            lastLocation = new LatLng(lat,longi);
+            MarkerOptions marker = new MarkerOptions()
+                    .position(lastLocation)
+                    .title(getString(R.string.last_position))
+                    .snippet(getString(R.string.last_update_on) + " " + Utility.formatDateFromstring(Utility.dateDBLongFormat,Utility.LONG_DATE_TIME_FORMAT,lastUpdateDriverRoute.get(lastIndex).creation))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.loc_truck));
+            markers.add(mMap.addMarker(marker));
 //
 //            if (lat < minLat) minLat = lat;
 //            else if (lat > maxLat) maxLat = lat;
 //            if (longi < minLong) minLong = longi;
 //            else if (longi > maxLong) maxLong = longi;
 //
-//            if (DetailOrder.jobOrderUpdates.size() > 0) {
-//                int lastIndex = DetailOrder.jobOrderUpdates.size() - 1;
-////                Double originLat = Double.valueOf(DetailOrder.jobOrderUpdates.get(lastIndex).latitude), originLong = Double.valueOf(DetailOrder.jobOrderUpdates.get(lastIndex).longitude);
-////                drawDirection(originLat, originLong, lat, longi);
-//            }
+
+            //DRAW LAST JOU TO DRIVER POSITION
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.rgb(88,114,47)).
+                    width(10);
+            for (int i=0;i<lastUpdateDriverRoute.size();i++) {
+                longi = Double.valueOf(lastUpdateDriverRoute.get(i).lo);
+                lat = Double.valueOf(lastUpdateDriverRoute.get(i).lat);
+
+                polylineOptions.add(new LatLng(lat,longi));
+            }
+
+            polylinePaths.add(mMap.addPolyline(polylineOptions));
 
         } else {
-            if (DetailOrder.jobOrderUpdates.size() > 0) {
+            if (DetailOrder.jobOrderUpdates.size() > 0 && lastLocation != null) {
                 CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
                         lastLocation, mMap.getCameraPosition().zoom);
                 mMap.animateCamera(location);
                 int lastIndex = markers.size() - 1;
-                markers.get(lastIndex).showInfoWindow();
+                Marker marker = markers.get(lastIndex);
+                if (marker != null)
+                    marker.showInfoWindow();
             }
         }
 
@@ -355,14 +371,16 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
                                 geodesic(true).
                                 color(Color.rgb(88,114,47)).
                                 width(10);
-                        for (int i=0;i<routeList.size();i++) {
-                            Double lo = Double.valueOf(routeList.get(i).lo);
-                            Double lat = Double.valueOf(routeList.get(i).lat);
+                        if (routeList != null) {
+                            for (int i = 0; i < routeList.size(); i++) {
+                                Double lo = Double.valueOf(routeList.get(i).lo);
+                                Double lat = Double.valueOf(routeList.get(i).lat);
 
-                            polylineOptions.add(new LatLng(lat,lo));
+                                polylineOptions.add(new LatLng(lat, lo));
+                            }
+
+                            polylinePaths.add(mMap.addPolyline(polylineOptions));
                         }
-
-                        polylinePaths.add(mMap.addPolyline(polylineOptions));
                     }
                 }
             }
@@ -373,6 +391,7 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
 
     void drawDirection(Double originLat, Double originLong, Double destinationLat, Double destinationLong) {
         DirectionFinder directionFinder = new DirectionFinder(new DirectionFinderListener() {
@@ -406,13 +425,14 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
 
     void focusOnDriver() {
         if (lastUpdateDriverRoute != null) {
-//            Double lat = Double.valueOf(lastUpdateDriver.lat), longi = Double.valueOf(lastUpdateDriver.lo);
-//            LatLng lastLocation = new LatLng(lat,longi);
-//            CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
-//                    lastLocation, mMap.getCameraPosition().zoom);
-//            mMap.animateCamera(location);
-//            int lastIndex = markers.size()-1;
-//            markers.get(lastIndex).showInfoWindow();
+            int lastIndex = lastUpdateDriverRoute.size() - 1;
+            Double lat = Double.valueOf(lastUpdateDriverRoute.get(lastIndex).lat), longi = Double.valueOf(lastUpdateDriverRoute.get(lastIndex).lo);
+            LatLng lastLocation = new LatLng(lat,longi);
+            CameraUpdate location = CameraUpdateFactory.newLatLngZoom(
+                    lastLocation, mMap.getCameraPosition().zoom);
+            mMap.animateCamera(location);
+            lastIndex = markers.size()-1;
+            markers.get(lastIndex).showInfoWindow();
         }
     }
 
@@ -433,29 +453,28 @@ public class TrackHistory extends AppCompatActivity implements OnMapReadyCallbac
         MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
         API api = Utility.utility.getAPIWithCookie(cookieJar);
 
-//        MyCookieJar cookieJar = Utility.utility.getCookieFromPreference(this);
-//        API api = Utility.utility.getAPIWithCookie(cookieJar);
-//        String filters = "[[\"Driver Background Update\",\"driver\",\"=\",\"" + DetailOrder.jobOrder.driver + "\"]]";
-//        Call<DriverBackgroundUpdateResponse> callbg = api.getBackgroundUpdate(filters);
-//        callbg.enqueue(new Callback<DriverBackgroundUpdateResponse>() {
-//            @Override
-//            public void onResponse(Call<DriverBackgroundUpdateResponse> call, Response<DriverBackgroundUpdateResponse> response) {
-//                if (Utility.utility.catchResponse(getApplicationContext(),response,"")) {
-//                    DriverBackgroundUpdateResponse driverBackgroundUpdateResponse = response.body();
-//                    if (driverBackgroundUpdateResponse != null) {
-//                        if (driverBackgroundUpdateResponse.data.size() > 0) {
-//                            lastUpdateDriver = driverBackgroundUpdateResponse.data.get(0);
-//                            drawJOUpdateMarker();
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<DriverBackgroundUpdateResponse> call, Throwable t) {
-//
-//            }
-//        });
+        if (DetailOrder.jobOrderUpdates.size() > 0) {
+            Call<RouteResponse> callLastRoute = api.getLastRoute(DetailOrder.jobOrderUpdates.get(0).name, DetailOrder.jobOrder.driver);
+            callLastRoute.enqueue(new Callback<RouteResponse>() {
+                @Override
+                public void onResponse(Call<RouteResponse> call, Response<RouteResponse> response) {
+                    if (Utility.utility.catchResponse(getApplicationContext(), response, "")) {
+                        RouteResponse routeResponse = response.body();
+                        if (routeResponse != null) {
+                            if (routeResponse.data.size() > 0) {
+                                lastUpdateDriverRoute = routeResponse.data;
+                                drawJOUpdateMarker();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<RouteResponse> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
 }

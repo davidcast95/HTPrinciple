@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
-        String principle = huang.android.logistic_principle.Utility.utility.getLoggedName(this).replace(" ","_").replace("-","_").replace("(","").replace(")","");
+        String principle = Utility.utility.normalizeStringForFirebaseTopic(Utility.utility.getLoggedName(this));
         FirebaseMessaging.getInstance().subscribeToTopic(principle);
     }
 
