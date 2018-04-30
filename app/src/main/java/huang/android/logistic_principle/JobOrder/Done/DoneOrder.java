@@ -116,23 +116,24 @@ public class DoneOrder extends Fragment implements PagingListView.Pagingable {
         callJO.enqueue(new Callback<GetJobOrderResponse>() {
             @Override
             public void onResponse(Call<GetJobOrderResponse> call, Response<GetJobOrderResponse> response) {
-                if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response,"")) {
-                    GetJobOrderResponse jobOrderResponse = response.body();
-                    if (jobOrderResponse.jobOrders != null) {
-                        doneOrderAdapter.addAll(jobOrderResponse.jobOrders);
+                if (getActivity().getApplicationContext() != null) {
+                    if (Utility.utility.catchResponse(getActivity().getApplicationContext(), response, "")) {
+                        GetJobOrderResponse jobOrderResponse = response.body();
+                        if (jobOrderResponse.jobOrders != null) {
+                            doneOrderAdapter.addAll(jobOrderResponse.jobOrders);
 
-                        lv.onFinishLoading(true,jobOrderResponse.jobOrders);
-                    } else {
-                        lv.onFinishLoading(false,null);
+                            lv.onFinishLoading(true, jobOrderResponse.jobOrders);
+                        } else {
+                            lv.onFinishLoading(false, null);
+                        }
+                        if (jobOrders.size() == 0) {
+                            noData.setVisibility(View.VISIBLE);
+                        } else {
+                            lv.setVisibility(View.VISIBLE);
+                        }
+                        loading.setVisibility(View.GONE);
+                        onItemsLoadComplete();
                     }
-                    if (jobOrders.size() == 0) {
-                        noData.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        lv.setVisibility(View.VISIBLE);
-                    }
-                    loading.setVisibility(View.GONE);
-                    onItemsLoadComplete();
                 }
 
             }

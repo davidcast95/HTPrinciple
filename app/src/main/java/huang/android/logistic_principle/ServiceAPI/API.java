@@ -1,11 +1,14 @@
 package huang.android.logistic_principle.ServiceAPI;
 
+import huang.android.logistic_principle.Maps.Route;
 import huang.android.logistic_principle.Model.APILogData;
 import huang.android.logistic_principle.Model.Communication.CommunicationCreation;
 import huang.android.logistic_principle.Model.Communication.CommunicationData;
 import huang.android.logistic_principle.Model.Communication.CommunicationResponse;
 import huang.android.logistic_principle.Model.Dashboard.DashboardResponse;
 import huang.android.logistic_principle.Model.Driver.DriverBackgroundUpdateResponse;
+import huang.android.logistic_principle.Model.Driver.RouteResponse;
+import huang.android.logistic_principle.Model.FirebaseID.FirebaseIDResponse;
 import huang.android.logistic_principle.Model.History.HistoryResponse;
 import huang.android.logistic_principle.Model.JobOrder.GetJobOrderResponse;
 import huang.android.logistic_principle.Model.JobOrder.JobOrderCreationResponse;
@@ -125,10 +128,17 @@ public interface API {
     Call<LoginPrinciple> loginUser(@Query("usr") String usr, @Query("pwd") String pwd, @Query("device") String device);
     @GET("/api/resource/User Permission/?fields=[\"for_value\",\"allow\"]")
     Call<LoginUserPermissionResponse> loginPermission(@Query("filters") String filters);
+    @GET("/api/method/logistic_marketplace.api.get_firebase_id")
+    Call<FirebaseIDResponse> getFirebaseID(@Query("role") String role);
 
     //DRIVER
     @GET("/api/resource/Driver Background Update?fields=[\"lo\",\"lat\",\"last_update\"]&limit_page_length=1")
     Call<DriverBackgroundUpdateResponse> getBackgroundUpdate(@Query("filters") String filters);
+    @GET("/api/method/logistic_marketplace.api.get_route")
+    Call<RouteResponse> getRoute(@Query("startjou") String startjou, @Query("endjou") String endjou, @Query("driver") String driver);
+    @GET("/api/method/logistic_marketplace.api.get_last_route")
+    Call<RouteResponse> getLastRoute(@Query("lastjou") String lastjou,@Query("driver") String driver);
+
 
     //old
 
